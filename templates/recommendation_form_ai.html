@@ -8,7 +8,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
-    *{
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -17,19 +17,23 @@
 body {
     background-color: #f8f9fa !important;
     color: #333 !important;
-  }
-  .navbar-brand {
-    background-color:  linear-gradient(90deg, #4a148c, #7b1fa2) !important;
+}
+.navbar-brand {
+    background-color:  linear-gradient(90deg, #dad4e3, #7b1fa2) !important;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-  .navbar {
+    
+}
+.navbar {
     background: linear-gradient(90deg, #4a148c, #7b1fa2) !important;
-    padding: 1rem 0;
     position: sticky;
     top: 0;
     z-index: 1000;
-  }
-  .section-title {
+}
+
+.navbar-brand img {
+    height: 30px;
+}
+.section-title {
     color: #7b1fa2;
     border-bottom: 2px solid #7b1fa2;
     padding-bottom: 10px;
@@ -39,13 +43,11 @@ body {
     font-weight: bold !important;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1) !important;
   }
+
     .form-section {
         background-color: white;
         border-radius: 10px;
-        /* box-shadow: 0 0 20px rgba(0,0,0,0.1); */
-        padding: 30px;
-        margin-top: 10px;
-        margin-bottom: 10px;
+      margin: 0 auto;
     }
     .progress {
         height: 5px;
@@ -120,7 +122,17 @@ body {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-20px); }
   }
-  
+
+  .form-control:focus {
+  border-color: #7b1fa2;
+  box-shadow: 0 0 0 0.2rem rgba(123, 31, 162, 0.25);
+}
+.ms-auto .nav-item .nav-link{
+    color:#fff;
+  }
+  .ms-auto .nav-item .nav-link:hover{
+    text-decoration: underline;
+  }
 .card-condition {
     background-color: white;
     border-radius: 8px;
@@ -202,6 +214,312 @@ footer {
   .footer-section h3 {
     margin-bottom: 10px;
   }
+  .error-message {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 5px;
+}
+
+
+  /* Loading */
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    display: none;
+  }
+  .custom-spinner {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    animation: spinner-rotate 2s linear infinite;
+  }
+  .custom-spinner-circle {
+    width: 100%;
+    height: 100%;
+    border: 8px solid #ffffff;
+    border-radius: 50%;
+    opacity: 0.7;
+  }
+  .custom-spinner-square {
+    width: 30%;
+    height: 30%;
+    background-color: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: square-pulse 1s ease-in-out infinite alternate;
+  }
+  @keyframes spinner-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  @keyframes square-pulse {
+    0% { transform: translate(-50%, -50%) scale(0.8); }
+    100% { transform: translate(-50%, -50%) scale(1.2); }
+  }
+
+  
+/* General form styles */
+#recommendationForm {
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+}
+
+/* Section styles */
+.mb-3 {
+    margin-bottom: 1.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+/* Label styles */
+.form-label strong {
+    color: #7b1fa2;
+    font-size: 18px;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* Checkbox and radio button styles */
+.form-check-input {
+    margin-right: 0.5rem;
+}
+
+.form-check-label {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* Select styles */
+.form-select {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+}
+
+/* Input styles */
+.form-control {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+}
+
+/* Button styles */
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+
+/* Responsive grid */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+
+.info-icon {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tooltip {
+    visibility: hidden;
+    width: 500px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.info-icon:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+@media (min-width: 768px) {
+    .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+  
+}
+
+/* Checkbox container styles */
+.checkbox-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#condition-label {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+#accept {
+    margin-right: 0.5rem;
+}
+
+  /* Media query footer */
+@media screen and (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    justify-items: left;
+  }
+
+  .footer-section {
+    margin: 1rem 0;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  .social-icons {
+    justify-content:left;
+  }
+  .info-icon,.tooltip{
+      display: none;
+    }
+}
+
+@media screen and (max-width: 480px) {
+footer {
+    padding: 1rem;
+  }
+  .info-icon,.tooltip{
+      display: none;
+    }
+h3 {
+    font-size: 1rem;
+}
+
+.social-icons a {
+    font-size: 1.2rem;
+  }
+}
+
+
+/* Responsive styles */
+@media (max-width: 768px) {
+.container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.info-icon,.tooltip{
+      display: none;
+    }
+  .form-section {
+    padding: 10px;
+  }
+
+  .row.g-2 > div {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .form-check {
+    flex: 0 0 50%;
+    min-width: unset;
+  }
+
+  .footer-content {
+    flex-direction: column;
+  }
+
+  .footer-section {
+    margin: 10px 0;
+  }
+
+  .form-label strong {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  h4 {
+    font-size: 1.5rem;
+  }
+  .info-icon,.tooltip{
+      display: none;
+    }
+  .form-check {
+    flex: 0 0 100%;
+  }
+
+  .btn {
+    width: 100%;
+    
+  }
+
+  .social-icons a {
+    font-size: 20px;
+    margin: 0 5px;
+  }
+}
+
+/* Accessibility improvements */
+.form-control:focus,
+.btn:focus {
+  outline: 3px solid #7b1fa2;
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .navbar,
+  footer,
+  .btn {
+    display: none;
+  }
+
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+
+  .container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .form-section {
+    border: none;
+    box-shadow: none;
+  }
+}
 </style>
 
 {% endblock headLinks %}
@@ -209,159 +527,108 @@ footer {
 {% block bodyContent %}
     <!-- Form container -->
     <div class="container" style="background-color: #fff; min-height:600px; margin-bottom: 10px;">
-        <!-- <div class="p-0 mt-1 row justify-content-center">
-            <div class="col-10">
-                <a href="javascript:history.back()" class="btn btn-secondary">
-                    &lt; Précédent
-                </a>
-            </div>
-        </div> -->
-
-        <div class="row justify-content-center">
-            <div class="col-10 form-section">
-                <!-- <a href="javascript:history.back()" class="btn btn-secondary">
-                    &lt; Précédent
-                </a> -->
+        <div class="row justify-content-center mb-3">
+            <div class="col-lg-10 form-section">
                 <h4 class="text-center mb-4">
                   <b>  ZoodoAI </b>
                 </h4>
-
-                <!-- Progress bar -->
-                <!-- <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                </div> -->
-
                 <!-- Form -->
                 <form id="recommendationForm">
                     {% csrf_token %}
-                    <div id="step1" class="step">
-                        <h5 style="text-align:center"> <span class="badge bg-warning text-dark">1/2</span> </h5>
-                        <div class="text-center" style="color: #000; font-weight: bold;">
-                             Renseigner vos besoin et laisser ZoodoAI vous trouvez l'ordinateur qui correspont le mieux à budget et à vos activités.
-                        </div>
+                    <h5 style="text-align:center"> <span class="badge bg-warning text-dark">1/1</span> </h5>
 
-                        <div class="card-condition">
-                            <h3>1. Description des informations à renseigner </h3>
-                            <p>
-                                <ul>
-                                    <li>Budget Minimum</li>
-                                    <li>Budget maximal</li>
-                                    <li>Marge de tolerance: dégrès d'augmentation de votre budget maximal </li>
-                                    <li>Métier: domaine d'activité dans lequel l'ordinateur sera utilisé</li>
-                                    <li>Description (non obligatoire): apporter quelques precision sur les tâches que devra réaliser l'ordinateur ou votre métier. </li>
-                                </ul>
-                            </p>
+                    <div class="mb-3">
+                        <label for="minBudget" class="form-label">
+                            <strong style="color:#7b1fa2;font-size: 18px;">
+                                * Budget (FCFA) 
+                                  <div class="info-icon">
+                                    <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i>
+                                    <span class="tooltip">
+                                        La qualité d'un ordinateur depend du prix. 
+                                        Nous imposons un prix vous permettant d'obtenir au moins un bon ordinateur.
+                                    </span>
+                                </div>
+                               </strong> </label>
+                        <div class="row g-2">
+                            <div class="col-12 col-md-6">
+                                <input type="number" name="minBudget" class="form-control" id="minBudget" placeholder="Budget Minimum" min="{{minBudget}}" max="{{maxBudget}}" value="" required>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <input type="number" name="maxBudget" class="form-control" id="maxBudget" placeholder="Budget Maximum" min="{{minBudget}}"  max="{{maxBudget}}"  required>
+                            </div>
                         </div>
-                        
-                        <div class="card-condition">
-                            <h3>2. Acception des utilisations</h3>
-                            <p class="condition-p">
-                                Le système de commande requiert certains informations personnelles, telque votre nom. Ces informations uniquement
-                                utiliser dans du traitement de votre commande. En acceptant les conditions d'utilisations, nous nous engageons à les 
-                                protéger.
-                            </p>
-                            <div class="checkbox-container condition-container" style="text-align: center !important;">
-                                <label for="accept" id="condition-label" style="font-size: 18px; cursor: pointer;">
-                                    <input type="checkbox" id="accept" name="accept" required style="transform: scale(2); margin-right: 10px;">
-                                    J'ai lu et j'accepte les conditions et les politiques d'utilisation
+                    </div>
+                
+                    <div class="mb-3">
+                        <label for="jobInput" class="form-label">
+                            <b style="color:#7b1fa2;font-size: 18px;">
+                               * Votre activité
+                               <div class="info-icon">
+                                <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i>
+                                <span class="tooltip">
+                                  Choisissez simplement votre domaine d'activité.
+                                </span>
+                            </div>
+                            </b> </label>
+                        <input type="text" class="form-control" id="jobInput" placeholder="Aucune sélection"
+                         data-bs-toggle="modal" data-bs-target="#jobModal" readonly required>
+                    </div>
+                
+                    <div class="mb-3">
+                        <label for="jobDescription" class="form-label">
+                          <strong>
+                            Description de l'usage de l'ordinateur (pas obligatoire): <i>max.250 Mots</i>
+                            <div class="info-icon">
+                              <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i>
+                              <span class="tooltip">
+                                  Si vous avez connaissance mettez l'accent sur les logiciels et les tâches que 
+                                  réalisera l'ordinateur. Vous pouvez renseigner aussi vos besoins non fonctionnel.
+                              </span>
+                          </div>
+                          </strong>
+                        </label>
+                        <textarea class="form-control" id="jobDescription"
+                         placeholder="Par exemple: j'utilise des logiciels comme autoCard, photoshop, android studio, etc.." oninput="checkWordLimit(this)" style="min-height: 100px;"></textarea>
+                      </div>
+                
+                    
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <strong>Inclure une marge de tolérance du prix maximal <b style="color:red">*</b></strong>
+                        </label>
+                        <div class="d-flex flex-wrap">
+                            {% for tolerance in tolerances %}
+                            <div class="form-check" style="flex: 0 0 25%; min-width: 200px;">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio-{{ tolerance }}" value="{{ tolerance }}" {% if forloop.first %}checked{% endif %}>
+                                <label class="form-check-label" for="radio-{{ tolerance }}">
+                                    {{ tolerance }}%
                                 </label>
                             </div>
+                            {% endfor %}
                         </div>
-                        
+                    </div>
+                    <div class="mb-3">
+                        <label for="calculatedPrice" class="form-label">
+                            <strong>Prix maximal calculé = budget_maximal * (1 + %alpha)</strong>
+                        </label>
+                        <textarea class="form-control" id="calculatedPrice" style="max-height: 50px;" disabled>0 FCFA</textarea>
+                    </div>
+                
+                    <div class="mb-3">
+                        <p class="small">La gestion des commandes nécessite la collecte de données personnelles telles que votre nom, prénom et numéro de téléphone. Ces informations sont strictement utilisées à cette fin, elles seront cryptées et ne seront pas divulguées à des tiers.</p>
+                        <div class="checkbox-container">
+                          <label for="accept" id="condition-label">
+                            <input type="checkbox" id="accept" name="accept" required>
+                            J'ai lu et j'accepte les conditions et les politiques d'utilisation
+                          </label>
+                        </div>
                     </div>
 
-                    <div id="step2" class="step hidden">
-                        <h5 style="text-align:center"> <span class="badge bg-warning text-dark">2/2</span> </h5>
-                        
-                        <div class="mb-3">
-                            <label for="minBudget" class="form-label">
-                                <strong style="color:#7b1fa2;font-size: 18px;">
-                                    * Budget (FCFA) </strong> </label>
-                            <div class="row g-2">
-                                <div class="col-12 col-md-6">
-                                    <input type="number" name="minBudget" class="form-control" id="minBudget" placeholder="Budget Minimum" value="0" required>
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <input type="number" name="maxBudget" class="form-control" id="maxBudget" placeholder="Budget Maximum" value="0" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="jobInput" class="form-label">
-                                <b style="color:#7b1fa2;font-size: 18px;"> * Mon métier</b> </label>
-                            <input type="text" class="form-control" id="jobInput" placeholder="Aucune sélection"
-                             data-bs-toggle="modal" data-bs-target="#jobModal" readonly required>
-                        </div>
-
-                        <div class="mb-3">
-                            <strong class="mb-3" style="color:#7b1fa2; font-size: 18px;">
-                                Précision sur le travail: <i>max.250 Mots</i> </strong>
-
-                            <div style="margin-top:10px;" class="form-floating">
-                                <textarea class="form-control" id="jobDescription" oninput="checkWordLimit(this)"></textarea>
-                                <label for="jobDescription">Description de l'activité</label>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <div class="mb-3">
-                                <strong style="color:#7b1fa2; font-size:18px">* Inclure une marge de tolerance du prix maximal: </strong> </label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio-50" value="50" checked>
-                                <strong class="form-check-label" for="radio-50">50%</strong>
-                            </div>
-                        
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio-60" value="60">
-                                <strong class="form-check-label" for="radio-60">60%</strong>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input"  type="radio" name="inlineRadioOptions" id="radio-80" value="80">
-                                <strong class="form-check-label" for="radio-80">80%</strong>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio-100" value="100">
-                                <strong class="form-check-label" for="radio-100"> 100%</strong>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <strong class="mb-3" style="font-family: roboto; color:#7b1fa2"> <i > Prix maximal calculé  </i>=  budget_maximal * (1+ %apha )</strong>
-                            <div style="margin-top:10px;">
-                                <textarea class="form-control" id="floatingTextarea" style="max-height: 50px;" disabled>0 FCFA </textarea>
-                              </div>
-                        </div>
-                    </div>  
-<!--          
-                    <div id="step3" class="step hidden">
-
-                        <h5 style="text-align:center"> <span class="badge bg-warning text-dark">3</span> </h5>
-                        <div id="jobForm">
-                            <div class="mb-3">
-                              <label for="jobInput" class="form-label"><b style="color:green"> * Mon métier</b> </label>
-                              <input type="text" class="form-control" id="jobInput" placeholder="Aucune sélection"
-                               data-bs-toggle="modal" data-bs-target="#jobModal" readonly required>
-                            </div>
-                        </div>
-                          
-                        <div class="mb-3">
-                            <strong class="mb-3" style="color:green">Précision sur le travail: <i>max.250 Mots</i> </strong>
-
-                            <div style="margin-top:10px;" class="form-floating">
-                                <textarea class="form-control" id="jobDescription" oninput="checkWordLimit(this)"></textarea>
-                                <label for="jobDescription">Description de l'activité</label>
-                            </div>
-                        </div>
-                    </div> -->
-
-                    <div class="d-flex justify-content-between btn-nav">
-                        <button type="button" class="btn btn-secondary" id="prevBtn" style="display:none;">Etape Précedente</button>
-                        <button type="button" class="btn " id="nextBtn" style="background-color: #7b1fa2; color:#fff">Etape Suivante</button>
-                        <button type="submit" class="btn btn-success" id="submitBtn" style="display:none; background-color: #7b1fa2;">Soumettre</button>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-success" id="submitBtn" 
+                        style="background-color: #7b1fa2;" disabled>
+                        Rechercher un ordinateur
+                    </button>
                     </div>
                 </form>
             </div>
@@ -387,7 +654,13 @@ footer {
           </div>
         </div>
     </div>
-      
+      <!-- Loading -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="custom-spinner">
+          <div class="custom-spinner-circle"></div>
+          <div class="custom-spinner-square"></div>
+        </div>
+    </div>
     <!-- Footer -->
     {% endblock bodyContent %}
 
@@ -395,121 +668,204 @@ footer {
     <!-- JScontent -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-    $(document).ready(function() {
-                let currentStep = 1;
-                const totalSteps = 2;
-        
-    function updateProgress() {
-                    let progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
-                    $('.progress-bar').css('width', progress + '%').attr('aria-valuenow', progress);
+    <script >
+      document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('recommendationForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const jobInput = document.getElementById('jobInput');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+
+        function getCheckedRadioValue() {
+            const checkedRadio = document.querySelector('input[name="inlineRadioOptions"]:checked');
+            return checkedRadio ? checkedRadio.value : null;
         }
-        
-    function showStep(step) {
-                    $('.step').addClass('hidden');
-                    $('#step' + step).removeClass('hidden');
-                    updateProgress();
-        
-                    $('#prevBtn').toggle(step > 1);
-                    $('#nextBtn').toggle(step < totalSteps);
-                    $('#submitBtn').toggle(step === totalSteps);
-                }
-        
 
-                function getCheckedRadioValue() {
-                const checkedRadio = document.querySelector('input[name="inlineRadioOptions"]:checked');
-                return checkedRadio ? checkedRadio.value : null;
+        function getCsrfToken() {
+            return document.querySelector('[name=csrfmiddlewaretoken]').value;
+        }
+
+        function bdQuery_2(formData, url) {
+            const form = document.createElement('form');
+            const formRec = document.getElementById('recommendationForm');
+            form.method = 'POST';
+            form.action = url;
+            loadingOverlay.style.display = 'flex';
+
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = 'csrfmiddlewaretoken';
+            csrfInput.value = getCsrfToken();
+            form.appendChild(csrfInput);
+
+            for (const key in formData) {
+                if (formData.hasOwnProperty(key)) {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = key;
+                    input.value = formData[key];
+                    form.appendChild(input);
                 }
+            }
+
+            document.body.appendChild(form);
+            setTimeout(function() {
+                loadingOverlay.style.display = 'none';
+            }, 10000);
+
+            form.submit();
+            formRec.reset();
+            submitBtn.disabled = True;
+            document.body.removeChild(form);
+
+        }
+
+        function validateForm() {
+            let isValid = true;
             
-                function getCsrfToken() {
-                    return document.querySelector('[name=csrfmiddlewaretoken]').value;
-                }
-                function bdQuery_2(formData, url) {
-                    // Create a form element
-                    const form = document.createElement('form');
-                    form.method = 'POST';
-                    form.action = url;
-                    
-                    // Add CSRF token
-                    const csrfInput = document.createElement('input');
-                    csrfInput.type = 'hidden';
-                    csrfInput.name = 'csrfmiddlewaretoken';
-                    csrfInput.value = getCsrfToken();
-                    form.appendChild(csrfInput);
+            // Validate minBudget
+            const min_value = "{{minBudget}}";
+            const max_value = "{{maxBudget}}";
+            
+            const minBudget = parseFloat(document.getElementById('minBudget').value);
+            if (isNaN(minBudget) || minBudget < min_value) {
+                showError('minBudget', 'Le budget minimum doit être au moins ' + min_value +  ' FCFA');
+                isValid = false;
+            } else {
+                clearError('minBudget');
+            }
 
-                    // Add form data
-                    for (const key in formData) {
-                        if (formData.hasOwnProperty(key)) {
-                            const input = document.createElement('input');
-                            input.type = 'hidden';
-                            input.name = key;
-                            input.value = formData[key];
-                            form.appendChild(input);
-                        }
-                    }
+            // Validate maxBudget
+            const maxBudget = parseFloat(document.getElementById('maxBudget').value);
+            if (isNaN(maxBudget) || maxBudget > max_value) {
+                showError('maxBudget', 'Le budget maximum doit être inférieur  à ' + max_value + 'FCFA');
+                isValid = false;
+            } else if (maxBudget <= minBudget) {
+                showError('maxBudget', 'Le budget maximum doit être supérieur au budget minimum');
+                isValid = false;
+            } else {
+                clearError('maxBudget');
+            }
 
-                    // Append form to body and submit
-                    document.body.appendChild(form);
-                    form.submit();
+            // Validate jobInput
+            const jobInputValue = jobInput.value.trim();
+            if (jobInputValue === '') {
+                showError('jobInput', "Veuillez sélectionner un domaine d'activité ");
+                isValid = false;
+            } else {
+                clearError('jobInput');
+            }
 
-                    // Remove form from document
-                    document.body.removeChild(form);
+            // Validate accept checkbox
+            const acceptCheckbox = document.getElementById('accept');
+            if (!acceptCheckbox.checked) {
+                showError('accept', 'Veuillez accepter les conditions');
+                isValid = false;
+            } else {
+                clearError('accept');
+            }
+
+            submitBtn.disabled = !isValid;
+            return isValid;
+        }
+
+        function showError(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            let errorDiv = field.parentNode.querySelector('.error-message');
+            if (!errorDiv) {
+                errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.style.color = 'red';
+                errorDiv.style.fontSize = '0.8em';
+                errorDiv.style.marginTop = '5px';
+                field.parentNode.insertBefore(errorDiv, field);
+            }
+            errorDiv.textContent = message;
+        }
+
+        function clearError(fieldId) {
+            const field = document.getElementById(fieldId);
+            const errorDiv = field.parentNode.querySelector('.error-message');
+            if (errorDiv) {
+                errorDiv.remove();
+            }
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (validateForm()) {
+                const url = "{% url 'withai_submit' %}"; 
+                const formData = {
+                    "budgetMin": document.getElementById('minBudget').value,
+                    "budgetMax": document.getElementById('maxBudget').value,
+                    "alpha": getCheckedRadioValue(),
+                    "jobTile": jobInput.value,
+                    "jobDescription": document.getElementById('jobDescription').value
+                };
+                bdQuery_2(formData, url);
+            }
+        });
+
+        function updateMaxPrice(){
+            const maxBudget = parseFloat(document.getElementById('maxBudget').value) || 0;
+            const alpha = parseFloat(getCheckedRadioValue()) / 100 || 0;
+            const maxPrice = maxBudget * (1 + alpha);
+            document.getElementById('calculatedPrice').value = maxPrice.toFixed(2) + ' FCFA';
+      }
+
+        document.getElementById('maxBudget').addEventListener('input', updateMaxPrice);
+
+        document.querySelectorAll('input[name="inlineRadioOptions"]').forEach(radio => {
+            radio.addEventListener('change', updateMaxPrice);
+        });
+
+        document.getElementById('jobDescription').addEventListener('input', function() {
+            const words = this.value.trim().split(/\s+/);
+            if (words.length > 250) {
+                this.value = words.slice(0, 250).join(' ');
+            }
+        });
+
+        // Add event listeners for real-time validation
+        ['minBudget', 'maxBudget', 'accept'].forEach(fieldId => {
+            document.getElementById(fieldId).addEventListener('input', validateForm);
+        });
+
+        // Special handling for jobInput
+        jobInput.addEventListener('change', function() {
+            clearError('jobInput');
+            validateForm();
+        });
+
+        // Use MutationObserver to watch for changes in jobInput's value
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === "attributes" && mutation.attributeName === "value") {
+                    clearError('jobInput');
+                    validateForm();
                 }
-                
-                
-                function sendData(step) {
-                    switch (step) {
-                        case 1:
-                            currentStep++;
-                            showStep(currentStep);
-                            break;
-        
-                        case 2:
-                            const isalphaChecked = getCheckedRadioValue();
-                            if(isalphaChecked === null){
-                                alert("alpha n'est pas renseigner ! ")
-                            }
-                            currentStep++;
-                            showStep(currentStep);
-                            break;
-        
-                        case 3:
-                            const url = "{% url 'withai_submit' %}"
-                            const formData = {
-                                "budgetMin":document.querySelector('#minBudget').value,
-                                "budgetMax":document.querySelector('#maxBudget').value,
-                                "alpha"    :getCheckedRadioValue(),
-                                "jobTile"  :document.querySelector('#jobInput').value,
-                                "jobDescription": document.querySelector('#jobDescription').value
-                            }
-                            //console.log(formData);
-                            bdQuery_2(formData, url)
-                            break;
-                        default:
-                            return {};
-                    }
-                }
-        
-                $('#nextBtn').click(function() {
-                    if (currentStep < totalSteps) {
-                        sendData(currentStep); // Send data before moving to the next step
-                    }
-                });
-        
-                $('#prevBtn').click(function() {
-                    if (currentStep > 1) {
-                        currentStep--;
-                        showStep(currentStep);
-                    }
-                });
-        
-                $('#recommendationForm').submit(function(e) {
-                    e.preventDefault();
-                    sendData(3);
-                });
-        
-                showStep(currentStep);
             });
+        });
+
+        observer.observe(jobInput, { attributes: true });
+
+        // Initial validation
+        validateForm();
+
+        //
+        const infoIcon = document.querySelector('.info-icon');
+        const tooltip = infoIcon.querySelector('.tooltip');
+
+        infoIcon.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            tooltip.style.visibility = 'visible';
+            tooltip.style.opacity = '1';
+        });
+
+        infoIcon.addEventListener('touchend', () => {
+            tooltip.style.visibility = 'hidden';
+            tooltip.style.opacity = '0';
+        });
+      });
     </script>
 
     <script>
@@ -521,7 +877,7 @@ footer {
         ];
         
         let currentIndex = 0;
-        const itemsPerLoad = 30;
+        const itemsPerLoad = 15;
         
         function loadMoreJobs() {
         const jobList = document.getElementById('jobList');
@@ -593,5 +949,7 @@ footer {
             alert('Please accept the terms and conditions before submitting.');
         }
     }
-    </script>
+</script>
+
+
 {% endblock JsContent %}

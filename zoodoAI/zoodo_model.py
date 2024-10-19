@@ -46,19 +46,32 @@ def branch(system_message, human_messages, provided_list, max_num, activity_desc
 # Combine results from the branches
 def combine_result(results):
     import json 
+    import ast
     final_result = []
     global_total_tokens = 0
 
     try:
-     
+        # results come as json data
         result_list = [json.loads(result.content) for result in results.values()]
         total_tokens_of_query = [r.response_metadata for r in results.values()]
         global_total_tokens = sum(item['token_usage']['total_tokens'] for item in total_tokens_of_query)
         final_result = []
         for r in result_list :
             final_result += r
+            
     except Exception :
-        print(results["branch_1"].content)
+        # Result come as string data
+        if isinstance(results, dict):
+            for _,v in results.items():
+                if hasattr(v, 'content') and "total_tokens" in v.usage_metadata:
+                    content =  ast.literal_eval(v.content)
+                    for value in content:
+                        final_result.append(value)
+                    global_total_tokens +=  v.usage_metadata["total_tokens"]
+        else:
+            # Another type: not meet yet
+            print(results)
+            print(type(results))
 
     return  final_result,global_total_tokens
 
@@ -92,5 +105,5 @@ def zoodoAI(data_file_name,activity_description, max_num=15):
     # Invocation du model 
     dynamic_input = {f'provided_list_{i+1}': doc.page_content for i, doc in enumerate(custom_docs)}
     final_result, global_total_tokens = final_chain.invoke(dynamic_input)
-    print(final_result)
+    # print(final_result)
     return final_result, global_total_tokens , file_path

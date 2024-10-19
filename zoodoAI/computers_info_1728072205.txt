@@ -12,7 +12,7 @@ Price: 10.0 CFA
   Turbo Clock Speed: 4.9 GHz
 -Memory:
   Type: DDR4
-  Capacity: 64 Go
+  Capacity: 64
   Speed: 3600 GHZ
 -Storage:
   Type: SSD
@@ -37,11 +37,36 @@ Price: 15.0 CFA
   Turbo Clock Speed: 4.9 GHz
 -Memory:
   Type: DDR4
-  Capacity: 64 Go
+  Capacity: 64
   Speed: 3600 GHZ
 -Storage:
   Type: HDD
   Capacity: 1 To
+-Graphics:
+  Type: Dédié
+  Brand: NVIDIA
+  Model: Quadro RTX 4000
+  Memory: 8 Go GDDR6
+
+
+Computer ID: PC003
+-Brand: hp
+Model: HP Pavilion Laptop 16-ag0003nf
+Price: 20.0 CFA
+-Processor:
+  Brand: Intel
+  Model: Core i7-11700
+  Cores: 8
+  Threads: 16
+  Base Clock Speed: 2.5 GHz
+  Turbo Clock Speed: 4.9 GHz
+-Memory:
+  Type: 
+  Capacity: 16
+  Speed: 
+-Storage:
+  Type: 
+  Capacity: 512
 -Graphics:
   Type: Dédié
   Brand: NVIDIA

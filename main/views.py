@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST, require_GET, require_http_methods
-from django.db.models import Q
+from django.db.models import Q,Min,Max
 from .models import *
 
 from zoodoAI.zoodo_model import zoodoAI
@@ -9,6 +9,7 @@ from article.computers.models import *
 from article.computers.computer_utils import get_computers_data, get_client_ip, get_location_by_ip, delete_file
 from article.computers.file_creater import convertComputerListTotxtFile
 from article.orders.models import *
+from main.models import *
 from .computer_utils import recommended_object_builder
 import json
 import time
@@ -90,23 +91,67 @@ def recommendation(request):
     return render(request, "recommendation.html", context)
 
 def recommendationForm(request):
-    context = {}
+    
+    context = {
+        "tolerances":["50", "60", "80", "100", ],
+        "minBudget":Computer.objects.aggregate(Min('price_amount'))['price_amount__min'], # le plus petit budget
+        "maxBudget":Computer.objects.aggregate(Max('price_amount'))['price_amount__max'], # le plus petit budget
+    }
     return render(request, "recommendation_form_ai.html", context)
 
 def recommendationFormWithoutAI(request):
+
     context = {
-         "page_title":"index.ph",
+        "page_title":"index.ph",
         "brands":Brand.objects.all(),
-        "computerRAMS":Memory.objects.all()
+        "computerRAMS":Memory.objects.all(),
+        "tolerances":["50", "60", "80", "100", ],
+        "storages":["2TB SSD", "512 SSD", "1TB SSD", ],
+        "speeds":["2GHZ", "1.9 GHZ", "3GHZ"],
+        "cores":["core i 3", "core i 5", "core i 7", "core i 9", "core i 11"]
     }
     return render(request, "recommendation_form.html", context)
 
-def contact(request) :
-    context = {
-        "page_title":"contact.ph"
-    }
-    
-    return render(request,"contact.html", context)
+@require_POST
+def contact(request):
+    try:
+        # Load JSON data from the request body
+        data = json.loads(request.body)
+
+        # Extracting data from the request with default values
+        name = data.get('name', '')
+        email = data.get('email', '')
+        subject = data.get('subject', '')
+        message = data.get('message', '')
+
+        # Validate input data (optional but recommended)
+        if not name or not email or not subject or not message:
+            return JsonResponse({"message": "All fields are required."}, status=400)
+
+        # Check if a similar message already exists
+        if not userMessage.objects.filter(
+            fullname=name,
+            email=email,
+            subject=subject,
+            message=message  
+        ).exists():
+            # Create a new user message instance
+            instance = userMessage.objects.create(
+                fullname=name,
+                email=email,
+                subject=subject,
+                message=message   
+            )
+            instance.save()
+
+            return JsonResponse({"message": "Votre message a été envoyé avec success ! Merci pour votre confiance"}, status=201)
+        else:
+            return JsonResponse({"message": "Votre message a été envoyé avec success !"}, status=409)
+
+    except json.JSONDecodeError:
+        return JsonResponse({"message": "Erreur"}, status=400)
+    except Exception as e:
+        return JsonResponse({"message": str(e)}, status=500)
 
 
 def privacy(request) :
@@ -207,51 +252,53 @@ def withai_recommendation(request):
         data_file_name= f"computers_info_{int(start_time)}.txt" # nom uniq du fichier
         computers_data = get_computers_data(relevant_computers) # Liste des ordi
         isFileCreated  = convertComputerListTotxtFile(computers_data, data_file_name) # conversion
-       
+        file_path_error = ""
         computer_recommended = []
         if isFileCreated:
-            #try:
-                    # Utilisation de l'IA
-            activity_description = f"{jobTile}" if len(jobDescription)==0 else f"Titre: {jobTile} Petite description à prendre également en compte: {jobDescription}"
-            result,global_total_tokens, file_path = zoodoAI(data_file_name = data_file_name,activity_description=activity_description, max_num=15)            
-            delete_status = delete_file(file_path) # supprime le fichier temporaire contenant la liste des ordi en text utilisé par l'IA
-
-            # Enregister total de tokens generer par l'utilisateur
-            token_instance = TokensList(
-                        number = global_total_tokens
-            )
-            token_instance.save()
-
-            # Enregister le result de la recommendation 
-            for r in result:
-                recommendation = RecommendationResult(
-                    computer_id=r["id"],
-                    choose_reason=r["reason"],
-                    recommendation_time=start_time,
-                    max_budget=max_price_set,
-                    min_budget=budgetMin,
-                    job_title=jobTile,
-                    job_description=jobDescription
+            try:
+                        # Utilisation de l'IA
+                activity_description = f"{jobTile}" if len(jobDescription)==0 else f"Titre: {jobTile} Petite description à prendre également en compte: {jobDescription}"
+                result,global_total_tokens, file_path = zoodoAI(data_file_name = data_file_name,activity_description=activity_description, max_num=15)            
+                delete_status = delete_file(file_path) # supprime le fichier temporaire contenant la liste des ordi en text utilisé par l'IA
+                file_path_error = file_path
+                # Enregister total de tokens generer par l'utilisateur
+                token_instance = TokensList(
+                            number = global_total_tokens
                 )
-                recommendation.save()
+                token_instance.save()
 
-                computer_instance = Computer.objects.filter(pk=r["id"]).first()
-                cover_image       = ComputerPhoto.objects.filter(computer=computer_instance, is_cover=True).first()
-                computer_recommended.append({
-                        "id": r["id"],
-                        "model":computer_instance.model,
-                        "time": start_time,
-                        "image": cover_image.url,
-                        "price": float(computer_instance.price_amount),
-                        "color":"black",
-                        "processor": f'{computer_instance.processor.model}',
-                        "brand":computer_instance.brand.name,
-                        "ram": computer_instance.memory.capacity,
-                        "storage": "512",
-                       })
-                        
-            # except Exception as e :
-            #     return render(request, "api_444_error.html", {"erreur":e})
+                # Enregister le result de la recommendation 
+                for r in result:
+                    recommendation = RecommendationResult(
+                        computer_id=r["id"],
+                        choose_reason=r["reason"],
+                        recommendation_time=start_time,
+                        max_budget=max_price_set,
+                        min_budget=budgetMin,
+                        job_title=jobTile,
+                        job_description=jobDescription
+                    )
+                    recommendation.save()
+
+                    computer_instance = Computer.objects.filter(pk=r["id"]).first()
+                    cover_image       = ComputerPhoto.objects.filter(computer=computer_instance, is_cover=True).first()
+                    computer_recommended.append({
+                            "id": r["id"],
+                            "model":computer_instance.model,
+                            "time": start_time,
+                            "image": cover_image.url,
+                            "price": float(computer_instance.price_amount),
+                            "color":"black",
+                            "processor": f'{computer_instance.processor.model}',
+                            "brand":computer_instance.brand.name,
+                            "ram": computer_instance.memory.capacity,
+                            "storage": "512",
+                        })
+                            
+            except Exception as e :
+                delete_status = delete_file(file_path_error) # supprime le fichier temporaire contenant la liste des ordi en text utilisé par l'IA
+                return render(request, "api_444_error.html", {"erreur":e})
+
     return render(request,"recommendation.html", {
                         "recommendation":json.dumps(computer_recommended, cls=DecimalEncoder),
                         "minBudget":budgetMin,

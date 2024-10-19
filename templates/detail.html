@@ -163,6 +163,139 @@ footer {
         .spec-group {
             margin-bottom: 40px;
         }
+      
+      
+  /* Loading */
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    display: none;
+  }
+  .custom-spinner {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    animation: spinner-rotate 2s linear infinite;
+  }
+  .custom-spinner-circle {
+    width: 100%;
+    height: 100%;
+    border: 8px solid #ffffff;
+    border-radius: 50%;
+    opacity: 0.7;
+  }
+  .custom-spinner-square {
+    width: 30%;
+    height: 30%;
+    background-color: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: square-pulse 1s ease-in-out infinite alternate;
+  }
+  @keyframes spinner-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  @keyframes square-pulse {
+    0% { transform: translate(-50%, -50%) scale(0.8); }
+    100% { transform: translate(-50%, -50%) scale(1.2); }
+  }
+
+  /* Loading */
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    display: none;
+  }
+  .custom-spinner {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    animation: spinner-rotate 2s linear infinite;
+  }
+  .custom-spinner-circle {
+    width: 100%;
+    height: 100%;
+    border: 8px solid #ffffff;
+    border-radius: 50%;
+    opacity: 0.7;
+  }
+  .custom-spinner-square {
+    width: 30%;
+    height: 30%;
+    background-color: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: square-pulse 1s ease-in-out infinite alternate;
+  }
+  @keyframes spinner-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  @keyframes square-pulse {
+    0% { transform: translate(-50%, -50%) scale(0.8); }
+    100% { transform: translate(-50%, -50%) scale(1.2); }
+  }
+
+    /* Media query footer */
+  @media screen and (max-width: 768px) {
+    .footer-content {
+      flex-direction: column;
+      justify-items: left;
+    }
+
+    .footer-section {
+      margin: 1rem 0;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+    }
+
+    .social-icons {
+      justify-content:left;
+    }
+    .info-icon,.tooltip{
+        display: none;
+      }
+  }
+
+  @media screen and (max-width: 480px) {
+  footer {
+      padding: 1rem;
+    }
+    .info-icon,.tooltip{
+        display: none;
+      }
+  h3 {
+      font-size: 1rem;
+  }
+
+  .social-icons a {
+      font-size: 1.2rem;
+    }
+  }
+
 </style>
 {% endblock headLinks %}
 
@@ -179,7 +312,6 @@ footer {
     {{computer_details.brand}} - {{computer_details.name}} <br>
   </h1>
 
-  
   <div class="row">
     <div class="col-md-6 mb-4">
       <div class="image-gallery p-3">
@@ -194,23 +326,10 @@ footer {
           {% endfor %}
         </div>
       </div>
-
-      <h3 class="section-title mt-4" >Acessoirs supplementaires: (gratuit)</h3>
-      <div>
-        l'achat de cette ordinateur vous donne droit gratuitement à :
-        <ul class="mt-1">
-          <li>Une souris sans fil: <img src="data:image/jpeg;base64,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" alt="souris" width="50" height="50"> </li>
-          <li>Un sac:  <img src="https://m.media-amazon.com/images/I/71jIgs6ArHL._AC_UF1000,1000_QL80_.jpg" alt="souris" width="50" height="50"> </li>
-          <li>5 bics de votre choix: <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxwCzR3KB5rHIcioMBDm7R5BlH7_vgp73fwQ&s" alt="souris" width="50" height="50"></li>
-        </ul>
-      </div>
     </div>
     
     <div class="col-md-6 mb-4">
-      <h2 class="section-title">Description</h2>
-      <p>The TechNova X1 is the pinnacle of gaming performance, designed to deliver unparalleled power and style. This beast of a machine is equipped with the latest cutting-edge components, ensuring smooth gameplay and lightning-fast performance for even the most demanding titles.</p>
-      <p>Featuring a custom-designed chassis with RGB lighting, the TechNova X1 not only performs at the highest level but also looks stunning in any gaming setup. The thoughtfully engineered airflow system keeps your components cool even during intense gaming sessions.</p>
-      
+   
       <h2 class="section-title mt-4">Caractéristiques clés</h2>
       <ul class="feature-list">
         <li><strong>Processor:</strong> AMD Ryzen 9 5950X (16-core, 32-thread)</li>
@@ -228,23 +347,23 @@ footer {
   </div>
   
   <div class="row mt-5">
-    <div class="col-md-6 mb-4">
+    <div class="col-md-12 mb-4">
       <h2 class="section-title">Pourquoi ce PC correspond à vos besoins?</h2>
       <p>
         {{computer_details.recommendation_reason}}
       </p>
     </div>
     
-    <div class="col-md-6 mb-4">
+    <!-- <div class="col-md-6 mb-4">
       <h2 class="section-title">  <p>Acheter avec zoodoComputer</p></h2>
       L'achat d'un ordinateur chez zoodoComputer vous donne droit à une garantie de trois moix au cours de laquelle vous pourriez par exemple 
       faire reparer votre ordinateur gratuitement ou vous faire rembourser si des problèmes dont nous somme les causes surviennent.
-    </div>
+    </div> -->
   </div>
 
   <div class="row mt-3">
     <div class=" mb-4">
-      <h2 class="section-title text-center">Toutes les informations sur votre ordinateur</h2>
+      <h2 class="section-title">Toutes les informations sur votre ordinateur</h2>
 
       <div class="spec-group">
         <h2>Stockage (disque dure) </h2>
@@ -449,6 +568,27 @@ footer {
     </div>
     </div>
   </div>
+
+  <div class="row">
+    <h3 class="section-title mt-4" >Acessoirs supplementaires: (gratuit)</h3>
+    <div>
+      L'achat de cette ordinateur vous donne droit gratuitement à :
+
+      <ul class="mt-1">
+        <li>Une souris sans fil: <img src="data:image/jpeg;base64,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" alt="souris" width="50" height="50"> </li>
+        <li>Un sac:  <img src="https://m.media-amazon.com/images/I/71jIgs6ArHL._AC_UF1000,1000_QL80_.jpg" alt="souris" width="50" height="50"> </li>
+        <li>5 bics de votre choix: <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxwCzR3KB5rHIcioMBDm7R5BlH7_vgp73fwQ&s" alt="souris" width="50" height="50"></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Loading -->
+<div class="loading-overlay" id="loadingOverlay"></div>
+  <div class="custom-spinner">
+    <div class="custom-spinner-circle"></div>
+    <div class="custom-spinner-square"></div>
+  </div>
 </div>
 
 <!-- Modal commander-->
@@ -492,7 +632,8 @@ footer {
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-              <button type="button" class="btn" style="background-color: #7b1fa2; color:#fff" id="submitOrder">
+              <button type="button" class="btn" 
+              style="background-color: #7b1fa2; color:#fff" id="submitOrder">
                 Enregistrer
               </button>
           </div>
@@ -500,13 +641,11 @@ footer {
   </div>
 </div>
 
+
 {% endblock bodyContent %}
 
 {% block JsContent %}
 <script>
-function changeImage(src) {
-  document.getElementById('mainImage').src = src;
-}
 
 $(document).ready(function() {
     $('.btn-custom').hover(
@@ -521,97 +660,114 @@ $(document).ready(function() {
       // Order button click handler
       $('#orderButton').click(function() {
           $('#orderModal').modal('show');
-      });
+    });
   });
 
-  // 
-  document.addEventListener('DOMContentLoaded', function() {
-    const submitButton = document.getElementById('submitOrder');
-    const form = document.getElementById('orderForm');
-
-    // Function to create and append error message
-    function createErrorMessage(input, message) {
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'text-danger mt-1';
-        errorDiv.textContent = message;
-        input.parentNode.appendChild(errorDiv);
-    }
-
-    // Function to remove error styling and message
-    function removeError(input) {
-        input.style.borderColor = '';
-        const errorDiv = input.parentNode.querySelector('.text-danger');
-        if (errorDiv) {
-            errorDiv.remove();
-        }
-    }
-
-    // Add input event listeners to remove error styling when user types
-    ['first_name','last_name', 'phone', 'location'].forEach(id => {
-        const input = document.getElementById(id);
-        input.addEventListener('input', function() {
-            removeError(this);
-        });
-    });
-
-    submitButton.addEventListener('click', function(e) {
-        e.preventDefault();
-
-        let isValid = true;
-
-        // Validate each field
-        ['first_name','last_name', 'phone', 'location'].forEach(id => {
-            const input = document.getElementById(id);
-            if (!input.value.trim()) {
-                isValid = false;
-                input.style.borderColor = 'red';
-                removeError(input); // Remove any existing error message
-                createErrorMessage(input, 'Ce champ est obligatoire.');
-            } else {
-                removeError(input);
-            }
-        });
-
-        if (!isValid) {
-            return;
-        }
-
-        // Create order object
-        const orderData = {
-            first_name: document.getElementById('first_name').value,
-            last_name: document.getElementById('last_name').value,
-            phone: document.getElementById('phone').value,
-            location: document.getElementById('location').value,
-            id_computer:"{{id_computer}}"
-        };
-        // Send data to the server
-        fetch("{% url 'process-order' %}", {
-            method: 'POST',
-            headers: {
-              'X-CSRFToken': '{{ csrf_token }}',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(orderData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.message = "success") {
-              $('#orderModal').modal('hide');
-                // alert('Votre commande a été enregistrée avec succès!');
-                       // Reset the form
-              window.location.href = "{% url 'success-order' %}";
-                form.reset();
-            } else {
-              window.location.href = "{% url 'success-order' %}";
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            window.location.href = "{% url 'error-page' %}";
-        });
-    });
-});
-
 </script>
-  
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function changeImage(src) {
+          document.getElementById('mainImage').src = src;
+        }
+
+      // Save commend
+          const submitButton = document.getElementById('submitOrder');
+          const form = document.getElementById('orderForm');
+          const loadingOverlay = document.getElementById('loadingOverlay');
+
+        // Function to create and append error message
+      function createErrorMessage(input, message) {
+          const errorDiv = document.createElement('div');
+          errorDiv.className = 'text-danger mt-1';
+          errorDiv.textContent = message;
+          input.parentNode.appendChild(errorDiv);
+      }
+
+      // Function to remove error styling and message
+      function removeError(input) {
+          input.style.borderColor = '';
+          const errorDiv = input.parentNode.querySelector('.text-danger');
+          if (errorDiv) {
+              errorDiv.remove();
+          }
+      }
+
+      // Add input event listeners to remove error styling when user types
+      ['first_name','last_name', 'phone', 'location'].forEach(id => {
+          const input = document.getElementById(id);
+          input.addEventListener('input', function() {
+              removeError(this);
+          });
+      });
+
+      submitButton.addEventListener('click', function(e) {
+          e.preventDefault();
+
+          let isValid = true;
+
+          // Validate each field
+          ['first_name','last_name', 'phone', 'location'].forEach(id => {
+              const input = document.getElementById(id);
+              if (!input.value.trim()) {
+                  isValid = false;
+                  input.style.borderColor = 'red';
+                  removeError(input); // Remove any existing error message
+                  createErrorMessage(input, 'Ce champ est obligatoire.');
+              } else {
+                  removeError(input);
+              }
+          });
+
+          if (!isValid) {
+              return;
+          }
+
+          // Create order object
+          const orderData = {
+              first_name: document.getElementById('first_name').value,
+              last_name: document.getElementById('last_name').value,
+              phone: document.getElementById('phone').value,
+              location: document.getElementById('location').value,
+              id_computer:"{{id_computer}}"
+          };
+          // Send data to the server
+          loadingOverlay.style.display = 'flex'; // loading
+          fetch("{% url 'process-order' %}", {
+              method: 'POST',
+              headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(orderData)
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.message = "success") {
+                $('#orderModal').modal('hide');
+                  // alert('Votre commande a été enregistrée avec succès!');
+                        // Reset the form
+                  form.reset();
+                  setTimeout(function() {
+                    loadingOverlay.style.display = 'none';
+                    window.location.href = "{% url 'success-order' %}";
+                  }, 3000);
+              } else {
+                setTimeout(function() {
+                    loadingOverlay.style.display = 'none';
+                    window.location.href = "{% url 'success-order' %}";
+                  }, 3000);
+              }
+          })
+          .catch((error) => {
+              console.error('Error:', error);
+              setTimeout(function() {
+                    loadingOverlay.style.display = 'none';
+                    window.location.href = "{% url 'success-order' %}";
+                  }, 3000);
+          });
+      });
+  });
+</script>
 {% endblock JsContent %}

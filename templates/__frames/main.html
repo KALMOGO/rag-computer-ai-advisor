@@ -19,35 +19,8 @@
     <!-- Footer -->
     {% include 'footer.html' %}
     <!-- JS -->
-     
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
-<script>
-  // Create floating bubbles
-  const bubblesContainer = document.querySelector('.bubbles');
-  const bubbleCount = 20;
 
-  for (let i = 0; i < bubbleCount; i++) {
-    const bubble = document.createElement('div');
-    bubble.classList.add('bubble');
-    bubble.style.left = `${Math.random() * 100}%`;
-    bubble.style.top = `${Math.random() * 100}%`;
-    bubble.style.width = `${Math.random() * 50 + 10}px`;
-    bubble.style.height = bubble.style.width;
-    bubble.style.animationDuration = `${Math.random() * 2 + 2}s`;
-    bubble.style.animationDelay = `${Math.random() * 2}s`;
-    bubblesContainer.appendChild(bubble);
-  }
-
-  // Newsletter form submission
-  const newsletterForm = document.getElementById('newsletter-form');
-  newsletterForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = e.target.querySelector('input[type="email"]').value;
-    alert(`Thank you for subscribing with email: ${email}`);
-    e.target.reset();
-  });
-</script>
-    {% block JsContent %}{% endblock JsContent %}
+{% block JsContent %}{% endblock JsContent %}
     
 </body>
 </html>

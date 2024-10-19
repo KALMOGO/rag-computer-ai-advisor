@@ -68,7 +68,8 @@ class usefulLink(models.Model):
 class userMessage(models.Model):
     fullname = models.CharField("Nom & Prenom", max_length=450)
     email    = models.EmailField("Email",null=True, blank=True)
-    message  = models.TextField("Message")
+    message  = models.TextField("Topic",null=True, blank=True)
+    subject  = models.TextField("Message",null=True, blank=True)
     date_creation = models.DateTimeField(auto_now=True)
     
     class Meta:

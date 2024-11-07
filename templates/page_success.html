@@ -1,119 +1,226 @@
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Your Command Has Been Successfully Saved!</title>
-<style>
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #6e48aa, #9d50bb);
-        height: 100vh;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #fff;
-    }
-    .container {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        border-radius: 20px;
-        padding: 20px; /* Increased padding for better mobile view */
-        text-align: center;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        max-width: 600px;
-        margin: 0 auto; /* Center container */
-    }
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votre Commande a été Enregistrée!</title>
+    <style>
+        :root {
+            --primary-color: #0A21C0;
+            --primary-color-light: #050A44;
+            --text-color: #000;
+            --bg-color: #fff;
+            --success-color: #22c55e;
+        }
 
-    /* Media query for small screens */
-    @media (max-width: 600px) {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            min-height: 90vh;
+            margin: 0;
+            display: grid;
+            place-items: center;
+            background-color: var(--primary-color-light);
+            padding: 1rem;
+        }
+
         .container {
-            padding: 15px;
+            background: var(--bg-color);
+            backdrop-filter: blur(10px);
+            padding: clamp(1rem, 5vw, 2rem);
+            width: min(90%, 500px);
+            box-shadow: 
+                inset 0 0 32px rgba(0, 0, 0, 0.05),
+                0 0 2px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            transition: all 0.3s ease;
         }
-        h1 {
-            font-size: 1.5rem; /* Reduce font size on smaller screens */
+
+        .container:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                inset 0 0 32px rgba(0, 0, 0, 0.05),
+                0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        p {
-            font-size: 0.9rem; /* Adjust paragraph font size */
+
+        .nav-links {
+            list-style-type: none;
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            font-weight: bold;
         }
+
+        .nav-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-color);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .checkmark {
+            width: clamp(60px, 15vw, 100px);
+            height: auto;
+            margin: 1.5rem auto;
+
+        }
+
+        .checkmark__circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+
+        .checkmark__check {
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        }
+
+        @keyframes stroke {
+            100% { stroke-dashoffset: 0; }
+        }
+
+        h3 {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+        }
+
+        .timer-section {
+            margin: 1rem 0;
+            text-align: center;
+        }
+
         .timer {
-            font-size: 1.2rem;
+            color: var(--primary-color);
+            font-size: clamp(1.2rem, 5vw, 1.5rem);
+            font-weight: bold;
+            margin-top: 0.5rem;
         }
-    }
-    h1 {
-        font-size: 2.5em;
-        margin-bottom: 0;
-        color: green;
-    }
-    p {
-        font-size: 1.2em;
-        line-height: 1.6;
-        margin-bottom: 30px;
-    }
-    .checkmark {
-        width: 100px;
-        height: 100px;
-        margin: 0 auto 30px;
-    }
 
-    @keyframes confetti {
-        0% { transform: translateY(0) rotateZ(0deg); opacity: 1; }
-        100% { transform: translateY(1000px) rotateZ(720deg); opacity: 0; }
-    }
-    .timer {
-        font-size: 2em;
-        font-weight: bold;
-        margin-top: 20px;
-    }
-</style>
-</head>
-<body>
-    <div class="container" style="background-color: #fff;">
-        <ul style="list-style-type: none;
-                    margin-bottom: 0; 
-                    padding: 0; 
-                    color:#000;
-                    display: flex;
-                    justify-content: flex-start; /* Aligns items to the left */
-                    flex-wrap: wrap;"> <!-- Added flex-wrap for responsiveness -->
-            <li> 
-                <a href="{% url 'index' %}">Aller à l'accueil</a> 
-            </li>
-        </ul>
-    
-        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" style="max-width: 100%; height: auto;">
-            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" stroke="#ffd700" stroke-width="2"/>
-            <path class="checkmark__check" fill="none" stroke="#ffd700" stroke-width="2" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-        </svg>
-    
-        <h1 style="font-size: 2rem;">Votre commande a été enregistrée avec succès!</h1>
-        
-        <p style="color:#000; font-size: 1rem;">
-            Il sera traité dans un délai de trois jours.
-        </p>
-    
-        <div class="timer" id="timer" style="color:#6e48aa; font-size: 1.5rem;">3 jours 00:00:00</div>
-    </div>
-    <script>
- 
+        .recommendation {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            text-align: left;
+            opacity: 0;
+            transform: translateY(10px);
+        }
 
-        // Countdown timer
-        const timer = document.getElementById('timer');
-        const targetDate = new Date();
-        targetDate.setDate(targetDate.getDate() + 3);
+        .recommendation a {
+            color: var(--primary-color);
+            display: block;
+            margin: 0.5rem 0;
+            text-decoration: none;
+        }
 
-        function updateTimer() {
-            const now = new Date();
-            const diff = targetDate - now;
+        .recommendation a:hover {
+            text-decoration: underline;
+        }
 
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+                text-align: center;
+            }
 
-            timer.textContent = `${days} jour(s) ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-
-            if (diff > 0) {
-                requestAnimationFrame(updateTimer);
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
             }
         }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <ul class="nav-links">
+            <li><a href="{% url 'main:index' %}">Aller à l'accueil</a></li>
+            <li><a href="javascript:history.back()">Précédent</a></li>
+        </ul>
 
-        updateTimer();
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" stroke="#22c55e" stroke-width="2"/>
+                <path class="checkmark__check" fill="none" stroke="#22c55e" stroke-width="2" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+            </svg>
+        </div>
+
+        <h3>Votre commande a été enregistrée avec succès!</h3>
+        
+        <div class="timer-section">
+            <p>Il sera traité dans un délai de trois jours.</p>
+            <p><u>Temps restant :</u></p>
+            <div class="timer" id="timer">3 jours 00:00:00</div>
+        </div>
+
+        <div class="recommendation">
+            <strong>Télecharger la commande</strong>
+            <a href="{% url 'main:download-order' %}">
+                Cliquez ici pour Télecharger les informations sur votre commande.
+            </a>
+            <p>Vous pourriez vérifier ces informations à la livraison.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const recommendation = document.querySelector('.recommendation');
+            
+            setTimeout(() => {
+                recommendation.style.transition = 'all 0.5s ease-out';
+                recommendation.style.opacity = '1';
+                recommendation.style.transform = 'translateY(0)';
+            }, 600);
+
+            const timer = document.getElementById('timer');
+            const targetDate = new Date();
+            targetDate.setDate(targetDate.getDate() + 3);
+
+            function updateTimer() {
+                const now = new Date();
+                const diff = targetDate - now;
+
+                if (diff <= 0) {
+                    timer.textContent = "Délai expiré";
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                timer.textContent = `${days} jour(s) ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+                requestAnimationFrame(updateTimer);
+            }
+
+            updateTimer();
+        });
     </script>
-</body></html>
+</body>
+</html>

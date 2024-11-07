@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --secondary-color: #1e40af;
+      --border-color: #e5e7eb;
+      --text-color: #374151;
+    }
+
+    .product-gallery {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      gap: 20px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .thumbnails-vertical {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      height: 600px;
+      overflow-y: auto;
+    }
+
+    .thumbnail {
+      width: 80px;
+      height: 80px;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .thumbnail:hover {
+      border-color: var(--primary-color);
+    }
+
+    .thumbnail.active {
+      border-color: var(--primary-color);
+    }
+
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .main-image-section {
+      flex-grow: 1;
+      position: relative;
+    }
+
+    .main-image-container {
+      width: 100%;
+      height: 600px;
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f8f9fa;
+    }
+
+    .main-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+    .zoom-lens {
+      position: absolute;
+      border: 2px solid var(--primary-color);
+      background: rgba(255, 255, 255, 0.2);
+      cursor: move;
+      display: none;
+    }
+
+    .zoom-result {
+      position: absolute;
+      top: 0;
+      right: -400px;
+      width: 400px;
+      height: 400px;
+      border: 1px solid var(--border-color);
+      background: white;
+      display: none;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .gallery-controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px 20px;
+      border-radius: 30px;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    }
+
+    .gallery-control {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      color: var(--text-color);
+      transition: all 0.3s ease;
+    }
+
+    .gallery-control:hover {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .zoom-hint {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
+    }
+
+    .color-options {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .color-option {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.2s ease;
+    }
+
+    .color-option:hover {
+      transform: scale(1.1);
+    }
+
+    .color-option.active::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border: 2px solid var(--primary-color);
+      border-radius: 50%;
+    }
+
+    @media (max-width: 1024px) {
+      .product-gallery {
+        flex-direction: column;
+      }
+
+      .thumbnails-vertical {
+        flex-direction: row;
+        height: auto;
+        overflow-x: auto;
+      }
+
+      .main-image-container {
+        height: 400px;
+      }
+
+      .zoom-result {
+        display: none !important;
+      }
+    }
+
+    /* Loading animation */
+    .loading-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      border: 4px solid var(--border-color);
+      border-top-color: var(--primary-color);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* Fade animation */
+    .fade-in {
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+     /* Add smooth transition for image changes */
+     .main-image {
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    .main-image.loading {
+      opacity: 0.3;
+    }
+  </style>
+</head>
+<body>
+    <div class="product-gallery">
+        <div class="thumbnails-vertical">
+          <!-- Using real demo images with different views -->
+          <div class="thumbnail active">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzD-i1vBvE8ZLb43UGuFaeHTFvdLiwA6JporQnQ0uXQSbLaR_phHj6JUA4iQeBttn_Zmg&usqp=CAU" 
+                 alt="Front View" 
+                 data-full="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzD-i1vBvE8ZLb43UGuFaeHTFvdLiwA6JporQnQ0uXQSbLaR_phHj6JUA4iQeBttn_Zmg&usqp=CAU">
+          </div>
+          <div class="thumbnail">
+            <img src="https://rukminim2.flixcart.com/image/850/1000/xif0q/desktop-computer/x/y/y/0-hs16-win-11-hasons-original-imagv2v7u7zf5fyn.jpeg?q=90&crop=false" 
+                 alt="Side View" 
+                 data-full="https://rukminim2.flixcart.com/image/850/1000/xif0q/desktop-computer/x/y/y/0-hs16-win-11-hasons-original-imagv2v7u7zf5fyn.jpeg?q=90&crop=false">
+          </div>
+          <div class="thumbnail">
+            <img src="https://www.google.com/imgres?q=computer%20images&imgurl=https%3A%2F%2Fcdn.britannica.com%2F05%2F24405-050-217BD4E9%2FApple-Lisa-computer.jpg&imgrefurl=https%3A%2F%2Fwww.britannica.com%2Ftechnology%2Fpersonal-computer&docid=RedSBkTW8_uhzM&tbnid=DfUTC6xKLYqePM&vet=12ahUKEwiHzPbk2aaJAxXAXUEAHf1jNaIQM3oECD4QAA..i&w=1600&h=1138&hcb=2&ved=2ahUKEwiHzPbk2aaJAxXAXUEAHf1jNaIQM3oECD4QAA" 
+                 alt="Back View" 
+                 data-full="https://www.google.com/imgres?q=computer%20images&imgurl=https%3A%2F%2Fcdn.britannica.com%2F05%2F24405-050-217BD4E9%2FApple-Lisa-computer.jpg&imgrefurl=https%3A%2F%2Fwww.britannica.com%2Ftechnology%2Fpersonal-computer&docid=RedSBkTW8_uhzM&tbnid=DfUTC6xKLYqePM&vet=12ahUKEwiHzPbk2aaJAxXAXUEAHf1jNaIQM3oECD4QAA..i&w=1600&h=1138&hcb=2&ved=2ahUKEwiHzPbk2aaJAxXAXUEAHf1jNaIQM3oECD4QAA">
+          </div>
+          <div class="thumbnail">
+            <img src="https://www.lifewire.com/thmb/DV5fa9Mu8gGvXPijAzJhiqPynPs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/computer-hardware-2625895-5d9007ac0d44404588321d255fc82049.jpg" 
+                 alt="Top View" 
+                 data-full="https://www.lifewire.com/thmb/DV5fa9Mu8gGvXPijAzJhiqPynPs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/computer-hardware-2625895-5d9007ac0d44404588321d255fc82049.jpg">
+          </div>
+          <div class="thumbnail">
+            <img src="https://helloartsy.com/wp-content/uploads/kids/school/how-to-draw-a-computer/how-to-draw-a-computer-step-9.jpg" 
+                 alt="Ports Detail" 
+                 data-full="https://helloartsy.com/wp-content/uploads/kids/school/how-to-draw-a-computer/how-to-draw-a-computer-step-9.jpg">
+          </div>
+        </div>
+    
+        <div class="main-image-section">
+          <div class="main-image-container">
+            <div class="zoom-lens"></div>
+            <div class="zoom-result"></div>
+            <div class="loading-spinner"></div>
+            <img src="https://content.ibuypower.com/cdn-cgi/image/width=3840,format=auto,quality=75/https://content.ibuypower.com//Images/en-US/Lobby/ezb_main_nocut.png?v=57b3350c3289a0b6e1b1439c0238c935890adefb" 
+                 alt="Computer Front View" 
+                 class="main-image">
+            
+            <div class="zoom-hint">
+              <i class="fas fa-search"></i>
+              Hover to zoom
+            </div>
+    
+            <div class="gallery-controls">
+              <button class="gallery-control prev-image">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button class="gallery-control fullscreen">
+                <i class="fas fa-expand"></i>
+              </button>
+              <button class="gallery-control next-image">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+    
+          <div class="color-options">
+            <div class="color-option active" style="background-color: #1f2937"></div>
+            <div class="color-option" style="background-color: #dc2626"></div>
+            <div class="color-option" style="background-color: #2563eb"></div>
+          </div>
+        </div>
+    </div>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          // Get all necessary elements
+          const mainImage = document.querySelector('.main-image');
+          const thumbnails = document.querySelectorAll('.thumbnail');
+          const zoomLens = document.querySelector('.zoom-lens');
+          const zoomResult = document.querySelector('.zoom-result');
+          const mainImageContainer = document.querySelector('.main-image-container');
+          const prevButton = document.querySelector('.prev-image');
+          const nextButton = document.querySelector('.next-image');
+          const fullscreenButton = document.querySelector('.fullscreen');
+          const colorOptions = document.querySelectorAll('.color-option');
+          const loadingSpinner = document.querySelector('.loading-spinner');
+          
+          let currentImageIndex = 0;
+    
+          // Image loading function with proper error handling
+          function loadImage(src) {
+            return new Promise((resolve, reject) => {
+              const img = new Image();
+              img.onload = () => resolve(img);
+              img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
+              img.src = src;
+            });
+          }
+    
+          // Update main image with loading state
+          async function updateMainImage(src) {
+            try {
+              // Show loading state
+              mainImage.classList.add('loading');
+              loadingSpinner.style.display = 'block';
+    
+              // Load the new image
+              await loadImage(src);
+              
+              // Update the main image
+              mainImage.src = src;
+              mainImage.classList.remove('loading');
+            } catch (error) {
+              console.error('Error loading image:', error);
+              // Handle error state if needed
+            } finally {
+              loadingSpinner.style.display = 'none';
+            }
+          }
+    
+          // Update gallery state
+          function updateGallery() {
+            // Update thumbnails
+            thumbnails.forEach((thumb, index) => {
+              thumb.classList.toggle('active', index === currentImageIndex);
+            });
+    
+            // Get new image source and update
+            const newImageSrc = thumbnails[currentImageIndex].querySelector('img').dataset.full;
+            updateMainImage(newImageSrc);
+          }
+    
+          // Thumbnail click handlers
+          thumbnails.forEach((thumbnail, index) => {
+            thumbnail.addEventListener('click', () => {
+              currentImageIndex = index;
+              updateGallery();
+            });
+          });
+    
+          // Navigation button handlers
+          prevButton.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex - 1 + thumbnails.length) % thumbnails.length;
+            updateGallery();
+          });
+    
+          nextButton.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex + 1) % thumbnails.length;
+            updateGallery();
+          });
+    
+          // Keyboard navigation
+          document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+              prevButton.click();
+            } else if (e.key === 'ArrowRight') {
+              nextButton.click();
+            }
+          });
+    
+          // Fullscreen handling
+          fullscreenButton.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+              mainImageContainer.requestFullscreen().catch(err => {
+                console.error(`Error attempting to enable fullscreen: ${err.message}`);
+              });
+              fullscreenButton.innerHTML = '<i class="fas fa-compress"></i>';
+            } else {
+              document.exitFullscreen();
+              fullscreenButton.innerHTML = '<i class="fas fa-expand"></i>';
+            }
+          });
+    
+          // Color variant handling
+          colorOptions.forEach(option => {
+            option.addEventListener('click', function() {
+              colorOptions.forEach(opt => opt.classList.remove('active'));
+              this.classList.add('active');
+              // Here you would typically load a new set of images for the selected color
+            });
+          });
+    
+          // Zoom functionality
+          function getMousePosition(event) {
+            const rect = mainImageContainer.getBoundingClientRect();
+            return {
+              x: event.clientX - rect.left,
+              y: event.clientY - rect.top
+            };
+          }
+    
+          function updateZoom(mousePos) {
+            const lensWidth = Math.min(mainImageContainer.offsetWidth / 4, 150);
+            const lensHeight = lensWidth;
+            zoomLens.style.width = `${lensWidth}px`;
+            zoomLens.style.height = `${lensHeight}px`;
+            
+            let x = mousePos.x - lensWidth / 2;
+            let y = mousePos.y - lensHeight / 2;
+            
+            // Boundary checking
+            x = Math.max(0, Math.min(x, mainImageContainer.offsetWidth - lensWidth));
+            y = Math.max(0, Math.min(y, mainImageContainer.offsetHeight - lensHeight));
+            
+            zoomLens.style.left = x + 'px';
+            zoomLens.style.top = y + 'px';
+            
+            // Calculate zoom
+            const scaleX = zoomResult.offsetWidth / lensWidth;
+            const scaleY = zoomResult.offsetHeight / lensHeight;
+            
+            zoomResult.style.backgroundImage = `url(${mainImage.src})`;
+            zoomResult.style.backgroundSize = `${mainImageContainer.offsetWidth * scaleX}px ${mainImageContainer.offsetHeight * scaleY}px`;
+            zoomResult.style.backgroundPosition = `-${x * scaleX}px -${y * scaleY}px`;
+          }
+    
+          // Zoom event handlers
+          mainImageContainer.addEventListener('mouseenter', function(e) {
+            if (window.innerWidth > 1024) {
+              zoomLens.style.display = 'block';
+              zoomResult.style.display = 'block';
+              updateZoom(getMousePosition(e));
+            }
+          });
+    
+          mainImageContainer.addEventListener('mouseleave', function() {
+            zoomLens.style.display = 'none';
+            zoomResult.style.display = 'none';
+          });
+    
+          mainImageContainer.addEventListener('mousemove', function(e) {
+            if (window.innerWidth > 1024) {
+              updateZoom(getMousePosition(e));
+            }
+          });
+        });
+      </script>
+</body>
+</html>

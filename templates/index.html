@@ -5,39 +5,40 @@
 {% block headLinks %}
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link  rel="stylesheet"   type="text/css" href="{% static 'style/promotion-bar.css' %}">
 <style>
   *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Rubik", sans-serif;
+
 }
-  :root {
-    --primary-color: linear-gradient(90deg, #4a148c, #7b1fa2);
-    --secondary-color: #2c3e50;
-    --accent-color: #e74c3c;
-    --light-bg: #f8f9fa;
-  }
+
   body {
     background-color: #f8f9fa !important;
     color: #333 !important;
+    font-family: Helvetica, sans-serif;
+
   }
   .navbar-brand {
-    background-color:  linear-gradient(90deg, #dad4e3, #7b1fa2) !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px #0A21C0;
     
-  }
-  .navbar {
-    background: linear-gradient(90deg, #4a148c, #7b1fa2) !important;
+}
+.navbar {
+    background: #050A44 !important;
     padding: 1rem 0;
     position: sticky;
     top: 0;
-    z-index: 1000;
+     z-index: 100; 
+}
+  .navbar-brand img {
+    height: 40px;
   }
   .section-title {
-    color: #7b1fa2;
+    color: #141619;
     padding-bottom: 10px;
   }
+  
   #btn-sans-ai:hover{
     border:1px solid blue;
     color:black;
@@ -46,12 +47,7 @@
   }
 
 
-  .computer-title {
-    color: #4a148c !important;
-    font-weight: bold !important;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1) !important;
-    font-weight: bold;
-  }
+  
   #btn-avec-ai:hover{
     border:1px solid blue;
     color:black !important;
@@ -59,47 +55,21 @@
     font-weight: bold;
   }
   
-  .navbar-brand img {
-    height: 40px;
-  }
-  .hero {
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
-    background-size: cover;
-    background-position: center;
-    color: white;
-    padding: 120px 0;
-  }
-  .service-card {
-    transition: transform 0.3s, box-shadow 0.3s;
-    border: none;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-  }
-  .service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-  }
+
   .testimonial-carousel .carousel-item {
     min-height: 300px;
   }
   .system-architecture {
     background-color: var(--light-bg);
   }
-  .partner-logo {
-    filter: grayscale(100%);
-    transition: filter 0.3s;
-  }
-  .partner-logo:hover {
-    filter: grayscale(0%);
-  }
+
   .contact-form {
     background-color: white;
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   }
   .brand:hover{
-    background-color: #7b1fa2 !important;
+    background-color: #0A21C0!important;
     color:#fff;
   }
   .ms-auto .nav-item .nav-link{
@@ -108,418 +78,1497 @@
   .ms-auto .nav-item .nav-link:hover{
     text-decoration: underline;
   }
-  footer {
-    background: #333;
+  /* Footer */
+footer {
+    background-color: #050A44;
     color: white;
-    padding: 20px 0;
+    padding: 2rem 1rem;
     position: relative;
     overflow: hidden;
-  }
-  .footer-content {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-  }
-  .footer-section {
+}
+.footer-content {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          max-width: 1200px;
+          margin: 0 auto;
+          position: relative;
+          z-index: 10;
+      }
+.footer-section {
+    flex: 1;
+    margin: 10px;
+    min-width: 200px;
     text-align: center;
-  }
-  .footer-section h3 {
-    margin-bottom: 10px;
-  }
-  .social-icons a {
+}
+.footer-section h3 {
+    margin-bottom: 15px;
+    color: #fff;
+}
+.footer-section p, .footer-section a {
+    color: #ddd;
+    text-decoration: none;
+    margin: 10px 0;
+}
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.social-icons a {
     color: white;
     font-size: 24px;
-    margin: 0 10px;
-    transition: transform 0.3s ease;
-  }
-  .social-icons a:hover {
-    transform: scale(1.2);
-  }
-  .bubbles {
+    transition: color 0.3s ease;
+}
+.social-icons a:hover {
+    opacity: 0.7;
+}
+.country-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.country-info img {
+    width: 30px;
+    height: auto;
+}
+.bubbles {
+  display: none;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0;
-  }
-  .bubble {
+    z-index: 1;
+    background: linear-gradient(45deg, #333, #000);
+}
+.bubbles::before {
+    content: '';
     position: absolute;
-    border-radius: 50%;
+    top: 0;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background-color: #000;
+    background-image: radial-gradient(#333 20%, transparent 20%);
+    background-size: 50px 50px;
+    opacity: 0.3;
+    animation: moveBubbles 20s linear infinite;
+}
+@keyframes moveBubbles {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.copyright {
+    text-align: center;
+    margin-top: 20px;
+    /* font-size: 0.9rem; */
+    color: #fff;
+}
+@media screen and (max-width: 768px) {
+  .footer-content {
+      flex-direction: column;
+      align-items: center;
+  }
+  .footer-section {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 20px;
+  }
+  .social-icons{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      display: inline-block;
+  }
+}
+/* CSS for the navigation menu */
+.fonct-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+}
+
+.fonct-menu li {
+    margin: 0;
+}
+
+.fonct-menu li a {
+    display: block;
+    color: #333;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.fonct-menu li a:hover {
+    background-color: #ddd;
+}
+
+.fonct-menu li a.active {
+    background-color: #0A21C0;
+    color: white;
+}
+
+  /* CSS for content sections */
+  .content-fonct {
+      display: none;
+      padding: 20px;
+      border: 1px solid #ddd;
+      margin-top: 10px;
+      background-color: #fff;
+      color: #141619;
+  }
+
+  .content-fonct.active {
+      display: flex;
+  }
+ 
+
+        /* Partenaire */
+.partner-section {
+    width: 98%;
+    overflow: hidden;
     background: rgba(255, 255, 255, 0.1);
-    animation: float 4s infinite ease-in-out;
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 20px;
   }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+  .partner-scroll {
+    display: flex;
+    animation: scroll 60s linear infinite;
   }
-  #about, #how-it-works, #contact{
-    background-color: #fff;
+  .partner-logo {
+    flex: 0 0 200px;
+    height: 100px;
+    margin: 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .partner-logo:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  .partner-logo img {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+  }
+  @keyframes scroll {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  .partner h2 {
+    text-align: center;
+    color: #ffffff;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .navbar-brand {
+    box-shadow: none;
+    
+}
+  /* Loading */
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    display: none;
+  }
+  .custom-spinner {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    animation: spinner-rotate 2s linear infinite;
+  }
+  .custom-spinner-circle {
+    width: 100%;
+    height: 100%;
+    border: 8px solid #ffffff;
+    border-radius: 50%;
+    opacity: 0.7;
+  }
+  .custom-spinner-square {
+    width: 30%;
+    height: 30%;
+    background-color: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: square-pulse 1s ease-in-out infinite alternate;
+  }
+  @keyframes spinner-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  @keyframes square-pulse {
+    0% { transform: translate(-50%, -50%) scale(0.8); }
+    100% { transform: translate(-50%, -50%) scale(1.2); }
   }
 
- /* CSS for the navigation menu */
- .fonct-menu {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            background-color: #f1f1f1;
-            border-radius: 5px;
-        }
+  /* Media query footer */
+@media screen and (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    justify-items: left;
+  }
+  .navbar-brand {
+    box-shadow: none;
+    
+}
+  .footer-section {
+    margin: 1rem 0;
+  }
 
-        .fonct-menu li {
-            margin: 0;
-        }
+  h3 {
+    font-size: 1.1rem;
+  }
 
-        .fonct-menu li a {
-            display: block;
-            color: #333;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-            font-size: 14px;
-        }
+  .social-icons {
+    justify-content:left;
+  }
+}
 
-        .fonct-menu li a:hover {
-            background-color: #ddd;
-        }
+@media screen and (max-width: 480px) {
+  footer {
+    padding: 1rem;
+  }
+  .navbar-brand {
+    box-shadow: none;
+    
+}
+  h3 {
+    font-size: 1rem;
+  }
 
-        .fonct-menu li a.active {
-            background-color: #7b1fa2;
-            color: white;
-        }
+  .social-icons a {
+    font-size: 1.2rem;
+  }
+}
 
-        /* CSS for content sections */
-        .content-fonct {
-            display: none;
-            padding: 20px;
-            border: 1px solid #ddd;
-            margin-top: 10px;
-        }
+/* Responsive styles other*/
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 1rem;
+  }
+  .navbar-brand {
+    box-shadow: none;
+    
+}
 
-        .content-fonct.active {
-            display: flex;
-        }
+  .hero .btn {
+    display: block;
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 10px !important;
+  }
+
+  .service-card {
+    margin-bottom: 1rem;
+  }
+
+  .testimonial-carousel img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .partner-logo img {
+    max-width: 120px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+  .navbar-brand {
+    box-shadow: none;
+    
+}
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .partner-logo img {
+    max-width: 100px;
+  }
+}
+
+
+/* Header Base Styles */
+.hero {
+    position: relative;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("{% static 'images/cover-home.png' %}");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.container-header {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Carousel Styles */
+.carousel-item {
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    position: absolute;
+    width: 100%;
+}
+
+.carousel-item.active {
+    opacity: 1;
+    position: relative;
+}
+
+/* Typography */
+
+
+.hero h2 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    animation: fadeInDown 1s ease-out;
+}
+
+/* Button Styles */
+.btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    margin: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    border-radius: 50px;
+}
+
+#btn-avec-ai {
+    background-color: #0A21C0;
+    border: none;
+    animation: slideInLeft 1s ease-out;
+}
+
+#btn-sans-ai {
+    background-color: #050A44;
+    border: none;
+    animation: slideInRight 1s ease-out;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero {
+        padding: 2rem 1rem;
+    }
+    
+    .btn {
+        display: block;
+        width: 90%;
+        margin: 0.5rem auto;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    #about {
+        padding: 3rem 0;
+    }
+    
+    .card-body {
+        padding: 1.5rem;
+    }
+    
+    .btn {
+        display: block;
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* AI Platform Visual Effects */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(123,31,162,0.2), rgba(25,118,210,0.2));
+    pointer-events: none;
+}
+
+/* About Section Base Styles */
+#about {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 5rem 0;
+}
+
+/* Floating Background Elements */
+#about::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(45deg, rgba(123,31,162,0.05), rgba(25,118,210,0.05));
+    z-index: 1;
+}
+
+/* Container Styles */
+#about .container {
+    position: relative;
+    z-index: 2;
+    max-width: 1000px;
+}
+
+/* Section Title */
+.section-title {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    color: #141619;
+    margin-bottom: 3rem;
+    position: relative;
+    padding-bottom: 1rem;
+    font-weight: 700;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg,#050A44, #0A21C0);
+    border-radius: 2px;
+}
+
+/* Card Styles */
+.card-body {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-body:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Typography */
+.lead {
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
+    color: #141619;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+p {
+    color: #4a5568;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+/* List Styles */
+.list-unstyled {
+    margin: 2rem 0;
+    padding-left: 1rem;
+}
+
+.list-unstyled li {
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+    position: relative;
+    font-size: 1.1rem;
+    color: #2c3e50;
+    animation: slideInRight 0.5s ease-out forwards;
+    opacity: 0;
+}
+
+.list-unstyled li:nth-child(1) { animation-delay: 0.2s; }
+.list-unstyled li:nth-child(2) { animation-delay: 0.4s; }
+.list-unstyled li:nth-child(3) { animation-delay: 0.6s; }
+.list-unstyled li:nth-child(4) { animation-delay: 0.8s; }
+
+.list-unstyled li i {
+    position: absolute;
+    left: 0;
+    color: #141619;
+    font-size: 1.2rem;
+}
+
+/* Button Styles */
+.btn {
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    margin: 0.5rem;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Animations */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Services Section */
+#services {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    padding: 5rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card {
+    border: none;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #050A44, #0A21C0);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.service-card:hover::before {
+    transform: scaleX(1);
+}
+
+.service-card i {
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover i {
+    transform: scale(1.1);
+}
+
+/* How it Works Section */
+#how-it-works {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 5rem 0;
+}
+
+.fonct-menu {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 3rem;
+    gap: 2rem;
+}
+
+.fonct-menu a {
+    color: #2c3e50;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.5rem 2rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.fonct-menu a:hover,
+.fonct-menu a.active {
+    background: #0A21C0;
+    color: white;
+}
+
+.content-fonct {
+    display: none;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.content-fonct.active {
+    display: flex;
+}
+
+.svg-container {
+    width: 100%;
+    padding-bottom: 50%;
+    position: relative;
+}
+
+.svg-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Testimonials Section */
+#testimonials {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    padding: 5rem 0;
+}
+
+.testimonial-carousel {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.testimonial-carousel img {
+    border: 5px solid white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.testimonial-carousel img:hover {
+    transform: scale(1.05);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #0A21C0;
+    padding: 2rem;
+    border-radius: 50%;
+}
+
+.carousel-item {
+    transition: transform 0.6s ease-in-out;
+}
+
+/* Contact Section */
+#contact {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 5rem 0;
+    position: relative;
+}
+
+.contact-form {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.contact-form:hover {
+    transform: translateY(-5px);
+}
+
+.form-control,
+.form-select {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #0A21C0;
+    box-shadow: 0 0 0 0.2rem rgba(123, 31, 162, 0.25);
+}
+
+button[type="submit"] {
+    transition: all 0.3s ease;
+}
+
+button[type="submit"]:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px #050A44;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .fonct-menu {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    .navbar-brand {
+    box-shadow: none;
+    
+}
+    .fonct-menu a {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .testimonial-carousel {
+        padding: 1rem;
+    }
+    
+    .contact-form {
+        padding: 1.5rem;
+    }
+}
 
 </style>
+
+
 {% endblock headLinks %}
 
 
 {% block bodyContent %}
-<header class="hero text-center">
-  <div class="container">
+{% include 'promotion-bar.html' %}
 
+  <!-- Header  -->
+  {% include 'header.html' %}
+<!-- Header slider -->
+<header class="hero text-center">
+  <div class="container-header">
     <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <h1>Bienvenu sur la plateforme Zoodo Computer !</h1>
+          <h2>Bienvenu sur la plateforme Zoodo Computer !</h2>
       </div>
 
           <div class="carousel-item ">
-              <h1>Commander l'ordinateur correspondant à vos activités.</h1>
+              <h2>Commander l'ordinateur correspondant à vos activités.</h2>
           </div>
 
           <div class="carousel-item">
-              <h1>Payer à la livraison avec une garantie pouvant aller jusqu'a 3 mois.</h1>
+              <h2>
+                Payer à la livraison, par Orange, Moov ou Telecel money.
+              </h2> 
+          </div>
+
+            <div class="carousel-item">
+              <h2>
+                Obtenez  une garantie pouvant aller jusqu'a 3 mois.
+              </h2>
           </div>
 
           <div class="carousel-item">
-              <h1>Possibilité de se faire rembourser.</h1>
+              <h2>Faites vous rembourssez en cas d'insatisfaction.</h2>
           </div>
       </div>
   </div>
-  <div class="pt-1">
-    <a href="{% url 'recommendationForm' %}" style="background-color:  #7b1fa2; color:#fff"
+
+  <div class="mt-2">
+    <a href="{% url 'main:recommendationForm' %}" style="background-color:  #0A21C0; color:#fff"
     id="btn-avec-ai" class="btn btn-lg px-5 py-3">
-    Demarer avec l'IA 
+    Rechercher avec L'IA
     </a>
-    <a href="{% url 'order-without-ai' %}" class="btn btn-primary btn-lg px-5 py-3" id="btn-sans-ai">
-      Demarer Sans  l'IA 
+    <a href="{% url 'main:order-without-ai' %}" class="btn btn-primary btn-lg px-5 py-3" id="btn-sans-ai">
+      Rechercher sans l'IA
     </a>
   </div>
   
   </div>
 </header>
 
-<section id="about" class="py-5">
+<!-- Description -->
+<section id="about" class="py-5 ">
   <div class="container">
-    <h2 class="text-center mb-5 section-title">Description</h2>
-    <div class="row">
+    <h2 class="text-center section-title mb-4">L'inovation dans votre achat d'ordinateurs</h2>
+    <div class="row justify-content-center">
       <div class="col">
-        <div class="text-center">
-          <i style="color:#7b1fa2 !important" class="fas fa-laptop fa-3x mb-3 text-primary"></i>
-          <p style="text-align:justify;">
-            <b>Zoodo Computer</b> est bien plus qu'un simple outil de recherche d'ordinateurs ! C'est un système révolutionnaire, conçu <b>au Burkina Faso</b>, qui vous aide à trouver et commander l'ordinateur portable idéal, parfaitement adapté à vos besoins, votre budget, et vos activités. <br>
-
-            Acheter un ordinateur peut être un casse-tête, surtout avec les prix élevés et les risques de fraudes sur le marché. Mais avec <b>Zoodo Computer</b>, oubliez ces soucis ! Grâce à notre plateforme, vous pouvez facilement découvrir des ordinateurs performants qui répondent précisément à vos attentes, que vous soyez novice ou expert en technologie. <br>
+        <div >
+          <div class="card-body">
+            <p class="lead text-center mb-4" style="color:#0A21C0; ">
+             <b> Zoodo Computer vous aide à trouver l'ordinateur parfait ! </b>
+            </p>
+            <p class="mb-3">
+              Zoodo Computer révolutionne votre achat d'ordinateurs. Ce système innovant vous guide vers le choix idéal d'un ordinateur, en parfaite adéquation avec vos besoins, votre budget et vos activités.
+            </p>
+            <p class="mb-3">
+              Fini les casse-têtes et les risques liés à l'achat d'un ordinateur ! Que vous soyez novice ou expert, notre plateforme propulsée par l'Intelligence Artificielle (IA) vous offre :
+            </p>
+            <ul class="list-unstyled">
+              <li><i class="fas fa-check text-success mr-2"></i> Des recommandations personnalisées et fiables</li>
+              <li><i class="fas fa-check text-success mr-2"></i> Une expérience simple, rapide et sécurisée</li>
+              <li><i class="fas fa-check text-success mr-2"></i> Des prix adaptés à votre budget</li>
+              <li><i class="fas fa-check text-success mr-2"></i> La tranquillité d'esprit pour votre achat</li>
+            </ul>
+            <p class="mb-4">
+              Optimisez votre temps et vos ressources. Trouvez l'ordinateur de vos rêves dès aujourd'hui avec Zoodo Computer !
+            </p>
             
-            Notre système, propulsé par l'Intelligence Artificielle (AI), vous garantit des recommandations fiables et sur-mesure, peu importe vos compétences. Simple, rapide, et sécurisé, <b>Zoodo Computer</b> vous offre la tranquillité d'esprit et des prix adaptés à votre budget. <br>
-            
-            N'attendez plus pour trouver l'ordinateur de vos rêves – optimisez votre temps et vos ressources avec <b>Zoodo Computer</b> !
-            
-            <br>
-            <div class="text-center">
-              <a href="#" style="color:#7b1fa2; font-weight: bolder;">Demarer avec l'AI</a>
-              <a href="#" style=" font-weight: bolder;">Demarer sans l'AI</a>
-            </div>
-        
-          </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- Services -->
 <section id="services" >
   <div class="container">
-    <h2 class="text-center mb-5 section-title">Nos Services</h2>
+    <h2 class="text-center mb-3 section-title" >Nos Services</h2>
+    <div class="text-center mb-5" style="margin-top: 0;"> Contactez-nous pour plus d'informations </div>
+
     <div class="row">
       <div class="col-md-4 mb-4">
         <div class="card service-card h-100">
           <div class="card-body text-center">
-            <i style="color:#7b1fa2 !important" class="fas fa-laptop fa-3x mb-3 text-primary"></i>
-
-            <h5 class="card-title">Recommandation de PC</h5>
+            <i style="color:#0A21C0 !important" class="fas fa-laptop fa-3x mb-3 text-primary"></i>
+            <h5 class="card-title">Achat de PC</h5>
             <p class="card-text">
               Nous recommandons aux entreprises et aux particuliers les ordinateurs adaptés pour leur tâches et à leur budgets.
             </p>
           </div>
         </div>
       </div>
-
       <div class="col-md-4 mb-4">
         <div class="card service-card h-100">
           <div class="card-body text-center">
-            <i style="color:#7b1fa2 !important" class="fas fa-truck fa-3x mb-3 text-primary"></i>
-            <h5 class="card-title">Livraison</h5>
+            <i class="fas fa-rocket fa-3x mb-3" style="color:#0A21C0 !important"></i>
+            <h5 class="card-title">Data science</h5>
             <p class="card-text">
-             Commander et faites vous librez n'importe ou au Burkina Faso.
+              Nous aidons votre entreprise à accroitre ces revenus sur la base de ces données.
             </p>
           </div>
         </div>
       </div>
-      
       <div class="col-md-4 mb-4">
         <div class="card service-card h-100">
           <div class="card-body text-center">
-            <i  style="color:#7b1fa2 !important" class="fas fa-building fa-3x mb-3 text-primary"></i>
+            <i  style="color:#0A21C0 !important" class="fas fa-building fa-3x mb-3 text-primary"></i>
             <h5 class="card-title">Formations</h5>
             <p class="card-text">
-              Accéder à une formation de qualité sur les modules de l'informatique. <br>
+              Nous offrons des formations sur tous les domaines de l'informatique et sur l'intelligence artificielle. <br>
           </div>
         </div>
       </div>
+      
+      
+
     </div>
   </div>
 </section>
 
+<!-- Fontionnement & architecture -->
 <section id="how-it-works" class="py-5 system-architecture">
   <div class="container">
-    <h2 class="text-center mb-5 section-title">Fonctionnement du système</h2>
+    <h2 class="text-center mb-5 section-title">Fonctionnement et fiabilité</h2>
     
     <ul class="fonct-menu">
       <li><a href="#" data-target="avec-ia">Avec l'IA</a></li>
       <li><a href="#" data-target="sans-ia">Sans l'IA</a></li>
     </ul>
 
-    <div class="row align-items-center content-fonct" id="avec-ia">
+    <div class="row align-items-center content-fonct" id="avec-ia" style="color:#141619;">
       
       <div class="col-lg-6">
         <p>
           Notre système alimenté par l'IA utilise des algorithmes avancés pour vous fournir les meilleures recommandations d'ordinateurs :
-        </p>
-        <ol>
-          <li>Vous fournissez vos exigences et préférences</li>
-          <li>Notre IA propulsée par <b> LangChain </b> traite vos informations</li>
-          <li>Vous recevez une suggestion d'ordinateur personnalisée</li>
-        </ol>
-        <p>Ce processus garantit que vous obtenez la recommandation la plus précise et personnalisée possible.  </p>
-        
+      </p>
+      <ol>
+          <li>Vous fournissez vos exigences et préférences.</li>
+          <li>Notre IA propulsée par <b>LangChain</b> traite les informations et choisit les ordinateurs les plus appropriés.</li>
+          <li>Vous recevez une suggestion d'ordinateur personnalisée.</li>
+      </ol>
+      <p>Ce processus garantit que vous obtenez la recommandation la plus précise et personnalisée possible.</p>
       </div>
 
       <div class="col-lg-6">
-        <img src="https://via.placeholder.com/600x400?text=AI+Architecture" alt="AI system architecture diagram showing user input, LangChain, LLMs, and output" class="img-fluid rounded shadow" width="600" height="400">
+        <p style="margin-bottom: 10px; text-align: center; font-weight: bold;">Architecture du système</p> 
+        <div class="svg-container">
+
+            <svg class="svg-content" viewBox="0 0 600 300" preserveAspectRatio="xMidYMid meet">
+                <rect x="10" y="10" width="120" height="60" rx="10" ry="10" fill="#0A21C0"/>
+                <text x="70" y="45" text-anchor="middle" fill="white">Exigences</text>
+                
+                <rect x="240" y="10" width="120" height="60" rx="10" ry="10" fill="#0A21C0"/>
+                <text x="300" y="45" text-anchor="middle" fill="white">LangChain</text>
+                
+                <rect x="470" y="10" width="120" height="60" rx="10" ry="10" fill="#0A21C0"/>
+                <text x="530" y="45" text-anchor="middle" fill="white">Analyse de l'IA</text>
+                
+                <rect x="240" y="230" width="110" height="60" rx="10" ry="10" fill="#0A21C0"/>
+                <text x="300" y="265" text-anchor="middle" fill="white">Résultats</text>
+                
+                <line x1="130" y1="40" x2="240" y2="40" stroke="black" stroke-width="2"/>
+                <line x1="360" y1="40" x2="470" y2="40" stroke="black" stroke-width="2"/>
+                <line x1="530" y1="70" x2="530" y2="150" stroke="black" stroke-width="2"/>
+                <line x1="530" y1="150" x2="300" y2="150" stroke="black" stroke-width="2"/>
+                <line x1="300" y1="150" x2="300" y2="230" stroke="black" stroke-width="2"/>
+            </svg>
+        </div>
       </div>
     </div>
 
-  <div class="row align-items-center content-fonct" id="sans-ia">
+  <div class="row align-items-center content-fonct" id="sans-ia" style="color:#141619">
       
     <div class="col-lg-6">
-        sans l'ai 
+        Notre système de recherche exacte d'ordinateur vous permet de retrouver un ordinateur portable repondant  à vos 
+        exigences de performances en utilisant des algorithmes de recherche avancés. 
+        <br>
+        Il vous suggerera des ordinateurs dotés de grandes capacités de RAM, dotés de carte graphique, d'un système de stockage et d'un processeur puissant en fonction se votre budget.
+        <br><br>
+        <ol>
+          <li>Vous fournissez vos exigences et préférences</li>
+          <li>Le système vérifie vos informations </li>
+          <li>Vous recevez une suggestion d'ordinateur personnalisée correspondant à vos exigences</li>
+        </ol>
     </div>
 
     <div class="col-lg-6">
-        <img src="https://via.placeholder.com/600x400?text=AI+Architecture" alt="AI system architecture diagram showing user input, LangChain, LLMs, and output" class="img-fluid rounded shadow" width="600" height="400">
-    </div>
+    <p style="margin-bottom: 10px; text-align: center; font-weight: bold;">Architecture du système</p> 
+      <div class="svg-container " >
+            <svg class="svg-content" viewBox="0 0 600 300" preserveAspectRatio="xMidYMid meet">
+              <rect x="10" y="10" width="120" height="60" rx="10" ry="10" fill="#0A21C0"/>
+              <text x="70" y="45" text-anchor="middle" fill="white">Exigences</text>
+              
+              <rect x="240" y="10" width="120" height="60" rx="10" ry="10" fill="#0A21C0"/>
+              <text x="300" y="45" text-anchor="middle" fill="white">Recherche BD</text>
+              
+              <rect x="240" y="230" width="110" height="60" rx="10" ry="10" fill="#0A21C0"/>
+              <text x="300" y="265" text-anchor="middle" fill="white">Résultats</text>
+              
+              <line x1="130" y1="40" x2="240" y2="40" stroke="black" stroke-width="2"/>
+              <line x1="300" y1="70" x2="300" y2="230" stroke="black" stroke-width="2"/>
+          </svg>
+          
+   
+      </div>
+  </div>
   </div>
 
   </div>
 </section>
 
-<section id="testimonials" class="py-5">
+<!-- Temoignage -->
+<!-- <section id="testimonials" class="py-5">
   <div class="container">
     <h2 class="text-center mb-5 section-title">Témoignages</h2>
     <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
           <div class="testimonial-carousel text-center">
-            <img src="https://via.placeholder.com/150" alt="Customer 1" class="rounded-circle mb-3" width="150" height="150">
-            <p class="lead">"The AI recommendation was spot-on! I love my new computer and the delivery was super fast."</p>
-            <p class="font-weight-bold">- Sarah J.</p>
+            <img src="https://lh3.googleusercontent.com/a/ACg8ocIZP__oEwttXe9x6XypFRcrNYSFUjf9o5UyBWpx2CI0KZyMf-6K=s324-c-no" alt="Customer 1" class="rounded-circle mb-3" width="150" height="150">
+            <p class="lead" >
+              "L'IA m'a vraiment bien recommandé ! Tout mes logiciels fonctionnent très bien et l'autonomie de la batérie est formidable."
+            <p class="font-weight-bold">- KALMOGO L. ,Data scientist.</p>
           </div>
         </div>
         <div class="carousel-item">
           <div class="testimonial-carousel text-center">
-            <img src="https://via.placeholder.com/150" alt="Customer 2" class="rounded-circle mb-3" width="150" height="150">
-            <p class="lead">"As a small business owner, the advice I received for our office setup was invaluable."</p>
-            <p class="font-weight-bold">- Michael R.</p>
+            <img src="https://lh3.googleusercontent.com/a-/ALV-UjXascBBrM62AsU-2VPhXkGx9w9JxNHxRtGSunNJnblio4BO20wv=s80-p-k-rw-no" alt="Customer 2" class="rounded-circle mb-3" width="150" height="150">
+            <p class="lead">"Je suis très satisfait de mon nouvel ordinateur. Il est très performant avec un bon coût. "</p>
+            <p class="font-weight-bold">- Salam Ouedraogoa. Analyste de donnée à Telecel faso</p>
           </div>
         </div>
         <div class="carousel-item">
           <div class="testimonial-carousel text-center">
-            <img src="https://via.placeholder.com/150" alt="Customer 3" class="rounded-circle mb-3" width="150" height="150">
-            <p class="lead">"I was able to cancel my order easily when my needs changed. Great customer service!"</p>
-            <p class="font-weight-bold">- Emily T.</p>
+            <img src="https://lh3.googleusercontent.com/a-/ALV-UjVGeYbA_d0Vbukl9ZJ94Sn1RItyJiqvTwpuMrCj4cve4viePeAs=s80-p-k-rw-no" alt="Customer 3" class="rounded-circle mb-3" width="150" height="150">
+            <p class="lead">"Très satisfait du service. J'ai trouvé le bon ordinateur et la livraison a été très rapide."</p>
+            <p class="font-weight-bold">- Ousmane Ouedraogo, chef de projet à Orange BF</p>
           </div>
         </div>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" style="background-color: #7b1fa2 !important; border-radius: 10px"  aria-hidden="true"></span>
+        <span class="carousel-control-prev-icon" style=" border-radius: 10px"  aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
       </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" style="background-color: #7b1fa2 !important; border-radius: 10px" aria-hidden="true"></span>
+      <button class="carousel-control-next"  type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" style=" border-radius: 10px" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
     </div>
   </div>
-</section>
+</section> -->
 
+<!-- Contact -->
 <section id="contact" class="py-5">
   <div class="container">
-    <h2 class="text-center mb-5 section-title">Contacter Nous</h2>
+    <h2 class="text-center mb-5 section-title">Contactez-Nous</h2>
+    
     <div class="row justify-content-center">
       <div class="col-md-8">
-        <form class="contact-form p-4">
+        <p class="text-center">
+          N'hésitez pas à nous écrire ! Nous avons une équipe dynamique très ouverte à vous aider.
+        </p>
+
+        <form id="contactForm" class="contact-form p-4">
+          {% csrf_token %}
           <div class="mb-3">
-            <input type="text" class="form-control" placeholder="Nom & Prenom" required>
+            <input type="text" id="name" name="name" class="form-control" placeholder="Nom & Prénom" required>
           </div>
           <div class="mb-3">
-            <input type="email" class="form-control" placeholder="Email" required>
+            <input type="email" id="email" name="email" class="form-control" placeholder="Email" required>
           </div>
           <div class="mb-3">
-            <select class="form-select">
-              <option selected>Objet</option>
-              <option value="1">Recommendation</option>
-              <option value="2">Business Solution</option>
-              <option value="3">Autre</option>
+            <select id="subject" name="subject" class="form-select" required>
+              <option value="">Objet</option>
+              <option value="recommandation">Recommandation</option>
+              <option value="formation">Formation</option>
+              <option value="maintenance">maintenance Informatique</option>
+              <option value="temoignage">Temoignage</option>
+              <option value="Autre">Autre</option>
             </select>
           </div>
           <div class="mb-3">
-            <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+            <textarea id="message" name="message" class="form-control" rows="5" placeholder="Votre Message" required></textarea>
           </div>
           <div class="text-center">
-            <button type="submit" style="background-color: #7b1fa2; color:#fff" class="btn btn-lg px-5">Envoyer</button>
+            <button type="submit" id="submitBtn" style="background-color: #0A21C0; color:#fff" class="btn " disabled>Envoyer</button>
           </div>
         </form>
+        
       </div>
     </div>
   </div>
 </section>
 
-<section id="partners" class="py-5">
-  <div class="container">
-    <h2 class="text-center mb-5 section-title">Nos Partenaires</h2>
-    <div class="row align-items-center">
-      <div class="col-6 col-md-3 mb-4">
-        <img src="https://via.placeholder.com/150?text=Partner+1" alt="Partner 1 logo" class="img-fluid partner-logo" width="150" height="150">
-      </div>
-      <div class="col-6 col-md-3 mb-4">
-        <img src="https://via.placeholder.com/150?text=Partner+2" alt="Partner 2 logo" class="img-fluid partner-logo" width="150" height="150">
-      </div>
-      <div class="col-6 col-md-3 mb-4">
-        <img src="https://via.placeholder.com/150?text=Partner+3" alt="Partner 3 logo" class="img-fluid partner-logo" width="150" height="150">
-      </div>
-      <div class="col-6 col-md-3 mb-4">
-        <img src="https://via.placeholder.com/150?text=Partner+4" alt="Partner 4 logo" class="img-fluid partner-logo" width="150" height="150">
-      </div>
+<!-- Partenaire -->
+<section class="partner-section">
+  <h2 class="text-center mb-5 section-title">Tous nos Produits</h2>
+
+  <div class="partner-scroll">
+    <div class="partner-logo">
+      <img src="https://via.placeholder.com/150?text=Partner+1" alt="Tech Innovators Inc. logo, modern minimalist design in blue" width="160" height="80">
+    </div>
+    <div class="partner-logo">
+      <img src="https://newtechburkina.com/storage/produits/October2020/1qLNA2LuHmPntNDqeQtg.jpg" alt="Green Earth Solutions logo, leaf-shaped icon in green" width="160" height="80">
+    </div>
+    <div class="partner-logo">
+      <img src="https://via.placeholder.com/150?text=Partner+2" alt="Global Connections logo, abstract globe icon in purple" width="160" height="80">
+    </div>
+    <div class="partner-logo">
+      <img src="https://via.placeholder.com/150?text=Partner+3" alt="Future Finance logo, stylized bar chart icon in gold" width="160" height="80">
+    </div>
+    <div class="partner-logo">
+      <img src="https://via.placeholder.com/150?text=Partner+4" alt="Health Horizons logo, abstract DNA helix in teal" width="160" height="80">
+    </div>
+    <div class="partner-logo">
+      <img src="https://via.placeholder.com/150?text=Partner+5" alt="Smart Systems logo, interconnected nodes icon in red" width="160" height="80">
+    </div>
+    <div class="partner-logo">
+      <img src="https://via.placeholder.com/150?text=Partner+6" alt="Creative Minds Studio logo, colorful paintbrush icon" width="160" height="80">
+    </div>
+    <div class="partner-logo">
+      <img src="https://via.placeholder.com/150?text=Partner+9" alt="Eco Builders logo, house with leaf icon in green and brown" width="160" height="80">
+    </div>
+    <!-- Duplicate logos to ensure smooth infinite scrolling -->
+    <div class="partner-logo">
+      <img src="https://via.placeholder.com/150?text=Partner+7" alt="Tech Innovators Inc. logo, modern minimalist design in blue" width="160" height="80">
+    </div>
+    <div class="partner-logo">
+      <img src="https://via.placeholder.com/150?text=Partner+8" alt="Green Earth Solutions logo, leaf-shaped icon in green" width="160" height="80">
+    </div>
+    <div class="partner-logo">
+      <img src="https://via.placeholder.com/150?text=Partner+9" alt="Global Connections logo, abstract globe icon in purple" width="160" height="80">
+    </div>
+    <div class="partner-logo">
+      <img src="https://via.placeholder.com/150?text=Partner+10" alt="Future Finance logo, stylized bar chart icon in gold" width="160" height="80">
     </div>
   </div>
 </section>
+
+
+<!-- Loading -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="custom-spinner">
+    <div class="custom-spinner-circle"></div>
+    <div class="custom-spinner-square"></div>
+  </div>
+</div>
 {% endblock bodyContent %}
 
 {% block JsContent %}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'js/promotion-bar.js' %}"> </script> 
+
+<!-- Patner -->
 <script>
-$(document).ready(function() {
-  // Smooth scrolling for anchor links
-  $('a[href^="#"]').on('click', function(event) {
-    var target = $(this.getAttribute('href'));
-    if( target.length ) {
-      event.preventDefault();
-      $('html, body').stop().animate({
-        scrollTop: target.offset().top - 70
-      }, 1000);
-    }
+
+  // Add hover pause functionality
+  document.querySelector('.partner-scroll').addEventListener('mouseover', function() {
+    this.style.animationPlayState = 'paused';
   });
 
-  // Navbar color change on scroll
-  $(window).scroll(function() {
-    if($(this).scrollTop() > 50) {
-      $('.navbar').addClass('bg-dark').removeClass('bg-transparent');
-    } else {
-      $('.navbar').removeClass('bg-dark').addClass('bg-transparent');
-    }
+  document.querySelector('.partner-scroll').addEventListener('mouseout', function() {
+    this.style.animationPlayState = 'running';
   });
 
-  // Initialize tooltips
-  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl)
+  // Add slight parallax effect on mouse move
+  document.addEventListener('mousemove', function(e) {
+    const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+    const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+    document.querySelector('.partner-section').style.transform = `translate(${moveX}px, ${moveY}px)`;
   });
+</script>
 
-  // Form submission (you would replace this with your actual form submission logic)
-  $('.contact-form').on('submit', function(e) {
-    e.preventDefault();
-    alert('Thank you for your message. We will get back to you soon!');
-    this.reset();
-  });
-
-  // 
-  const navLinks = document.querySelectorAll('.fonct-menu a');
-            const contentSections = document.querySelectorAll('.content-fonct');
-
-            function setActiveContent(targetId) {
-                contentSections.forEach(section => {
-                    section.classList.remove('active');
-                });
-                document.getElementById(targetId).classList.add('active');
+<!-- Contact -->
+<script>
+// script.js
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const formInputs = form.querySelectorAll('input, select, textarea');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    
+    // Function to check form validity
+    function checkFormValidity() {
+        let isValid = true;
+        formInputs.forEach(input => {
+            if (!input.checkValidity()) {
+                isValid = false;
             }
+        });
+        submitBtn.disabled = !isValid;
+    }
 
-            function setActiveNavLink(clickedLink) {
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                });
-                clickedLink.classList.add('active');
-            }
+    // Add event listeners to all form inputs
+    formInputs.forEach(input => {
+        input.addEventListener('input', checkFormValidity);
+    });
 
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('data-target');
-                    setActiveContent(targetId);
-                    setActiveNavLink(this);
-                });
-            });
+    // Form submission
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Collect form data
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        // display loading
+        loadingOverlay.style.display = 'flex';
 
-            // Set initial active content and nav link
-            setActiveContent('avec-ia');
-            setActiveNavLink(navLinks[0]);
+        // Send data using fetch
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        fetch("{% url 'main:contact' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(data => {
+            form.reset();
+            setTimeout(function() {
+                loadingOverlay.style.display = 'none';
+                alert(data.message);
+                submitBtn.disabled = true;
+            }, 3000);
+        })
+        .catch((error) => {
+            setTimeout(function() {
+                loadingOverlay.style.display = 'none';
+                alert('Une erreur s\'est produite. Veuillez réessayer plus tard.');
+                submitBtn.disabled = true;
+            }, 3000);
+        });
+    });
+
+
+    // Navbar color change on scroll
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+            document.querySelector('.navbar').classList.add('bg-dark');
+            document.querySelector('.navbar').classList.remove('bg-transparent');
+        } else {
+            document.querySelector('.navbar').classList.remove('bg-dark');
+            document.querySelector('.navbar').classList.add('bg-transparent');
+        }
+    });
+
+    // Initialize tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    });
+
+    // Functionality menu
+    const navLinks = document.querySelectorAll('.fonct-menu a');
+    const contentSections = document.querySelectorAll('.content-fonct');
+
+    function setActiveContent(targetId) {
+        contentSections.forEach(section => {
+            section.classList.remove('active');
+        });
+        document.getElementById(targetId).classList.add('active');
+    }
+
+    function setActiveNavLink(clickedLink) {
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+        });
+        clickedLink.classList.add('active');
+    }
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('data-target');
+            setActiveContent(targetId);
+            setActiveNavLink(this);
+        });
+    });
+
+    // Set initial active content and nav link
+    setActiveContent('avec-ia');
+    setActiveNavLink(navLinks[0]);
 });
 </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      // Particle effect
+      const hero = document.querySelector('.hero');
+      for(let i = 0; i < 50; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+          particle.style.cssText = `
+              position: absolute;
+              width: ${Math.random() * 5 + 2}px;
+              height: ${Math.random() * 5 + 2}px;
+              background: rgba(255,255,255,${Math.random() * 0.5 + 0.2});
+              left: ${Math.random() * 100}%;
+              top: ${Math.random() * 100}%;
+              border-radius: 50%;
+              animation: float ${Math.random() * 10 + 5}s linear infinite;
+          `;
+          hero.appendChild(particle);
+      }
+  
+      // Enhanced carousel functionality
+      let currentSlide = 0;
+      const slides = document.querySelectorAll('.carousel-item');
+      
+      function nextSlide() {
+          slides[currentSlide].classList.remove('active');
+          currentSlide = (currentSlide + 1) % slides.length;
+          slides[currentSlide].classList.add('active');
+      }
+  
+      setInterval(nextSlide, 5000);
+  
+      // Parallax effect on scroll
+      window.addEventListener('scroll', function() {
+          const scroll = window.pageYOffset;
+          hero.style.backgroundPositionY = `${scroll * 0.5}px`;
+      });
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      // Intersection Observer for fade-in effects
+      const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  entry.target.classList.add('visible');
+              }
+          });
+      }, { threshold: 0.1 });
+  
+      // Observe elements
+      document.querySelectorAll('#about p, #about .section-title').forEach(el => {
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(20px)';
+          el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+          observer.observe(el);
+      });
+  
+      // Add visible class styles
+      const style = document.createElement('style');
+      style.textContent = `
+          #about p.visible, #about .section-title.visible {
+              opacity: 1 !important;
+              transform: translateY(0) !important;
+          }
+      `;
+      document.head.appendChild(style);
+  
+      // Particle effect for background
+      const about = document.querySelector('#about');
+      for(let i = 0; i < 30; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'about-particle';
+          particle.style.cssText = `
+              position: absolute;
+              width: ${Math.random() * 4 + 2}px;
+              height: ${Math.random() * 4 + 2}px;
+              background: ${Math.random() > 0.5 ? '#7b1fa2' : '#1976d2'};
+              opacity: ${Math.random() * 0.3};
+              left: ${Math.random() * 100}%;
+              top: ${Math.random() * 100}%;
+              border-radius: 50%;
+              animation: float ${Math.random() * 10 + 5}s linear infinite;
+          `;
+          about.appendChild(particle);
+      }
+  });
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Tab functionality for How it Works section
+    const tabLinks = document.querySelectorAll('.fonct-menu a');
+    const contentSections = document.querySelectorAll('.content-fonct');
+    
+    tabLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Remove active class from all links and contents
+            tabLinks.forEach(l => l.classList.remove('active'));
+            contentSections.forEach(c => c.classList.remove('active'));
+            
+            // Add active class to clicked link and corresponding content
+            link.classList.add('active');
+            document.getElementById(link.dataset.target).classList.add('active');
+        });
+    });
+
+    // Activate first tab by default
+    tabLinks[0].click();
+
+    // Form validation
+    const form = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const requiredInputs = form.querySelectorAll('[required]');
+
+    function checkFormValidity() {
+        let isValid = true;
+        requiredInputs.forEach(input => {
+            if (!input.value.trim()) {
+                isValid = false;
+            }
+        });
+        submitBtn.disabled = !isValid;
+    }
+
+    requiredInputs.forEach(input => {
+        input.addEventListener('input', checkFormValidity);
+    });
+
+    // Intersection Observer for animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    // Observe elements
+    document.querySelectorAll('.service-card, .testimonial-carousel, .contact-form').forEach(el => {
+        observer.observe(el);
+    });
+});
+</script>
+
+
 {% endblock JsContent %}

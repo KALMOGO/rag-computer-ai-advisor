@@ -1,0 +1,116 @@
+{% extends '__frames/dashbord-main.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block headLinks %}
+<link rel="stylesheet" type="text/css"  href="{% static 'style/dashbord/dashbord-addcomputerphoto.css' %}">
+<link rel="stylesheet" type="text/css"  href="{% static 'style/dashbord/dashbord-footer.css' %}">
+<link rel="stylesheet" type="text/css"  href="{% static 'style/dashbord/dashbord-main.css' %}">
+
+<style>
+    footer{
+        position: fixed !important;
+    }
+</style>
+
+{% endblock headLinks %}
+
+{% block bodyContent %}
+<!-- Navbar -->
+{% include 'dashbord-templates/dashbord-navbar.html' %}
+
+<!-- Content -->
+    <div class="container-fluid">
+        <div class="row">
+        
+
+            <!-- Main content -->
+            <main class="col-md-12 ms-sm-auto col-lg-12 px-md-4 main-content">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Ajouter photo ordinateur</h1>
+                </div>
+
+                <div class="row fade-in">
+                    <div class="col-md-8 mx-auto">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">Selectionner une image</h5>
+                                <form id="photoUploadForm">
+                                    <div class="mb-3">
+                                        <label for="computerSelect" class="form-label">Ordinateur concerné</label>
+                                        <select class="form-select" id="computerSelect" required>
+                                            <option>Choisir un ordinateur...</option>
+                                            <option value="1">Computer Model A</option>
+                                            <option value="2">Computer Model B</option>
+                                            <option value="3">Computer Model C</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="photoUpload" class="form-label">Choisir la photo</label>
+                                        <input class="form-control" type="file" id="photoUpload" accept="image/*" required>
+                                    </div>
+                                    <div class="preview-container" id="previewContainer">
+                                        <p class="text-muted">Vue de la photo</p>
+                                    </div>
+                               
+                                    <button type="button" class="btn text-white" id="btnRafraichir" style="background-color: #050A44;">
+                                        <i class="bi bi-cloud-upload"></i> Rafrachir 
+                                    </button>
+
+                                    <button type="submit" class="btn text-white" id="btnEnregisterPhoto" style="background-color: #0A21C0;">
+                                        <i class="bi bi-cloud-upload"></i> Enregister
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+<!-- Footer -->
+ {% include 'dashbord-templates/dashbord-footer.html' %}
+
+ <!-- JsContent -->
+ {% block JsContent %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const photoUpload = document.getElementById('photoUpload');
+        const previewContainer = document.getElementById('previewContainer');
+        const photoUploadForm = document.getElementById('photoUploadForm');
+
+        photoUpload.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewContainer.innerHTML = `<img src="${e.target.result}" alt="Preview" class="img-fluid">`;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        photoUploadForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Simulating photo upload
+            const uploadButton = this.querySelector('button[type="submit"]');
+            uploadButton.innerHTML = '<i class="bi bi-hourglass-split"></i> Uploading...';
+            uploadButton.disabled = true;
+
+            setTimeout(() => {
+                alert('Photo uploaded successfully!');
+                uploadButton.innerHTML = '<i class="bi bi-cloud-upload"></i> Upload Photo';
+                uploadButton.disabled = false;
+                photoUploadForm.reset();
+                previewContainer.innerHTML = '<p class="text-muted">Vue de la photo</p>';
+            }, 2000);
+        });
+
+        document.getElementById('btnRafraichir').addEventListener('click', function() {
+            photoUploadForm.reset();
+            previewContainer.innerHTML = '<p class="text-muted">Vue de la photo</p>';
+
+        });
+    </script>
+{% endblock JsContent %}
+{% endblock bodyContent %}

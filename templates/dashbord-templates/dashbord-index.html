@@ -1,0 +1,161 @@
+{% extends '__frames/dashbord-main.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block headLinks %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" type="text/css"  href="{% static 'style/dashbord/dashbord-index.css' %}">
+<link rel="stylesheet" type="text/css"  href="{% static 'style/dashbord/dashbord-footer.css' %}">
+<link rel="stylesheet" type="text/css"  href="{% static 'style/dashbord/dashbord-main.css' %}">
+
+{% endblock headLinks %}
+
+{% block bodyContent %}
+<!-- Navbar -->
+{% include 'dashbord-templates/dashbord-navbar.html' %}
+
+<!-- Content -->
+<div class="content">
+  <div class="dashboard">
+    <!-- Date de filtrage des données -->
+    <div class="kpi-container border-bottom pb-2">
+      <button class="btn " style="background-color: #0A21C0; color:#fff" id="datePickerBtn">Filter par date (clic)</button>
+      <input type="text" class="form-control" id="selectedDateDisplay" readonly placeholder="Select date(s)" style="width: 250px; margin-top: 10px;">
+      
+      <div class="calendar" id="calendar">
+        <div class="mode-toggle">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="dateMode" id="singleMode" value="single" checked>
+            <label class="form-check-label" for="singleMode">Une date</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="dateMode" id="rangeMode" value="range">
+            <label class="form-check-label" for="rangeMode">Un interval</label>
+          </div>
+        </div>
+        
+        <div class="calendar-header d-flex justify-content-between align-items-center">
+          <button class="btn-nav" id="prevMonth">&lt;</button>
+          <h5 class="mb-0" id="monthYear"></h5>
+          <button class="btn-nav" id="nextMonth">&gt;</button>
+        </div>
+        
+        <div class="calendar-body">
+          <div class="calendar-grid" id="daysHeader">
+            <div class="day-header">Dim</div>
+            <div class="day-header">Lu</div>
+            <div class="day-header">Mar</div>
+            <div class="day-header">Mer</div>
+            <div class="day-header">Jeu</div>
+            <div class="day-header">Ven</div>
+            <div class="day-header">Sa</div>
+          </div>
+          <div class="calendar-grid" id="daysGrid"></div>
+        </div>
+        
+        <div class="calendar-footer">
+          <button class="btn btn-sm text-white" style="background-color: #141619; " id="cancelBtn">Annuler</button>
+          <button class="btn btn-sm btn-primary" id="applyBtn" style="background-color: #0A21C0;">Valider</button>
+        </div>
+      </div>
+    
+    </div>
+
+    <!-- statistics -->
+     <!-- total commandes -->
+    <div class="kpi-container">
+      <div class="kpi-card">
+        <div class="kpi-value">42</div>
+        <div class="kpi-label">Total Cmmandes</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-value">87</div>
+        <div class="kpi-label">Nbre commandes à traiter</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-value">42</div>
+        <div class="kpi-label">Nbre visiteurs</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-value">150,000</div>
+        <div class="kpi-label">Revenue Generé</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-value">3000 </div>
+        <div class="kpi-label">Montant tokens consommés</div>
+      </div>
+    </div>
+
+    <!-- Commande marquet place -->
+    <div class="kpi-container">
+      
+      <div class="kpi-card">
+        <div class="kpi-value">1003</div>
+        <div class="kpi-label">Total Ordinateur</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-value">34 / 20000</div>
+        <div class="kpi-label">Total tokens</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-value">18</div>
+        <div class="kpi-label">Commandes marquet place</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-value">30</div>
+        <div class="kpi-label">Commandes par IA</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-value">10</div>
+        <div class="kpi-label">Commande sans IA</div>
+      </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="chart-container">
+      <canvas id="revenueChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+      <canvas id="PredictionVentesChart"></canvas>
+    </div>
+
+    <!-- <div class="chart-container">
+       <canvas id="genrePopularityChart"></canvas>
+    </div> -->
+
+    <div class="chart-container">
+      <canvas id="InfosCommandesPieChart"></canvas>
+    </div>
+
+  
+    <!-- <div class="chart-container">
+      <canvas id="aiUsageChart"></canvas>
+    </div> -->
+   
+    <!-- <div class="chart-container">
+      <canvas id="teamPerformanceChart"></canvas>
+    </div> -->
+  </div>
+</div>
+
+ <!-- Footer -->
+ {% include 'dashbord-templates/dashbord-footer.html' %}
+
+{% endblock bodyContent %}
+
+
+  {% block JsContent %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+  <script src="{% static 'js/dashbord-index.js' %}"> </script>
+  {% endblock JsContent %}
+

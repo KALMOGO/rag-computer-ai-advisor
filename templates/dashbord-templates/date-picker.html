@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .calendar {
+      max-width: 300px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      position: absolute;
+      display: none;
+      z-index: 1000;
+    }
+    
+    .calendar-header {
+      background: #4A90E2;
+      color: white;
+      padding: 15px;
+      border-radius: 10px 10px 0 0;
+    }
+    
+    .calendar-body {
+      padding: 15px;
+    }
+    
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      text-align: center;
+    }
+    
+    .day-header {
+      font-weight: bold;
+      color: #666;
+      padding: 5px;
+    }
+    
+    .day {
+      padding: 8px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: all 0.2s;
+    }
+    
+    .day:hover {
+      background: #f0f0f0;
+    }
+    
+    .day.selected {
+      background: #4A90E2;
+      color: white;
+    }
+    
+    .day.in-range {
+      background: #E3F2FD;
+    }
+    
+    .day.range-start {
+      background: #4A90E2;
+      color: white;
+      border-radius: 5px 0 0 5px;
+    }
+    
+    .day.range-end {
+      background: #4A90E2;
+      color: white;
+      border-radius: 0 5px 5px 0;
+    }
+    
+    .day.today {
+      border: 2px solid #4A90E2;
+    }
+    
+    .day.disabled {
+      color: #ccc;
+      cursor: not-allowed;
+    }
+    
+    .btn-nav {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.2em;
+      cursor: pointer;
+      padding: 0 10px;
+    }
+    
+    .calendar-footer {
+      padding: 10px;
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .mode-toggle {
+      margin-bottom: 10px;
+      padding: 0 15px;
+    }
+  </style>
+</head>
+<body class="bg-light p-4">
+    
+  <button class="btn btn-primary" id="datePickerBtn">Date</button>
+  <input type="text" class="form-control" id="selectedDateDisplay" readonly placeholder="Select date(s)" style="width: 250px; margin-top: 10px;">
+  
+  <div class="calendar" id="calendar">
+    <div class="mode-toggle">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="dateMode" id="singleMode" value="single" checked>
+        <label class="form-check-label" for="singleMode">Single Date</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="dateMode" id="rangeMode" value="range">
+        <label class="form-check-label" for="rangeMode">Date Range</label>
+      </div>
+    </div>
+    
+    <div class="calendar-header d-flex justify-content-between align-items-center">
+      <button class="btn-nav" id="prevMonth">&lt;</button>
+      <h5 class="mb-0" id="monthYear"></h5>
+      <button class="btn-nav" id="nextMonth">&gt;</button>
+    </div>
+    
+    <div class="calendar-body">
+      <div class="calendar-grid" id="daysHeader">
+        <div class="day-header">Su</div>
+        <div class="day-header">Mo</div>
+        <div class="day-header">Tu</div>
+        <div class="day-header">We</div>
+        <div class="day-header">Th</div>
+        <div class="day-header">Fr</div>
+        <div class="day-header">Sa</div>
+      </div>
+      <div class="calendar-grid" id="daysGrid"></div>
+    </div>
+    
+    <div class="calendar-footer">
+      <button class="btn btn-sm btn-secondary" id="cancelBtn">Cancel</button>
+      <button class="btn btn-sm btn-primary" id="applyBtn">Apply</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+  <script>
+    class DatePicker {
+      constructor() {
+        this.currentDate = new Date();
+        this.selectedDate = null;
+        this.rangeStart = null;
+        this.rangeEnd = null;
+        this.isRange = false;
+        this.isOpen = false;
+        
+        // DOM elements
+        this.calendar = document.getElementById('calendar');
+        this.monthYear = document.getElementById('monthYear');
+        this.daysGrid = document.getElementById('daysGrid');
+        this.selectedDateDisplay = document.getElementById('selectedDateDisplay');
+        this.datePickerBtn = document.getElementById('datePickerBtn');
+        
+        // Event listeners
+        document.getElementById('prevMonth').addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.navigateMonth(-1);
+        });
+        document.getElementById('nextMonth').addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.navigateMonth(1);
+        });
+        document.getElementById('singleMode').addEventListener('change', () => this.setMode(false));
+        document.getElementById('rangeMode').addEventListener('change', () => this.setMode(true));
+        document.getElementById('cancelBtn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.hideCalendar();
+        });
+        document.getElementById('applyBtn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.applySelection();
+        });
+        this.datePickerBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.toggleCalendar();
+        });
+        
+        // Close calendar when clicking outside
+        document.addEventListener('click', (e) => {
+          if (this.isOpen && !this.calendar.contains(e.target) && e.target !== this.datePickerBtn) {
+            this.hideCalendar();
+          }
+        });
+        
+        // Prevent calendar from closing when clicking inside
+        this.calendar.addEventListener('click', (e) => {
+          e.stopPropagation();
+        });
+        
+        this.render();
+      }
+      
+      setMode(isRange) {
+        this.isRange = isRange;
+        this.selectedDate = null;
+        this.rangeStart = null;
+        this.rangeEnd = null;
+        this.render();
+      }
+      
+      toggleCalendar() {
+        if (!this.isOpen) {
+          const rect = this.datePickerBtn.getBoundingClientRect();
+          this.calendar.style.top = `${rect.bottom + window.scrollY + 5}px`;
+          this.calendar.style.left = `${rect.left + window.scrollX}px`;
+          this.calendar.style.display = 'block';
+          this.isOpen = true;
+        } else {
+          this.hideCalendar();
+        }
+      }
+      
+      hideCalendar() {
+        this.calendar.style.display = 'none';
+        this.isOpen = false;
+      }
+      
+      applySelection() {
+        if (this.isRange) {
+          if (this.rangeStart && this.rangeEnd) {
+            this.selectedDateDisplay.value = `${this.formatDate(this.rangeStart)} - ${this.formatDate(this.rangeEnd)}`;
+            this.hideCalendar();
+          }
+        } else if (this.selectedDate) {
+          this.selectedDateDisplay.value = this.formatDate(this.selectedDate);
+          this.hideCalendar();
+        }
+      }
+      
+      formatDate(date) {
+        return date.toLocaleDateString();
+      }
+      
+      navigateMonth(delta) {
+        this.currentDate.setMonth(this.currentDate.getMonth() + delta);
+        this.render();
+      }
+      
+      handleDateClick(date) {
+        if (this.isRange) {
+          if (!this.rangeStart || (this.rangeStart && this.rangeEnd)) {
+            this.rangeStart = date;
+            this.rangeEnd = null;
+          } else {
+            if (date < this.rangeStart) {
+              this.rangeEnd = this.rangeStart;
+              this.rangeStart = date;
+            } else {
+              this.rangeEnd = date;
+            }
+          }
+        } else {
+          this.selectedDate = date;
+        }
+        this.render();
+      }
+      
+      isInRange(date) {
+        if (!this.isRange || !this.rangeStart || !this.rangeEnd) return false;
+        return date >= this.rangeStart && date <= this.rangeEnd;
+      }
+      
+      render() {
+        const year = this.currentDate.getFullYear();
+        const month = this.currentDate.getMonth();
+        
+        // Update header
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                          'July', 'August', 'September', 'October', 'November', 'December'];
+        this.monthYear.textContent = `${monthNames[month]} ${year}`;
+        
+        // Clear grid
+        this.daysGrid.innerHTML = '';
+        
+        // Get first day of month and total days
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        
+        // Add empty cells for days before first of month
+        for (let i = 0; i < firstDay; i++) {
+          const emptyDay = document.createElement('div');
+          emptyDay.className = 'day disabled';
+          this.daysGrid.appendChild(emptyDay);
+        }
+        
+        // Add days of month
+        const today = new Date();
+        for (let day = 1; day <= daysInMonth; day++) {
+          const currentDate = new Date(year, month, day);
+          const dayEl = document.createElement('div');
+          dayEl.className = 'day';
+          dayEl.textContent = day;
+          
+          if (this.isRange) {
+            if (this.isInRange(currentDate)) {
+              dayEl.classList.add('in-range');
+            }
+            if (this.rangeStart && currentDate.getTime() === this.rangeStart.getTime()) {
+              dayEl.classList.add('range-start');
+            }
+            if (this.rangeEnd && currentDate.getTime() === this.rangeEnd.getTime()) {
+              dayEl.classList.add('range-end');
+            }
+          } else if (this.selectedDate && 
+                    currentDate.getTime() === this.selectedDate.getTime()) {
+            dayEl.classList.add('selected');
+          }
+          
+          if (year === today.getFullYear() && 
+              month === today.getMonth() && 
+              day === today.getDate()) {
+            dayEl.classList.add('today');
+          }
+          
+          dayEl.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.handleDateClick(currentDate);
+          });
+          this.daysGrid.appendChild(dayEl);
+        }
+      }
+    }
+    
+    // Initialize date picker
+    const datePicker = new DatePicker();
+  </script>
+</body>
+</html>

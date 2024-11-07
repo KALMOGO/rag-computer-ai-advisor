@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoodo AI</title>
+    <style>
+        /* CSS Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        header {
+            color: white;
+            padding: 10px 20px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            width: 100px; /* Adjust as needed */
+        }
+        
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+        
+        .computer-details {
+            margin-bottom: 40px; /* Space for QR code */
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        .qrcode-container {
+            position: relative;
+        }
+        
+        .qrcode {
+            position: absolute;
+            bottom: 20px; /* Distance from bottom */
+            right: 20px; /* Distance from right */
+            width: 100px; /* Adjust size as needed */
+        }
+        
+        footer {
+            text-align: center;
+            padding: 10px 0;
+        }
+        .footer {
+            position: fixed;
+            bottom: 20px;
+            right: 40px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        /* Remove border from the entire table */
+.table-header-footer {
+    border-collapse: collapse;
+    border: none;
+}
+
+/* Remove borders from table cells */
+.table-header-footer th,
+.table-header-footer td {
+    border: none;
+}
+
+/* Additional reset for any internal table styling */
+.table-header-footer {
+    border: none;
+}
+
+.page-number {
+    text-align: center; /* Align page number to the right */
+    margin-top: 20px; /* Space above the page number */
+}
+    </style> 
+</head>
+<body>
+    <header>
+        <table style="width: 100%;" class="table-header-footer">
+            <tr>
+                <td style="width: 25%; color:#050A44; font-size: 14px; text-transform: capitalize;">
+                     {{user_name}} <br>
+                     Tel: {{user_phone}}
+                </td>
+
+                <td style="text-align: center; width: 50%;" >
+                    <h1 style="color:#050A44; font-weight: bolder; font-size: 18px; border-bottom: 2px solid #050A44;">
+                        DETAILS COMMANDE                     
+                    </h1>
+                </td>
+                <td style="text-align: right; width: 25%;">
+                    <img src="/media/logo1.webp" alt="Zoodo AI Logo" class="logo" style="max-width: 100px;">
+                </td>
+            </tr>
+        </table>
+    </header>
+
+    <main>
+        <section class="computer-details">
+
+            <h2 style="text-transform:capitalize;">
+                CARACTERISTIQUE DE SUR L'ORDINATEUR 
+            </h2>
+            <div style="font-size: 11px; text-align: center;">(Ce fichier est utile pour la recupération de votre commande. Il vous permettra de vérifier les references de votre appareil)</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Composants</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Identifiant</td>
+                        <td>{{computer_id}}</td>
+                    </tr>
+                    <tr>
+                        <td>Marque</td>
+                        <td>{{computer_brand}}</td>
+                    </tr>
+                    <tr>
+                        <td>Processeur</td>
+                        <td>{{computer_processeur}} / </td>
+                    </tr>
+                    <tr>
+                        <td>RAM</td>
+                        <td>{{computer_ram}} GB</td>
+                    </tr>
+                    <tr>
+                        <td>Stockage</td>
+                        <td>{{computer_storage}}</td>
+                    </tr>
+                    <tr>
+                        <td>Couleur</td>
+                        <td>{{computer_color}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- QR Code Section -->
+        <div class="qrcode-container">
+            <table style="width: 100%;" class="table-header-footer">
+                <tr>
+                    <td style="text-align: left; width: 25%;">
+                        <h3 style="border: 1px solid #050A44; text-align: center;">
+                             Quantité: {{computer_quantite}}
+                        </h3>
+                        
+                    </td>
+                    <td style="text-align: center; width: 50%;" >
+                    </td>
+                    <td style="text-align: right; width: 25%; ">
+                        <img src="/media/{{qr_code_path}}" alt="QR Code" class="qrcode">
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="footer">
+            Date de  géneration: <span id="currentDate"> {{ currentDate|date:"F j, Y" }} </span>
+            <br>
+            Power by Zoodo AI - Quality Assured <br> <br>
+            Contact: 
+                     (+226) 66 08 60 55
+        </div>
+
+        <hr>
+        <div class="page-number" style="font-weight: bold;">
+            -*-{{ page_number }}-*-
+        </div>
+    </main>
+
+
+    <footer>
+        &copy; 2024 Zoodo AI. All rights reserved.
+    </footer>
+
+</body>
+
+
+</html>

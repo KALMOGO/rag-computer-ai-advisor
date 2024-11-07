@@ -1,33 +1,54 @@
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Oops! An Error Occurred</title><style>
-body, html {
-    height: 100%;
+<html><head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Error-Page</title><style>
+
+* {
     margin: 0;
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #333;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    min-height: 90vh;
+    margin: 0;
+    display: grid;
+    place-items: center;
+    background-color: var(--primary-color-light);
+    padding: 1rem;
+    background-color: #050A44;
 }
 .container {
-    background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 80%;
-    position: relative;
-    overflow: hidden;
+  background: #fff;
+  backdrop-filter: blur(10px);
+  padding: clamp(1rem, 5vw, 2rem);
+  width: min(90%, 500px);
+  height: min(90%, 500px);
+  box-shadow: 
+      inset 0 0 32px rgba(0, 0, 0, 0.05),
+      0 0 2px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  transition: all 0.3s ease;
+  text-align: center;
+  }
+
+.container:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        inset 0 0 32px rgba(0, 0, 0, 0.05),
+        0 4px 8px rgba(0, 0, 0, 0.1);
 }
 h1 {
     color: #e74c3c;
     margin-bottom: 1rem;
+   
 }
 p {
     font-size: 1.1rem;
     line-height: 1.6;
     margin-bottom: 1rem;
 }
+
 .btn {
     display: inline-block;
     padding: 10px 20px;
@@ -43,7 +64,7 @@ p {
 }
 .error-icon {
     font-size: 5rem;
-    color: #e74c3c;
+    color: red;
     margin-bottom: 1rem;
 }
 .glitch {
@@ -236,14 +257,70 @@ p {
     clip: rect(110px, 9999px, 51px, 0);
   }
 }
+.nav-links {
+      list-style-type: none;
+      margin-bottom: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-weight: bold;
+  }
+
+.nav-links a {
+    color:   red;
+    text-decoration: none;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color:  red;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    transform: scaleX(1);
+}
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem;
+        text-align: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
+
 </style></head><body>
 <div class="container">
+    <ul class="nav-links">
+      <li><a href="{% url 'main:index' %}">Aller à l'accueil</a></li>
+      <li><a href="javascript:history.back()">Précédent</a></li>
+  </ul>
+
     <div class="error-icon">&#9888;</div>
-    <h1 class="glitch" data-text="Oops! An Error Occurred">Oops! An Error Occurred</h1>
-    <p>We're sorry, but it seems an error has occurred while processing your request.</p>
-    <p>Please check your internet connection and try again.</p>
-    <p>If the problem persists, don't hesitate to contact our support team.</p>
-    <a href="https://websim.ai/restart" class="btn">Restart Process</a>
+    <h1 class="glitch" data-text="Erreur!">Erreur!</h1>
+
+    <p>Désolé une erreur c'est produite!</p>
+    <p>Veuillez reessayer ou Contactez-nous</p>
+    <p></p>
+
+    <div class="recommendation">
+      <strong></strong>
+      <a href="{% url 'main:index' %}#contact" class="btn" style="background-color:#0A21C0 ;">
+          Contactez-nous
+      </a>
+  </div>
+    
 </div>
 
 <script>
@@ -268,7 +345,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const glitchElement = document.querySelector('.glitch');
         glitchElement.style.textShadow = `
             ${x / 100}px ${y / 100}px 0 rgba(255,0,0,.7),
-            ${-x / 100}px ${-y / 100}px 0 rgba(0,255,0,.7),
             ${y / 100}px ${-x / 100}px 0 rgba(0,0,255,.7)
         `;
     });
@@ -287,8 +363,8 @@ function checkConnection() {
 
 setInterval(() => {
     if (checkConnection()) {
-        document.querySelector('.btn').style.backgroundColor = '#3498db';
-        document.querySelector('.btn').textContent = 'Restart Process';
+        document.querySelector('.btn').style.backgroundColor = '#0A21C0 ';
+        document.querySelector('.btn').textContent = 'Contactez-nous';
     } else {
         document.querySelector('.btn').style.backgroundColor = '#e74c3c';
         document.querySelector('.btn').textContent = 'No Connection';

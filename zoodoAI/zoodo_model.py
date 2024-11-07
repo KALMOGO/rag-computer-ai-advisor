@@ -25,7 +25,8 @@ system_message = (
 "7. Alternative Suggestions: If none of the computers from the list match the requirements of the profession, suggest the most suitable computers for general use tasks such as word processing, reading PDFs, and web browsing. Even in this case, do not suggest computers that are not on the provided list."
 "8. Response Format: Respond without using code blocks or adding extra text before or after the list. Do not use symbols like backticks, and avoid returning a Python code block."
 "9. Strict Adherence to List: Do not add or recommend computers that are not on the provided list. If a suitable computer from the list cannot be found, suggest general-purpose computers from the list only."
-"10. The descritpion sholud be done in frensh"
+"10. The descritpion sholud be done in frensh. Easy frensh"
+"11. Only provide recommendations if the job is related to human activities or professions. If no job is specified, or if the input is not a human activity/profession, return an empty list []"
 )
 
 
@@ -40,31 +41,70 @@ model = ChatOpenAI(model="gpt-4o-mini")
 
 # Branch function
 def branch(system_message, human_messages, provided_list, max_num, activity_description):
+    """
+    Run the branch function
+    Parameters:
+    system_message: The system message
+    human_messages: The human message
+    provided_list: The provided list
+    max_num: The maximum number of recommendations
+    activity_description: The description of the activity
+    Returns: The formatted prompt
+    """
     template = ChatPromptTemplate.from_messages([("system", system_message), ("human", human_messages)])
     return template.format_prompt(max_num=max_num, provided_list=provided_list, activity_description=activity_description)
 
 # Combine results from the branches
 def combine_result(results):
+    """
+    Combine the results from the branches into a single list of dictionaries
+    Parameters:
+    results: The results from the branches
+    Returns: A list of dictionaries containing the id and reason for each computer
+    """
+    # print(results)
     import json 
+    import ast
     final_result = []
     global_total_tokens = 0
 
     try:
-     
+        # results come as json data
         result_list = [json.loads(result.content) for result in results.values()]
         total_tokens_of_query = [r.response_metadata for r in results.values()]
         global_total_tokens = sum(item['token_usage']['total_tokens'] for item in total_tokens_of_query)
         final_result = []
         for r in result_list :
             final_result += r
+            
     except Exception :
-        print(results["branch_1"].content)
+        # Result come as string data
+        if isinstance(results, dict):
+            for _,v in results.items():
+                if hasattr(v, 'content') and "total_tokens" in v.usage_metadata:
+                    content =  ast.literal_eval(v.content)
+                    for value in content:
+                        final_result.append(value)
+                    global_total_tokens +=  v.usage_metadata["total_tokens"]
+        else:
+            # Another type: not meet yet
+            print(results)
+            print(type(results))
 
     return  final_result,global_total_tokens
 
 
 # Run the chain
 def zoodoAI(data_file_name,activity_description, max_num=15):
+    """
+    Run the zoodoAI model on the provided list of computers 
+
+    Parameters:
+    data_file_name: The name of the file containing the list of computers
+    activity_description: The description of the activity or profession
+    max_num: The maximum number of computers to return
+    Returns: A list of dictionaries containing the id and reason for each computer
+    """
     current_dir = os.path.dirname(os.path.realpath(__file__))
     file_path   = os.path.join(current_dir, data_file_name)
 
@@ -79,6 +119,7 @@ def zoodoAI(data_file_name,activity_description, max_num=15):
     # Split documents into chunks
     custom_splitter = CustomTextSplitter(chunk_size=1, chunk_overlap=0)
     custom_docs     = custom_splitter.split_documents(documents)
+    # print(custom_docs)
 
     # Create RunnableParallel for parallel processing
     branches = {}
@@ -92,5 +133,5 @@ def zoodoAI(data_file_name,activity_description, max_num=15):
     # Invocation du model 
     dynamic_input = {f'provided_list_{i+1}': doc.page_content for i, doc in enumerate(custom_docs)}
     final_result, global_total_tokens = final_chain.invoke(dynamic_input)
-    print(final_result)
+    # print(final_result)
     return final_result, global_total_tokens , file_path

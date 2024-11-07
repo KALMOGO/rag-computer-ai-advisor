@@ -8,6 +8,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+<link rel="stylesheet"  type="text/css" href="{% static 'style/promotion-bar.css' %}">
+
 <style>
       *{
     margin: 0;
@@ -18,21 +20,26 @@
   body {
     background-color: #f8f9fa !important;
     color: #333 !important;
+    font-family: Helvetica, sans-serif;
+
   }
   .navbar-brand {
-    background-color:  linear-gradient(90deg, #4a148c, #7b1fa2) !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-  .navbar {
-    background: linear-gradient(90deg, #4a148c, #7b1fa2) !important;
+    box-shadow: 0 2px 4px #0A21C0;
+    
+}
+.navbar {
+    background: #050A44 !important;
     padding: 1rem 0;
     position: sticky;
     top: 0;
-    z-index: 1000;
-  }
+     z-index: 100; 
+}
+  .navbar-brand img {
+    height: 30px;
+}
   .section-title {
-    color: #7b1fa2;
-    border-bottom: 2px solid #7b1fa2;
+    color: #141619;
+    border-bottom: 2px solid #141619;
     padding-bottom: 10px;
   }
   .computer-title {
@@ -79,8 +86,8 @@
     text-align: center;
 }
 .card-condition > h3 {
-    color: #7b1fa2;
-    border-bottom: 2px solid #7b1fa2;
+    color: #141619;
+    border-bottom: 2px solid #141619;
     padding-bottom: 10px;
 }
 .condition-p {
@@ -112,7 +119,7 @@
     background-color: #2980b9;
 }
 .brand:hover{
-    background-color: #7b1fa2 !important;
+    background-color: #0A21C0 !important;
     color:#fff;
   }
   .ms-auto .nav-item .nav-link{
@@ -121,509 +128,1043 @@
   .ms-auto .nav-item .nav-link:hover{
     text-decoration: underline;
   }
-footer {
-    background: #333;
-    color: white;
-    padding: 20px 0;
-    position: relative;
-    overflow: hidden;
-  }
-  .footer-content {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    max-width: 1200px;
+
+  footer {
+            background-color: #050A44;
+            color: white;
+            padding: 2rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+        .footer-section {
+            flex: 1;
+            margin: 10px;
+            min-width: 200px;
+            text-align: center;
+        }
+        .footer-section h3 {
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        .footer-section p, .footer-section a {
+            color: #ddd;
+            text-decoration: none;
+            margin: 10px 0;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .social-icons a {
+            color: white;
+            font-size: 24px;
+            transition: color 0.3s ease;
+        }
+        .social-icons a:hover {
+            opacity: 0.7;
+        }
+        .country-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .country-info img {
+            width: 30px;
+            height: auto;
+        }
+        .bubbles {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: linear-gradient(45deg, #333, #000);
+        }
+        .bubbles::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background-color: #000;
+            background-image: radial-gradient(#333 20%, transparent 20%);
+            background-size: 50px 50px;
+            opacity: 0.3;
+            animation: moveBubbles 20s linear infinite;
+        }
+        @keyframes moveBubbles {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        .copyright {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        @media screen and (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .footer-section {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            .social-icons{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          display: inline-block;
+      }
+        }
+
+
+/* General form styles */
+#recommendationForm {
+    max-width: 800px;
     margin: 0 auto;
-    position: relative;
-    z-index: 1;
+    font-family: Arial, sans-serif;
+}
+
+/* Section styles */
+.mb-3 {
+    margin-bottom: 1.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+/* Label styles */
+.form-label strong {
+    color: #141619;
+    font-size: 18px;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* Checkbox and radio button styles */
+.form-check-input {
+    margin-right: 0.5rem;
+}
+
+.form-check-label {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* Select styles */
+.form-select {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+}
+
+/* Input styles */
+.form-control {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+}
+.form-control:focus,
+.btn:focus,
+#accept:focus {
+  outline: 3px solid #0A21C0;
+  outline-offset: 2px;
+}
+.form-control:focus {
+  border-color: #0A21C0;
+  box-shadow: 0 0 0 0.2rem #0A21C0;
+}
+/* Button styles */
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+#nextBtn, #submitBtn {
+    background-color: #141619;
+    color: #fff;
+}
+
+/* Responsive grid */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.col-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+@media (min-width: 768px) {
+    .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+/* Checkbox container styles */
+.checkbox-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#condition-label {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.navbar-brand {
+    box-shadow: none;
+    
+}
+#accept {
+    margin-right: 10px;
+    width: 25px;
+    height: 25px;
+}
+#accept:hover {
+    cursor: pointer;
+}
+ /* Media query footer */
+ @media screen and (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    justify-items: left;
   }
+
   .footer-section {
-    text-align: center;
+    margin: 1rem 0;
   }
-  .footer-section h3 {
-    margin-bottom: 10px;
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  .social-icons {
+    justify-content:left;
+  }
+  .info-icon,.tooltip{
+      display: none;
+    }
+    #form_ai_title{
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+footer {
+    padding: 1rem;
+  }
+  .info-icon,.tooltip{
+      display: none;
+    }
+h3 {
+    font-size: 1rem;
+}
+
+.social-icons a {
+    font-size: 1.2rem;
+  }
+  #form_ai_title{
+    font-size: 20px;
+  }
+}
+
+
+/* Responsive styles */
+@media (max-width: 768px) {
+.container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.navbar-brand {
+    box-shadow: none;
+    
+}
+.info-icon,.tooltip{
+      display: none;
+    }
+  .form-section {
+    width: 97%;
+  }
+
+  #maxBudget{
+    margin-top: 10px;
+  }
+  .row.g-2 > div {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .form-check {
+    flex: 0 0 50%;
+    min-width: unset;
+  }
+
+  .footer-content {
+    flex-direction: column;
+  }
+
+  .footer-section {
+    margin: 10px 0;
+  }
+
+  .form-label strong {
+    font-size: 16px;
+  }
+  #form_ai_title{
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+.navbar-brand img {
+    height: 30px;
+}
+.navbar-brand {
+    box-shadow: none;
+    
+}
+    h4 {
+    font-size: 1.5rem;
+  }
+  .info-icon,.tooltip{
+      display: none;
+    }
+  .form-check {
+    flex: 0 0 100%;
+  }
+
+  .btn {
+    width: 100%;
+    
+  }
+  #maxBudget{
+    margin-top: 10px;
   }
   .social-icons a {
-    color: white;
-    font-size: 24px;
-    margin: 0 10px;
-    transition: transform 0.3s ease;
+    font-size: 20px;
+    margin: 0 5px;
   }
-  .social-icons a:hover {
-    transform: scale(1.2);
+  #form_ai_title{
+    font-size: 20px;
   }
-  .bubbles {
-    position: absolute;
+}
+
+
+  /* Loading */
+  .loading-overlay {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    display: none;
   }
-  .bubble {
-    position: absolute;
+  .custom-spinner {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    animation: spinner-rotate 2s linear infinite;
+  }
+  .custom-spinner-circle {
+    width: 100%;
+    height: 100%;
+    border: 8px solid #ffffff;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    animation: float 4s infinite ease-in-out;
+    opacity: 0.7;
   }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+  .custom-spinner-square {
+    width: 30%;
+    height: 30%;
+    background-color: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: square-pulse 1s ease-in-out infinite alternate;
   }
-  .remove-field {
-        cursor: pointer;
-        color: red;
-    }
+  @keyframes spinner-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  @keyframes square-pulse {
+    0% { transform: translate(-50%, -50%) scale(0.8); }
+    100% { transform: translate(-50%, -50%) scale(1.2); }
+  }
+
+  .form-control:focus,
+.btn:focus {
+  outline: 3px solid #0A21C0;
+  outline-offset: 2px;
+}
 </style>
 
 {% endblock headLinks %}
 
 {% block bodyContent %}
+{% include 'promotion-bar.html' %}
 
-    <div class="container" style="background-color: #fff; min-height:600px; margin-bottom: 10px;">
+  <!-- navbar  -->
+  {% include 'header.html' %}
+
+  <!-- Content -->
+    <div class="container" style="background-color: #b3b4bd15; min-height:600px; margin-bottom: 10px; border:1px solid #14161914">
         <div class="row justify-content-center">
-            <div class="col-10  form-section">
+            <div class="col-10  form-section" style="border:1px solid #14161967">
 
-                <h4 class="text-center mb-4">
-                   <b> Système de recherche exacte </b>
+                <h4 class="text-center mb-4 pt-3"  id="form_ai_title">
+                   <b> <i class="fa-solid fa-laptop"></i>  Trouver l'ordinateur parfait sans l'IA <i class="fa-solid fa-brain"></i>  </b>
                 </h4>
 
-                <form id="recommendationForm">
+                <h4 style="text-align: center; display: flex; justify-content: center; align-items: center;" >
+                    <button class="btn"  id="faqButton" data-bs-toggle="modal" data-bs-target="#faqModal"
+                     style="width: 50%; background-color: #050A44; color: #fff;">CLIQUER ICI POUR DEMARER</button>
+                </h4>
+
+                <form id="recommendationForm" >
+                    <!-- <h5 style="text-align:center"> <span class="badge bg-warning text-dark">1/1</span> </h5> -->
+                    <i style="font-size: 11px;">* obligatoire</i>
+
                     {% csrf_token %}
-
-                    <div id="step1" class="step">
-                        <h5 style="text-align:center"> <span class="badge bg-warning text-dark">1/2</span> </h5>              
-
-                        <div class="card-condition">
-                            <h3>1. Description des informations à renseigner </h3>
-                            <p>
-                                <h6> Informations obigatoire (*) </h6>
-                                <ul>
-                                    <li> Marque </li>
-                                    <li>budget Minimum</li>
-                                    <li>budget maximal</li>
-                                    <li>marge de tolerance: dégrès d'augmentation de votre budget maximal </li>
-                                    <li>Capacité du processeur (coeurs, vitesse) </li>
-                                    <li>Capacité de la RAM </li>
-                                    <li>Capacité du disque dure </li>
-                                </ul>
-                                <h6 style="color:green"> Possibilité d'ajouter d'autres informations supplémentaires sur les ordinateurs </h6>
-                            </p>
-                        </div>
-                        
-                        <div class="card-condition">
-                            <h3>2. Acception des utilisations</h3>
-                            <p class="condition-p">
-                                Le système de commande requiert certains informations personnelles. Ces informations uniquement
-                                utiliser dans du traitement de votre commande. En acceptant les conditions d'utilisations, nous nous engageons à les 
-                                protéger.
-                            </p>
-                            <div class="checkbox-container condition-container" style="text-align: center !important;">
-                                <label for="accept" id="condition-label" style="font-size: 18px; cursor: pointer;">
-                                    <input type="checkbox" id="accept" name="accept" required style="transform: scale(2); margin-right: 10px;">
-                                    J'ai lu et j'accepte les conditions et les politiques d'utilisation
+                    <div class="mb-3">
+                        <label for="brand" class="form-label">
+                            <strong>Marque de l'ordinateur <b style="color:red">*</b></strong>
+                        </label>
+                        <div id="brand" class="d-flex flex-wrap">
+                            {% for brand in brands %}
+                            <div class="form-check" style="flex: 0 0 25%; min-width: 200px;">
+                                {% if forloop.first %} 
+                                    <input class="form-check-input" type="radio" name="brandName" value="{{brand}}" id="brand-{{brand}}" required checked>
+                                {% else %}
+                                    <input class="form-check-input" type="radio" name="brandName" value="{{brand}}" id="brand-{{brand}}" required>
+                                {% endif %}
+                                <label class="form-check-label" for="brand-{{brand}}">
+                                    {{brand}}
                                 </label>
                             </div>
+                            {% endfor %}
                         </div>
-                        
                     </div>
-
-                    <div id="step2" class="step hidden">
-
-                        <div class="mb-3" id = "basic-meta-infos">
-                            <div class="mb-3" style="border:1px solid black; border-radius:15px;">
-                                <ul>
-                                    <h6> &#128514;  Bonne nouvelle :   </h6>
-                                    <li id="basic-infos-okitem"> </li>
-                                </ul>
-                            </div>
-
-                            <div class="mb-3" style="border:1px solid black; border-radius:15px;">
-                                <ul id="exceptions-ul"></ul>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="brand" class="form-label">
-                                <strong style="color:#7b1fa2; font-size: 18px;">
-                                    * Marque de l'ordinateur </strong></label>
-                            <div id="brand" class="d-flex flex-wrap p-3">
-                                
-                                {% for brand in brands %}
-                                    <div class="form-check flex-fill mb-2" style="min-width: 200px;">
-                                        <label class="form-check-label" for="{{brand}}" style="text-transform:uppercase">
-                                        <input class="form-check-input" type="checkbox" value="{{brand}}" id="{{brand}}" style="margin-right: 5px;">
-                                            <b>{{brand}}</b>
-                                        </label>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <strong style="color:#7b1fa2; font-size: 18px;"  >* RAM </strong> <br>
-                            <div class="d-flex flex-wrap p-3">
-                                {% for computerRAM in computerRAMS %}
-                                    <div class="form-check flex-fill mb-2" style="min-width: 200px;" id="ram">
-                                        <label class="form-check-label" for="{{computerRAM.capacity}}" style="text-transform:uppercase">
-                                        <input class="form-check-input" type="checkbox" value="{{computerRAM.capacity}}" id="{{computerRAM.capacity}}" style="margin-right: 5px;">
-                                            <b>{{computerRAM.capacity}} GB</b>
-                                        </label>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <strong style="color:#7b1fa2; font-size: 18px;"  >* Capacité du processeur </strong> <br>
-                            <div class="d-flex flex-wrap p-3">
-                                <!-- {% for computerRAM in computerRAMS %} -->
-                                <div class="form-check flex-fill mb-2" style="min-width: 200px;" >
-                                    <label class="form-check-label" for="i3" style="text-transform:uppercase">
-                                    <input class="form-check-input" type="checkbox" value="i3" id="i3" style="margin-right: 5px;">
-                                        <b>core i 3</b>
-                                    </label>
-                                </div> 
-
-                                <div class="form-check flex-fill mb-2" style="min-width: 200px;" >
-                                    <label class="form-check-label" for="i5" style="text-transform:uppercase">
-                                    <input class="form-check-input" type="checkbox" value="i5" id="i5" style="margin-right: 5px;">
-                                        <b>core i 5</b>
-                                    </label>
-                                </div> 
-
-                                <div class="form-check flex-fill mb-2" style="min-width: 200px;" >
-                                    <label class="form-check-label" for="i7" style="text-transform:uppercase">
-                                    <input class="form-check-input" type="checkbox" value="i7" id="i7" style="margin-right: 5px;">
-                                        <b>core i 7</b>
-                                    </label>
-                                </div> 
-
-                                <div class="form-check flex-fill mb-2" style="min-width: 200px;" >
-                                    <label class="form-check-label" for="i9" style="text-transform:uppercase">
-                                    <input class="form-check-input" type="checkbox" value="i9" id="i9" style="margin-right: 5px;">
-                                        <b>core i 9</b>
-                                    </label>
-                                </div> 
-
-                                <div class="form-check flex-fill mb-2" style="min-width: 200px;" >
-                                    <label class="form-check-label" for="i11" style="text-transform:uppercase">
-                                    <input class="form-check-input" type="checkbox" value="i11" id="i1" style="margin-right: 5px;">
-                                        <b>core i 11</b>
-                                    </label>
-                                </div> 
-                            </div>
-                                <!-- {% endfor %} -->
-                        </div>
-
-                        <div class="mb-3" >
-                            <strong style="color:#7b1fa2; font-size: 18px;"  >* Vitesse du processeur </strong> <br>
-                            <div class="d-flex flex-wrap p-3">
-
-                                <!-- {% for computerRAM in computerRAMS %} -->
-                                <div class="form-check flex-fill mb-2" style="min-width: 200px;" >
-                                    <label class="form-check-label" for="speed-1" style="text-transform:uppercase">
-                                    <input class="form-check-input" type="checkbox" value="1 GHZ" id="speed-1" style="margin-right: 5px;">
-                                        <b>1.6 GHZ</b>
-                                    </label>
-                                </div>
-    
-                                <div class="form-check flex-fill mb-2" style="min-width: 200px;" >
-                                    <label class="form-check-label" for="speed-14" style="text-transform:uppercase">
-                                    <input class="form-check-input" type="checkbox" value="2 GHZ" id="speed-14" style="margin-right: 5px;">
-                                        <b>1.4 GHZ</b>
-                                    </label>
-                                </div>
-                                    <div class="form-check flex-fill mb-2" style="min-width: 200px;" >
-                                        <label class="form-check-label" for="speed-2" style="text-transform:uppercase">
-                                        <input class="form-check-input" type="checkbox" value="2 GHZ" id="speed-2" style="margin-right: 5px;">
-                                            <b>2 GHZ</b>
-                                        </label>
-                                    </div>
-                                <!-- {% endfor %} -->
-                            </div>
-                            
-                        </div>
-                        <!-- Stockage -->
-                        <div class="mb-3 p-3">
-                            <label for="minBudget" class="form-label">
-                                <strong style="color:#7b1fa2; font-size: 18px;">
-                            * Stockage </strong> 
-                            
+                    <!-- RAM -->
+                    <div class="mb-3">
+                        <label for="ram" class="form-label">
+                            <strong>RAM <b style="color:red">*</b></strong>
                         </label>
-                        <select class="form-select" id="Stockage">
-                            <option value="">Aucune sélection</option>
-                            <option value="2TB">2TB HDD</option>
-                            <option value="1TB">1TB HDD</option>
-                            <option value="512 GB">512 GB HDD</option>
-
-                            <option value="2TB SDD">2TB SDD</option>
-                            <option value="1TB SDD">1TB SDD</option>
-                            <option value="512 GB SDD">512 GB SDD</option>
-                        </select>
+                        <div id="ram" class="d-flex flex-wrap">
+                            {% for computerRAM in computerRAMS %}
+                            <div class="form-check" style="flex: 0 0 25%; min-width: 200px;">
+                                {% if forloop.first %} 
+                                    <input class="form-check-input" type="radio" name="ramCapacity"
+                                    value="{{computerRAM.capacity}}" id="ram{{computerRAM.capacity}}" required checked>
+                                {% else %}
+                                    <input class="form-check-input" type="radio" name="ramCapacity"
+                                    value="{{computerRAM.capacity}}" id="ram{{computerRAM.capacity}}" required>
+                                {% endif %}
+                                <label class="form-check-label" for="ram{{computerRAM.capacity}}">
+                                    {{computerRAM.capacity}} GB
+                                </label>
+                            </div>
+                            {% endfor %}
                         </div>
-
-                        <!-- Budget -->
-                        <div class="mb-3">
-                            <label for="minBudget" class="form-label">
-                                <strong style="color:#7b1fa2; font-size: 18px;">
-                                    * Budget (FCFA) </strong> </label>
-                            <div class="row g-2 p-3">
-                                <div class="col-12 col-md-6">
-                                    <input type="number" name="minBudget" class="form-control" id="minBudget" placeholder="Budget Minimum" required>
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <input type="number" name="maxBudget" class="form-control" id="maxBudget" placeholder="Budget Maximum" required>
-                                </div>
+                    </div>
+                    <!-- Capacité processeur -->
+                    <div class="mb-3">
+                        <label for="processor" class="form-label">
+                            <strong>Capacité du processeur <b style="color:red">*</b></strong>
+                        </label>
+                        <div id="processor" class="d-flex flex-wrap">
+                            {% for core in cores %}
+                            <div class="form-check" style="flex: 0 0 25%; min-width: 200px;">
+                                {% if forloop.first %}
+                                    <input class="form-check-input" type="radio" name="processorCore" value="{{core}}" id="core{{core}}" required checked>
+                                {% else %}
+                                    <input class="form-check-input" type="radio" name="processorCore" value="{{core}}" id="core{{core}}" required>
+                                {% endif %}
+                                <label class="form-check-label" for="core{{core}}">
+                                    Core i {{core}}
+                                </label>
                             </div>
+                            {% endfor %}
                         </div>
-                        <div class="mb-3 p-3">
-                            <div class="mb-3">
-                                <strong style="color:#7b1fa2; font-size:18px">* Inclure une marge de tolerance du prix maximal: </strong> </label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio-50" value="50" checked>
-                                <strong class="form-check-label" for="radio-50">50%</strong>
-                            </div>
-                        
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio-60" value="60">
-                                <strong class="form-check-label" for="radio-60">60%</strong>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input"  type="radio" name="inlineRadioOptions" id="radio-80" value="80">
-                                <strong class="form-check-label" for="radio-80">80%</strong>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio-100" value="100">
-                                <strong class="form-check-label" for="radio-100"> 100%</strong>
-                            </div>
-                        </div>
-
-                        <div class="mb-3 p-3">
-                            <strong class="mb-3" style="font-family: roboto; color:#7b1fa2"> <i > Prix maximal calculé  </i>=  budget_maximal * (1+ %apha )</strong>
-                            <div style="margin-top:10px; ">
-                                <textarea class="form-control" id="floatingTextarea" style="max-height: 50px;" disabled>0 FCFA </textarea>
-                              </div>
-                        </div>
-                      
-                        <!--  Champ supp -->
-                        <div class="mb-3 p-3">
-                            <label for="characteristicSelect" class="form-label" style="color:green; font-size: 18px;">
-                                <b>
-                                    Ajouter des caracteristiques supplementaire 
-                                </b>
-                            </label>
-
-                            <select class="form-select" id="characteristicSelect">
-                                <option value="">Sélectionné</option>
-                                <option value="color">Couleur</option>
-                                <option value="graphic">Carte graphique</option>
-                                <option value="height">Ecran</option>
-                                <option value="ram">Poids</option>
-                                <option value="storage">hauteur</option>
-                                <option value="largeur">largeur</option>
-                            </select>
-                        </div>
-                        <div id="dynamicFields"></div>
                     </div>
 
-                    <div class="d-flex justify-content-between btn-nav">
-                        <button type="button" class="btn btn-secondary" id="prevBtn" style="display:none;">Etape Précedente</button>
-                        <button type="button" class="btn " id="nextBtn" style="background-color: #7b1fa2; color:#fff">Etape Suivante</button>
-                        <button type="submit" class="btn btn-success" id="submitBtn" style="display:none; background-color: #7b1fa2;">Soumettre</button>
+                    <!-- Capacité de stockage -->
+                    <div class="mb-3">
+                        <label for="storage" class="form-label">
+                            <strong>Stockage <b style="color:red">*</b></strong>
+                        </label>
+                        <select class="form-select" id="storage">
+                            {% for storage in storages %}
+                                <option value="{{storage}}">  {{storage }}</option>
+                            {% endfor %} 
+                        </select>
+                    </div>
+                    <!-- Budget -->
+                    <div class="mb-3">
+                        <label for="budget" class="form-label">
+                            <strong>Budget (FCFA) <b style="color:red">*</b></strong>
+                        </label>
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <input type="number" name="minBudget" class="form-control" value="{{minBudget}}"
+                                 id="minBudget" placeholder="Budget Minimum" required>
+                            </div>
+
+                            <div class="col-12 col-md-6 ">
+                                <input type="number" name="maxBudget" class="form-control" value="{{maxBudget}}"
+                                 id="maxBudget" placeholder="Budget Maximum" required>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Marge de tolérance -->
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <strong style="font-size: 18px;">Marge de tolérance du prix maximal <b style="color:red">*</b></strong>
+                        </label>
+                        <div class="d-flex flex-wrap">
+                            {% for tolerance in tolerances %}
+                            <div class="form-check" style="flex: 0 0 25%; min-width: 200px;">
+                                <input class="form-check-input" type="radio" name="tolerance" id="radio-{{ tolerance }}" value="{{ tolerance }}" {% if forloop.first %}checked{% endif %}>
+                                <label class="form-check-label" for="radio-{{ tolerance }}">
+                                    {{ tolerance }}%
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="calculatedPrice" class="form-label">
+                            <strong style="font-size: 18px;">Prix maximal calculé</strong>
+                        </label>
+                        <textarea class="form-control" id="calculatedPrice" style="max-height: 50px;" disabled>0 FCFA</textarea>
+                    </div>
+                    <!-- Caracteristique supps -->
+                    <div class="mb-3">
+                        <label for="characteristicSelect" class="form-label" style="color: green;">
+                            <strong>Caractéristiques supplémentaires (Optionel)</strong>
+                        </label>
+                        <select class="form-select" id="characteristicSelect">
+                            <option value="">Sélectionné</option>
+                            <option value="couleur">Couleur</option>
+                            <option value="carte_graphique">Carte graphique</option>
+                            <!-- <option value="ecran">Dimension de l'ecran (en cm)</option> -->
+                            <!-- <option value="weight">Poids</option>
+                            <option value="height">hauteur</option> -->
+                            <option value="Systeme_exploitation">Système d'exploitation</option>
+                            <option value="Vitesse_processeur">Vitesse du processeur</option>
+                        </select>
+                    </div>
+                    <div id="dynamicFields"></div>
+
+                    <!-- Condition d'utilisation -->
+                    <div class="mb-3">
+                        <div class="checkbox-container">
+                            <label for="accept" id="condition-label">
+                                <input type="checkbox" id="accept" name="accept"  required>
+                                J'ai lu et j'accepte les conditions et les politiques d'utilisation
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Bnt de soumission -->
+                    <div class="d-flex justify-content-center p-2" style="flex-direction: column;">
+                        <button type="submit" class="btn btn-success" id="submitBtn" style="background-color: #0A21C0;" disabled>
+                            Lancer la recherche
+                        </button>
+
+                        <div class="mt-3 text-center ">
+                            <a href="{% url 'main:recommendationForm' %}" class="btn "
+                             style="background-color:#050A44; color:#fff; width: 100%;" >
+                              Rechercher avec Zoodo AI
+                            </a>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
+     <!-- Loading -->
+     <div class="loading-overlay" id="loadingOverlay">
+        <div class="custom-spinner">
+          <div class="custom-spinner-circle"></div>
+          <div class="custom-spinner-square"></div>
+        </div>
+    </div>
+
+       <!-- Modal Faq -->
+  <div class="modal fade" id="faqModal" tabindex="-1" aria-labelledby="faqModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="faqModalLabel"> <b style="color:#0A21C0"> FAQ ?  </b>  </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <h5>Comment se fait la recommandation ?</h5>
+        
+            <div>
+                Nous analysons attentivement la liste des ordinateurs de <b style="color:#0A21C0">Zoodo Computer</b> et sélectionnons des ordinateurs de qualité 
+                qui correspondent <b>exactement</b> aux caractéristiques que vous avez renseignées. <b>Par ailleurs</b>, nous recommandons également des ordinateurs 
+                de grandes performances en adéquation avec <b>votre budget.</b>
+        
+                <br><br>
+                Les ordinateurs recommandés <b>en plus</b> sont ceux possédant :
+        
+                <ul>
+                    <li>une carte graphique</li>
+                    <li>une capacité de RAM supérieure ou égale à 8 Go</li>
+                    <li>une capacité de stockage supérieure ou égale à 512 Go SSD</li>
+                    <li>une durée de vie de batterie élevée</li>
+                </ul>
+        
+                Ces ordinateurs sont connus pour être performants et adaptés à toutes les activités.
+                <br><br>
+                <h5>Comment remplir le formulaire ?</h5>
+                <div>
+                    Vous devez renseigner <b>les caractéristiques principales de l'ordinateur (marque, RAM, processeur, stockage), votre budget et une marge de tolérance sur le budget.</b> 
+                    Vous pouvez également sélectionner et renseigner d'autres caractéristiques comme la couleur, le système d'exploitation, etc.
+        
+                    <br><br>
+        
+                    <ul>
+                        <li>
+                            La marge de tolérance indique le coût maximum que vous accepteriez. Cela permet d'accroître vos chances de trouver un ordinateur.
+                        </li>
+        
+                        <li>
+                            Les caractéristiques supplémentaires ne sont pas obligatoires.
+                        </li>
+                    </ul>
+                </div>
+                
+                <br>
+                <h5>Comment se faire rembourser ?</h5>
+
+                <div>
+                    En cas d'insatisfaction, vous avez la possibilité de vous faire rembourser et de retourner l'ordinateur si la raison est valable.
+                </div>
+                <br> <br>
+                <h6><u style="color: #0A21C0;">NB :</u> Au cas où aucun ordinateur n'a été trouvé, si la recommandation ne vous convient pas ou si une erreur s'est produite, n'hésitez pas à réessayer.</h6>
+            </div>
+        </div>
+        
+      
+      </div>
+    </div>
+</div>
+    <!-- Footer -->
 {% endblock bodyContent %}
 
 {% block JsContent %}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Controle de validation du budget-->
     <script>
-        $(document).ready(function() {
-
-            let currentStep = 1;
-            const totalSteps = 2;
-    
-            function updateProgress() {
-                let progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
-                $('.progress-bar').css('width', progress + '%').attr('aria-valuenow', progress);
+        // message d'error sur le budget
+        // Chargement de la page à la soumission
+        const loadingOverlay = document.getElementById('loadingOverlay');
+  
+        /**
+         * Validate the budget inputs and return a boolean indicating whether the form is valid.
+         * Shows error messages for invalid inputs.
+         * @returns {boolean} - True if the form is valid, false otherwise.
+         */
+        function messageBudgetValidateForm() {
+            let isValid = true;
+            
+            // Validate minBudget
+            const min_value = "{{minBudget}}";
+            const max_value = "{{maxBudget}}";
+            
+            const minBudget = parseFloat(document.getElementById('minBudget').value);
+            if (isNaN(minBudget) || minBudget < min_value) {
+                showErrorMessageBudget('minBudget', 'Le budget minimum doit être au moins ' + min_value +  ' FCFA');
+                isValid = false;
+            } else {
+                clearErrorMessageBudget('minBudget');
             }
-    
-            function showStep(step) {
-                $('.step').addClass('hidden');
-                $('#step' + step).removeClass('hidden');
-                updateProgress();
-    
-                $('#prevBtn').toggle(step > 1);
-                $('#nextBtn').toggle(step < totalSteps);
-                $('#submitBtn').toggle(step === totalSteps);
-            }
-    
-            // Div des messages d'informations
-            const request_meta_info = document.querySelector("#basic-meta-infos");
-            request_meta_info.style.display = "none";
 
-            function bdQuery(formData, url) {
-                fetch(url, {  
-                    method: 'POST',
-                    headers: {
-                        'X-CSRFToken': '{{ csrf_token }}',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData),
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        console.log(response)
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Success:', data);
-                    
-                    // Afficher les messages d'Informations
-                    if(data.message == 'partial success'){
-                        // Afficher le div des messages d'informations
-                            request_meta_info.style.display = "inline-block";  
-                        
-                        const item_li_ok     = document.querySelector("#basic-infos-okitem")
-                        const except_ul= document.querySelector("#exceptions-ul")
-                        let listContent = "<h6>&#128546; Exceptions : </h6>"
-                        item_li_ok.innerHTML  = `Des ordinateurs de marque <strong style="font-family:roboto"> ${data.brand_find.join(', ')} </strong> correspondent au budget de <strong style="font-family:roboto"> ${data.minbudget} à ${data.maxbudget} FCFA </strong> ont été retrouvés.`
-
-                        data.moreInformations.forEach(info => {
-                            listContent += `<li class="except_li_item"> Le prix minimum pour un ordinateur de marque: <strong style="font-family:roboto"> ${info.brand} </strong> est de: <strong style="font-family:roboto"> ${info.price} FCFA </strong> </li>`;
-                        });
-                        listContent +="<span style='font-family:roboto' >* Corriger les exceptions.</span>"
-                        
-                        except_ul.innerHTML = listContent;
-                        //
-                    }
-
-                    // Tous les données sont valides navige vers la page suivante
-                    if(data.message == 'success'){
-                        // Afficher le div des messages d'informations
-                            request_meta_info.style.display = "none";
-
-                        currentStep++; // Incrementer le stepper
-                        showStep(currentStep);
-
-                    }
-
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+            // Validate maxBudget
+            const maxBudget = parseFloat(document.getElementById('maxBudget').value);
+            if (isNaN(maxBudget) || maxBudget > max_value) {
+                showErrorMessageBudget('maxBudget', 'Le budget maximum doit être inférieur  à ' + max_value + 'FCFA');
+                isValid = false;
+            } else if (maxBudget <= minBudget) {
+                showErrorMessageBudget('maxBudget', 'Le budget maximum doit être supérieur au budget minimum');
+                isValid = false;
+            } else {
+                clearErrorMessageBudget('maxBudget');
             }
             
+            return isValid;
+        }
+        /**
+         * Display an error message for a specific form field.
+         * If an error message container does not already exist, it creates one.
+         * The message is styled with red color to indicate an error.
+         *
+         * @param {string} fieldId - The ID of the form field for which to display the error.
+         * @param {string} message - The error message to be displayed.
+         */
+        function showErrorMessageBudget(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            let errorDiv = field.parentNode.querySelector('.error-message');
+            if (!errorDiv) {
+                errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.style.color = 'red';
+                errorDiv.style.fontSize = '0.8em';
+                errorDiv.style.marginTop = '5px';
+                field.parentNode.insertBefore(errorDiv, field);
+            }
+            errorDiv.textContent = message;
+        }
+        function clearErrorMessageBudget(fieldId) {
+            const field = document.getElementById(fieldId);
+            const errorDiv = field.parentNode.querySelector('.error-message');
+            if (errorDiv) {
+                errorDiv.remove();
+            }
+        }
+        // // Add event listeners for real-time validation
+        // ['minBudget', 'maxBudget'].forEach(fieldId => {
+        //     document.getElementById(fieldId).addEventListener('input', messageBudgetValidateForm);
+        // });
+        // // Initiation de la validation du budget
+        // messageBudgetValidateForm();
+    </script>
+ <!-- Soumission du formu-->
+    <script>
+            // Form submission handler
+        document.getElementById('recommendationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            loadingOverlay.style.display = 'flex'; // chargement
+            // Validate form before submission
+            if (!validateForm()) {
+                return;
+            }
 
-            function sendData(step) {
-                switch (step) {
-                    case 1:
-                        currentStep++;
-                        showStep(currentStep);
-                        break;
-                    case 2:
-                        const url = "{% url 'withouai_step2' %}";
-                        
-                        const checkedBrands = $('#brand input[type="checkbox"]:checked').map(function() {
-                            return this.value;
-                        }).get();
-    
-                        let data = {
-                            minBudget: document.getElementById("minBudget").value,
-                            maxBudget: document.getElementById("maxBudget").value,
-                            brand_list: checkedBrands
-                        };
-    
-                        if (data.brand_list.length > 0 && data.minBudget !== '' && data.maxBudget !== '') {
-                            bdQuery(data, url); // No need to stringify here
-                        }
-                        break;
-    
-                    case 3:
-                        // Collect data for step 3
-                        break;
-    
-                    case 4:
-                        // Collect data for step 4
-                        break;
-    
-                    case 5:
-                        // Collect data for step 5
-                        break;
-    
-                    default:
-                        return {};
+            // Collect static form data
+            const formData = {
+                computer: {
+                    brand: document.querySelector('input[name="brandName"]:checked')?.value,
+                    ram: document.querySelector('input[name="ramCapacity"]:checked')?.value,
+                    processor: {
+                        core: document.querySelector('input[name="processorCore"]:checked')?.value,
+                    },
+                    storage: document.getElementById('storage').value,
+                    budget: {
+                        min: document.getElementById('minBudget').value,
+                        max: document.getElementById('maxBudget').value,
+                        tolerance: document.querySelector('input[name="tolerance"]:checked')?.value,
+                        calculatedMax: document.getElementById('calculatedPrice').value
+                    }
+                },
+                characteristics: collectDynamicFields()
+            };
+            
+            // attaq du server
+            try {
+                const response = await sendDataToServer(formData);
+                handleResponse(response); // si pas d'error
+            } catch (error) {
+                handleError(error); // si error
+            }
+        });
+
+        // Collect data from dynamically added fields
+        function collectDynamicFields() {
+            // Collect data from dynamically added fields
+            const dynamicFields = document.getElementById('dynamicFields');
+            const characteristics = {};
+            
+            dynamicFields.querySelectorAll('[data-field]').forEach(field => {
+                const fieldName = field.dataset.field;
+                const input = field.querySelector('input, select');
+                if (input) {
+                    characteristics[fieldName] = input.value;
+                }
+            });
+            return characteristics;
+        }
+
+        // Validate form data and update submit button state
+        function validateForm() {
+            const submitButton = document.querySelector('button[type="submit"]');
+            let isValid = true;
+            
+            // Clear any existing error messages
+            const existingErrors = document.querySelectorAll('.alert-danger');
+            existingErrors.forEach(error => error.remove());
+
+            const requiredFields = [
+                'brandName',
+                'ramCapacity',
+                'processorCore',
+                
+            ];
+
+            // Validate required radio buttons
+            for (const field of requiredFields) {
+                const input = document.querySelector(`input[name="${field}"]:checked`);
+                if (!input) {
+                    showError(`Please select a ${field.replace(/([A-Z])/g, ' $1').toLowerCase()}`);
+                    isValid = false;
                 }
             }
-    
-            $('#nextBtn').click(function() {
-                if (currentStep < totalSteps) {
-                    sendData(currentStep); // Send data before moving to the next step
-                }
-            });
-    
-            $('#prevBtn').click(function() {
-                if (currentStep > 1) {
-                    currentStep--;
-                    showStep(currentStep);
-                }
-            });
-    
-            $('#recommendationForm').submit(function(e) {
-                e.preventDefault();
-                alert('Thank you for submitting the form. We will process your recommendation shortly!');
-                window.location.href = '/thank-you';
-            });
-    
-            showStep(currentStep);
-        });
-    </script>
 
-     <!-- Select dynamiq -->
+            // Validate budget
+            const minBudget = parseFloat(document.getElementById('minBudget').value);
+            const maxBudget = parseFloat(document.getElementById('maxBudget').value);
+            
+            if (isNaN(minBudget) || isNaN(maxBudget) || minBudget <= 0 || maxBudget <= 0) {
+                showError('Entrer un budget valide');
+                isValid = false;
+            }
+            
+            if (minBudget > maxBudget) {
+                showError('Budget minimum dit être inferieur ou egal au budget maximum.');
+                isValid = false;
+            }
+
+            // Validate storage selection
+            if (!document.getElementById('storage').value) {
+                showError('Selectionnez la capacité de stockage');
+                isValid = false;
+            }
+
+            // Validate terms acceptance
+            if (!document.getElementById('accept').checked) {
+                // showError("Accepter les conditions et les politique d'utilisation");
+                isValid = false;
+            }
+            // Message budget
+             const isValidBudget = messageBudgetValidateForm();
+
+            // Update submit button state
+            submitButton.disabled = !(isValid && isValidBudget);
+            submitButton.classList.toggle('disabled', !isValid);
+
+            // price
+            updateCalculatedPrice();
+            return isValid;
+
+        }
+
+        // Add event listeners to form elements for real-time validation
+        function setupFormValidation() {
+            const form = document.getElementById('recommendationForm');
+            
+            // Monitor radio button changes
+            ['brandName', 'ramCapacity', 'processorCore', 'processorSpeed'].forEach(fieldName => {
+                const radioButtons = document.querySelectorAll(`input[name="${fieldName}"]`);
+                radioButtons.forEach(radio => {
+                    radio.addEventListener('change', validateForm);
+                });
+            });
+
+            // Monitor budget inputs
+            ['minBudget', 'maxBudget'].forEach(id => {
+                document.getElementById(id).addEventListener('input', validateForm);
+            });
+
+            // Monitor storage selection
+            document.getElementById('storage').addEventListener('change', validateForm);
+
+            // Monitor terms acceptance
+            document.getElementById('accept').addEventListener('change', validateForm);
+
+            // Monitor tolerance changes
+            document.querySelectorAll('input[name="tolerance"]').forEach(input => {
+                input.addEventListener('change', () => {
+                    updateCalculatedPrice();
+                    validateForm();
+                });
+            });
+
+            // Initial validation
+            validateForm();
+        }
+
+        // Send data to server
+        async function sendDataToServer(formData) {
+            const url = '{% url "main:perform-simple-order" %}'; 
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                return await response.json();
+            } catch (error) {
+                throw new Error('Failed to send data to server: ' + error.message);
+            }
+        }
+
+        // Handle successful response
+        function handleResponse(response) {
+            validateForm();
+            
+            setTimeout(() => {
+                 // Reset form and submit button
+                    document.getElementById('recommendationForm').reset();
+                    document.getElementById('dynamicFields').innerHTML = '';
+                    // redirection sur la page de recommandation
+                    window.location.href = `/zoodo/simple/order/${response.id_result}/recommendation`;
+                    
+                    loadingOverlay.style.display = 'none'; // chargement
+            }, 3000);
+        }
+
+        // Handle errors
+        function handleError(error) {
+            showError(error.message);
+        }
+
+        // Show error message
+        function showError(message) {
+            // Create the error container if it doesn't exist
+            let errorContainer = document.getElementById('error-container');
+            if (!errorContainer) {
+                errorContainer = document.createElement('div');
+                errorContainer.id = 'error-container';
+                errorContainer.style.position = 'fixed';
+                errorContainer.style.top = '20px';
+                errorContainer.style.right = '20px';
+                errorContainer.style.zIndex = '1000';
+                document.body.appendChild(errorContainer);
+            }
+
+            // Create the error message div
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'alert alert-danger';
+            errorDiv.style.minWidth = '250px';
+            errorDiv.style.marginBottom = '10px';
+            errorDiv.textContent = message;
+
+            // Add the error to the container
+            errorContainer.appendChild(errorDiv);
+
+            // Remove the error after 3 seconds
+            setTimeout(() => {
+                errorDiv.remove();
+                // Remove container if it's empty
+                if (!errorContainer.hasChildNodes()) {
+                    errorContainer.remove();
+                }
+            }, 3000);
+        }
+        // Update calculated price when budget or tolerance changes
+        function updateCalculatedPrice() {
+            const maxBudget = parseFloat(document.getElementById('maxBudget').value) || 0;
+            const tolerance = parseFloat(document.querySelector('input[name="tolerance"]:checked')?.value) || 0;
+            const calculatedPrice = maxBudget * (1 + tolerance / 100);
+            document.getElementById('calculatedPrice').value = `${calculatedPrice.toLocaleString()} FCFA`;
+        }
+
+        // Initialize form validation when the document is ready
+        document.addEventListener('DOMContentLoaded', setupFormValidation);
+
+        
+    </script>
+ <!-- Ajouter les caracteristiques supp -->
      <script>
+        // Ajouter les caracteristiques supp
         const characteristicSelect = document.getElementById('characteristicSelect');
         const dynamicFields = document.getElementById('dynamicFields');
         const addedFields = new Set();
-    
+        
+        // Ajouter les champs dynamiques et valeurs. Identique avec 'value=""' dans options
+        const processorSpeeds = JSON.parse('{{ processor_speeds|safe|escapejs }}');
+        
         const fieldTypes = {
-            color: {
+            couleur: {
                 type: 'select',
-                options: ['Black', 'White', 'Silver', 'Red', 'Blue']
+                options: ['blanc', 'Noir', 'Silver', 'blue', 'rouge'],
             },
-            graphic: {
+            carte_graphique: {
                 type: 'select',
-                options: ['Non', 'Oui']
+                options: ['Non', 'Oui'],
             },
-            os: {
+            Systeme_exploitation: {
                 type: 'select',
-                options: ['Windows 10', 'Windows 11', 'macOS', 'Linux']
+                options: ['Windows 10', 'Windows 11', 'macOS', 'Linux'],
             },
             height: {
                 type: 'number',
-                placeholder: 'Enter height in cm'
+                placeholder: 'Entrer la hauteur',
             },
-            ram: {
+            weight:{
+                type: 'number',
+                placeholder: 'Entrer le poids',
+            },
+            ecran:{
+                type: 'number',
+                placeholder: 'Entrer les dimensions de l\'ecran',
+            },
+            Vitesse_processeur:{
                 type: 'select',
-                options: ['4GB', '8GB', '16GB', '32GB', '64GB']
-            },
-            storage: {
-                type: 'text',
-                placeholder: 'Enter storage capacity (e.g., 512GB SSD)'
+                options: processorSpeeds,
             }
         };
+
+            // Ajouter les caracteristiques: Verifie si la caracteristique n'est pas deja ajoute et l'ajoute
         dynamicFields.style.padding ="10px"
         characteristicSelect.addEventListener('change', function() {
             const selectedValue = this.value;
+
             if (selectedValue && !addedFields.has(selectedValue)) {
                 addField(selectedValue);
                 addedFields.add(selectedValue);
@@ -631,7 +1172,13 @@ footer {
             }
         });
     
+        /**
+         * Creates a form field with the given name and appends it to the dynamicFields container.
+         * The field type is determined by the fieldTypes object.
+         * @param {string} fieldName - The name of the field to add. Must be a key in the fieldTypes object.
+         */
         function addField(fieldName) {
+            // Create the field div
             const fieldConfig = fieldTypes[fieldName];
             const fieldDiv = document.createElement('div');
             fieldDiv.className = 'mb-3';
@@ -640,10 +1187,11 @@ footer {
             const label = document.createElement('label');
             label.className = 'form-label';
             label.textContent = fieldName.charAt(0).toUpperCase() + fieldName.slice(1) + ':';
-            label.style.color = "#7b1fa2"
+            label.style.color = "#141619"
             label.style.fontWeight = "bold"
             fieldDiv.appendChild(label);
-    
+            
+            // creer l'input
             let input;
             if (fieldConfig.type === 'select') {
                 input = document.createElement('select');
@@ -663,9 +1211,12 @@ footer {
             input.id = fieldName + 'Input';
             input.name = fieldName;
             fieldDiv.appendChild(input);
-    
+            
+            // suppression d'un input ajouter
             const removeIcon = document.createElement('i');
-            removeIcon.className = 'bi bi-dash-circle remove-field';
+            removeIcon.className = 'bi bi-trash remove-field';
+            removeIcon.style.fontSize = '18px';
+            
             removeIcon.addEventListener('click', function() {
                 dynamicFields.removeChild(fieldDiv);
                 addedFields.delete(fieldName);
@@ -674,15 +1225,16 @@ footer {
     
             dynamicFields.appendChild(fieldDiv);
         }
-    
-        document.getElementById('computerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            let result = '';
-            for (let [key, value] of formData.entries()) {
-                result += `${key}: ${value}\n`;
-            }
-            alert('Form submitted with the following data:\n\n' + result);
-        });
-        </script>
-    {% endblock JsContent %}
+    </script>
+
+<!-- FaqModel -->
+  <script>
+    // Button
+    const model_faq = document.getElementById('#faqButton'); 
+
+    // CLick open model
+    model_faq.addEventListener("click", ()=>{
+        $('#faqModal').modal('show');
+    })
+  </script>
+{% endblock JsContent %}

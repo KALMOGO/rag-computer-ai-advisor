@@ -44,7 +44,7 @@ class Memory(models.Model):
     speed = models.CharField(max_length=20,blank=True, null=True)
 
     def __str__(self):
-        return f"{self.capacity} {self.type} @ {self.speed}"
+        return f"{self.capacity} GB // {self.type} - {self.speed}"
 
 class Storage(models.Model):
     type = models.CharField(max_length=20,blank=True, null=True)
@@ -215,7 +215,8 @@ class ComputerPhoto(models.Model):
         self.slug = f"{self.computer.pk}{random.random() * 100}"
         super().save(*args, **kwargs)
 
-
+    def __str__(self):
+        return f" {self.computer.id } / {self.computer.brand.name} / {self.computer.model} / core i {self.computer.processor.cores-1} / PHOTO" 
 
 class RecommendationResult(models.Model):
     computer_id   = models.CharField(max_length=50,blank=True, null=True)
@@ -228,3 +229,70 @@ class RecommendationResult(models.Model):
 
     def __str__(self):
         return f"Job: {self.job_title} computer : {self.computer_id} time: {self.recommendation_time}"
+
+
+class Acessoirs(models.Model):
+    name = models.CharField(max_length=100,blank=True, null=True)
+    description = models.CharField(max_length=100,blank=True, null=True)
+    creation_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "Acessoirs"
+        ordering = ("-creation_date",)
+
+    def __str__(self):
+        return f"{self.name}"
+    
+class ComputerAcessoirsInfo(models.Model):
+    image = models.ImageField(upload_to='media/computers/images/', blank=True, null=True)
+    url = models.CharField(max_length=250, blank=True, null=True)
+    creation_date = models.DateTimeField(auto_now_add=True)
+    acessoirs = models.ForeignKey(Acessoirs, on_delete=models.CASCADE, related_name='computer_acessoirs_info')
+    computer = models.ForeignKey(Computer, on_delete=models.CASCADE, related_name='acessoirs_info')
+    is_applied = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name_plural = "Acessoirs Detail"
+        ordering = ("-creation_date",)
+
+    def __str__(self):
+        return f"{self.computer.id} {self.acessoirs.name}"
+
+
+class SimpleOrderRecommendation(models.Model):
+    computer_id       = models.CharField(max_length=50,blank=True, null=True)
+    recommendation_id = models.CharField(max_length=250, blank=True, null=True)
+    max_budget  = models.CharField(max_length=50,blank=True, null=True)
+    min_budget  = models.CharField(max_length=50,blank=True, null=True)
+    brand       =  models.CharField(max_length=50,blank=True, null=True)
+    ram         =  models.CharField(max_length=50,blank=True, null=True)
+    processor_core =  models.CharField(max_length=50,blank=True, null=True)
+    storage        =  models.CharField(max_length=50,blank=True, null=True)
+    os      =  models.CharField(max_length=50,blank=True, null=True)
+    color   =  models.CharField(max_length=50,blank=True, null=True)
+    graphic =  models.CharField(max_length=50,blank=True, null=True)
+    processor_speed =  models.CharField(max_length=50,blank=True, null=True)
+    creation_date   = models.DateTimeField(auto_now_add=True)
+    user_id         = models.CharField(max_length=50,blank=True, null=True)
+    user_location   = models.CharField(max_length=50,blank=True, null=True)
+    is_processed    = models.BooleanField(default=False)
+    
+    class Meta:
+        verbose_name_plural = "Recommandation sans IA Results"
+        ordering = ("-creation_date",)
+
+    def __str__(self):
+        return f"user: {self.user_id} computer : {self.computer_id} time: {self.recommendation_id}"
+
+
+class ListJob(models.Model):
+    name = models.CharField(max_length=100,blank=True, null=True)
+    description = models.CharField(max_length=100,blank=True, null=True)
+    creation_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "List Jobs"
+        ordering = ("-creation_date",)
+
+    def __str__(self):
+        return f"{self.name}"

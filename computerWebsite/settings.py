@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     # External app
     'tinymce',
     "main",
-    "article"
+    "article",
+    'dashbord'
 ]
 
 MIDDLEWARE = [
@@ -158,3 +159,20 @@ TINYMCE_DEFAULT_CONFIG = {
                'alignleft aligncenter alignright alignjustify | '
                'bullist numlist outdent indent | removeformat | help',
 }
+
+
+# Activer les configurations de sécurité uniquement en production
+CSRF_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
+SECURE_SSL_REDIRECT = not DEBUG
+X_FRAME_OPTIONS = 'DENY'
+
+# HSTS uniquement en production
+SECURE_HSTS_SECONDS = 31536000 if not DEBUG else 0
+SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
+SECURE_HSTS_PRELOAD = not DEBUG
+
+# Activer ces options de protection en toutes circonstances
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+

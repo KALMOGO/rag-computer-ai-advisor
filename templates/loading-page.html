@@ -1,0 +1,35 @@
+<div id="loader-wrapper">
+    <div class="binary-rain" id="binary-rain"></div>
+    <div class="center-container">
+        <div class="circuit-container">
+            <svg class="hex-grid" viewBox="0 0 300 300">
+                <!-- Generated hexagon grid pattern -->
+            </svg>
+        </div>
+        <div class="brain-container">
+            <svg class="brain-svg" viewBox="0 0 100 100">
+                <path d="M50 20 Q60 20 65 25 Q70 30 70 40 Q70 50 65 55 Q60 60 50 60 Q40 60 35 55 Q30 50 30 40 Q30 30 35 25 Q40 20 50 20">
+                    <animate attributeName="d" 
+                        dur="3s" 
+                        repeatCount="indefinite"
+                        values="
+                            M50 20 Q60 20 65 25 Q70 30 70 40 Q70 50 65 55 Q60 60 50 60 Q40 60 35 55 Q30 50 30 40 Q30 30 35 25 Q40 20 50 20;
+                            M50 25 Q65 25 70 30 Q75 35 75 45 Q75 55 70 60 Q65 65 50 65 Q35 65 30 60 Q25 55 25 45 Q25 35 30 30 Q35 25 50 25;
+                            M50 20 Q60 20 65 25 Q70 30 70 40 Q70 50 65 55 Q60 60 50 60 Q40 60 35 55 Q30 50 30 40 Q30 30 35 25 Q40 20 50 20"
+                    />
+                </path>
+            </svg>
+            <div class="scanning-line"></div>
+        </div>
+        <svg class="progress-ring" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" stroke="#4a90e2" stroke-width="2" fill="none">
+                <animate attributeName="stroke-dasharray" 
+                    dur="3s"
+                    repeatCount="indefinite"
+                    values="0 283;283 283"/>
+            </circle>
+        </svg>
+        <div class="glitch-effect"></div>
+        <div class="loading-text" id="loading-text">AI</div>
+    </div>
+</div>

@@ -1,30 +1,36 @@
 <nav class="navbar navbar-expand-lg ">
   <div class="container">
 
-    <a class="navbar-brand brand" href="{% url 'index' %}"
-        style="background-color: aliceblue; 
-            padding: 5px; border-radius: 5px;
-            border:2px solid orangered" >
+    <a class="navbar-brand brand" href="{% url 'main:index' %}" style="color:#fff; padding: 5px;">
         Zoodo Computer
     </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" style="box-shadow: 1px 1px 5px #fff;" type="button" 
+    data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'index' %}">Acceuil</a>
+          <a class="nav-link" href="{% url 'main:index' %}">Acceuil</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="{% url 'main:description' %}">Infos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'main:market' %}">grand marché</a>
+        </li> 
+        <!-- <li class="nav-item">
           <a class="nav-link" href="#">Services</a>
-        </li>
+        </li> -->
         <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
+          <a class="nav-link" href="{% url 'main:description' %}#contact">Contact</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#contact">Contact</a>
-        </li>
+        <!-- <li>
+          <img src="https://flagcdn.com/w320/bf.png"
+              width="30px" height="20px" alt="Burkina Faso Flag">
+        </li> -->
       </ul>
     </div>
   </div>

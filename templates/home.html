@@ -149,7 +149,7 @@
 <main class="container my-5">
     <section class="form-container" id="form-container">
         <h2 class="text-center mb-4">Quels sont vos besoins</h2>
-        <form id="requirementForm" action="{% url 'recommendation' %}" method="POST">
+        <form id="requirementForm" action="{% url 'main:recommendation' %}" method="POST">
             {% csrf_token %}
             <!-- Budget Section -->
             <div class="mb-3">

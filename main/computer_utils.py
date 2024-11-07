@@ -1,4 +1,5 @@
 def recommended_object_builder(relevant_computer, computer_images,recommendation_info):
+    """Build the recommended object"""
     return {
         "id": relevant_computer.id,
         "name": relevant_computer.model,
@@ -55,6 +56,6 @@ def recommended_object_builder(relevant_computer, computer_images,recommendation
         "warranty_support": relevant_computer.warranty_support,
         "energy_rating": relevant_computer.energy_rating,
         "extras": relevant_computer.extras,
-        "recommendation_reason": recommendation_info.choose_reason,
+        "recommendation_reason": recommendation_info.choose_reason if  hasattr(recommendation_info, "choose_reason") else None,
     }
     

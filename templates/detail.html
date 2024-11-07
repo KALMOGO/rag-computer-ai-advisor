@@ -5,8 +5,9 @@
 {% block headLinks %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet"  type="text/css" href="{% static 'style/promotion-bar.css' %}">
+
 <style>
   *{
     margin: 0;
@@ -18,28 +19,22 @@
     background-color: #f8f9fa;
     color: #333;
   }
-  .navbar-brand {
-    background-color:  linear-gradient(90deg, #dad4e3, #7b1fa2) !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    
-  }
   .navbar {
-    background: linear-gradient(90deg, #4a148c, #7b1fa2) !important;
-    padding: 1rem 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-  }
+        background: #050A44 !important;
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+         z-index: 100; 
+    }
+    .navbar-brand img {
+        height: 40px;
+    }
   .computer-title {
     color: #4a148c;
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
   }
-  .image-gallery {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  }
+
   .thumbnail {
     cursor: pointer;
     transition: transform 0.2s;
@@ -52,8 +47,8 @@
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   }
   .section-title {
-    color: #7b1fa2;
-    border-bottom: 2px solid #7b1fa2;
+    color: #141619;
+    border-bottom: 2px solid #0A21C0;
     padding-bottom: 10px;
   }
   .feature-list {
@@ -68,12 +63,12 @@
     border-bottom: none;
   }
   .btn-custom {
-    background-color: #7b1fa2;
+    background-color: #0A21C0;
     color: #fff;
     transition: all 0.3s;
   }
   .btn-custom:hover {
-    background-color: #4a148c;
+    background-color: #0A21C0;
     color: #fff;
     transform: translateY(-2px);
     box-shadow: 0 4px 6px rgba(0,0,0,0.2);
@@ -84,7 +79,7 @@
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   }
   .brand:hover{
-    background-color: #7b1fa2 !important;
+    background-color: #0A21C0 !important;
     color:#fff;
   }
   .ms-auto .nav-item .nav-link{
@@ -93,122 +88,99 @@
   .ms-auto .nav-item .nav-link:hover{
     text-decoration: underline;
   }
+  /* Footer */
 footer {
-    background: #333;
+    background-color: #050A44;
     color: white;
-    padding: 20px 0;
+    padding: 2rem 1rem;
     position: relative;
     overflow: hidden;
-  }
-  .footer-content {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-  }
-  .footer-section {
-    text-align: center;
+}
+.footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+      }
+.footer-section {
+      flex: 1;
+      margin: 10px;
+      min-width: 200px;
+      text-align: center;
   }
   .footer-section h3 {
-    margin-bottom: 10px;
+      margin-bottom: 15px;
+      color: #fff;
   }
-  .social-icons a {
+.footer-section p, .footer-section a {
+    color: #ddd;
+    text-decoration: none;
+    margin: 10px 0;
+}
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.social-icons a {
     color: white;
     font-size: 24px;
-    margin: 0 10px;
-    transition: transform 0.3s ease;
-  }
-  .social-icons a:hover {
-    transform: scale(1.2);
-  }
-  .bubbles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-  }
-  .bubble {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    animation: float 4s infinite ease-in-out;
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-  }
+    transition: color 0.3s ease;
+}
+.social-icons a:hover {
+    opacity: 0.7;
+}
+.country-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.country-info img {
+    width: 30px;
+    height: auto;
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+@media screen and (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    .footer-section {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+}
   table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 30px;
-        }
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        tr:hover {
-            background-color: #f5f5f5;
-        }
-        .spec-group {
-            margin-bottom: 40px;
-        }
-      
-      
-  /* Loading */
-  .loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10000;
-    display: none;
   }
-  .custom-spinner {
-    width: 80px;
-    height: 80px;
-    position: relative;
-    animation: spinner-rotate 2s linear infinite;
+  th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
   }
-  .custom-spinner-circle {
-    width: 100%;
-    height: 100%;
-    border: 8px solid #ffffff;
-    border-radius: 50%;
-    opacity: 0.7;
+  th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+      color: #141619;
   }
-  .custom-spinner-square {
-    width: 30%;
-    height: 30%;
-    background-color: #ffffff;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: square-pulse 1s ease-in-out infinite alternate;
+  tr:hover {
+      background-color: #f5f5f5;
   }
-  @keyframes spinner-rotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  @keyframes square-pulse {
-    0% { transform: translate(-50%, -50%) scale(0.8); }
-    100% { transform: translate(-50%, -50%) scale(1.2); }
+  .spec-group {
+      margin-bottom: 40px;
   }
 
   /* Loading */
@@ -272,9 +244,12 @@ footer {
       font-size: 1.1rem;
     }
 
-    .social-icons {
-      justify-content:left;
-    }
+    .social-icons{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          display: inline-block;
+      }
     .info-icon,.tooltip{
         display: none;
       }
@@ -296,344 +271,752 @@ footer {
     }
   }
 
+
+.product-gallery {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      gap: 20px;
+      font-family: system-ui, -apple-system, sans-serif;
+      border:1px solid #e5e7eb;
+      border-radius: 15px;
+      /* background-color: #2563eb; */
+      margin-bottom: 50px;
+}
+
+.thumbnails-vertical {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow-y: auto;
+      /* border:1px solid red; */   
+}
+
+    .thumbnail {
+      width: 80px;
+      height: 80px;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .thumbnail:hover {
+      border-color: #f8f9fa;
+    }
+
+    .thumbnail.active {
+      border-color: #f8f9fa;
+    }
+
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .main-image-section {
+      flex-grow: 1;
+      position: relative;
+    }
+
+    .main-image-container {
+      width: 100%;
+      height: 500px;
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f8f9fa;
+    }
+
+    .main-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+  .zoom-lens {
+    position: absolute;
+    border: 2px solid #333;
+    background: rgba(255, 255, 255, 0.2);
+    cursor: move;
+    display: none;
+  }
+
+    .zoom-result {
+      position: absolute;
+      top: 0;
+      right: -400px;
+      width: 400px;
+      height: 400px;
+      border: 1px solid var(--border-color);
+      background: white;
+      display: none;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .gallery-controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px 20px;
+      border-radius: 30px;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    }
+
+.gallery-control {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      color: var(--text-color);
+      transition: all 0.3s ease;
+}
+
+    .gallery-control:hover {
+      background: #2d3436;
+      color: white;
+    }
+
+    .zoom-hint {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
+    }
+
+    .color-options {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .color-option {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.2s ease;
+    }
+
+    .color-option:hover {
+      transform: scale(1.1);
+    }
+
+    .color-option.active::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border: 2px solid var(--primary-color);
+      border-radius: 50%;
+    }
+
+    @media (max-width: 1024px) {
+      .product-gallery {
+        flex-direction: column;
+      }
+
+      .thumbnails-vertical {
+        flex-direction: row;
+        height: auto;
+        overflow-x: auto;
+      }
+
+      .main-image-container {
+        height: 400px;
+      }
+
+      .zoom-result {
+        display: none !important;
+      }
+    }
+
+    /* Loading animation */
+    .loading-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      border: 4px solid #e5e7eb;
+      border-top-color: #7b1fa2;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* Fade animation */
+    .fade-in {
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+     /* Add smooth transition for image changes */
+     .main-image {
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    .main-image.loading {
+      opacity: 0.3;
+    }
+  
+  
+.floating-order {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: #0A21C0;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  box-shadow: 0 5px 20px rgba(9, 132, 227, 0.3);
+  cursor: pointer;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.floating-order:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(9, 132, 227, 0.4);
+}
+
+.floating-order svg {
+  width: 20px;
+  height: 20px;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.floating-order:hover svg {
+  animation: bounce 1s infinite;
+}
+
+table tr th a, table tr td a, #graphic > a{
+  text-decoration: none;
+  color: #141619;
+  cursor: pointer;
+}
+
+table tr th a:hover, table tr td a:hover, #graphic a:hover{
+  text-decoration: underline;
+}
+
+.spec-group h2{
+  color: #0A21C0;
+  font-weight:18px ;
+}
+#modal-content{
+  width: 100%;
+}
+.modal {
+  width: 100% !important;
+  --bs-modal-width: 80% !important;
+}
 </style>
 {% endblock headLinks %}
 
 {% block bodyContent %}
+{% include 'promotion-bar.html' %}
+  <!-- navbar  -->
+  {% include 'header.html' %}
 
-<div class="container mt-5" style="background-color: #fff;">
-  <div class="p-0">
-    <a href="javascript:history.back()" class="btn btn-secondary">
-        &lt; Précédent
+<div class="container mt-3 mb-4" style="background-color: #fff; border-radius: 10px; border: 1px solid #b3b4bd37; ">
+  <!-- Titre -->
+  <div class="p-0  mt-1 " >
+    <a href="javascript:history.back()" class="p-2"  style="color:#0A21C0; font-size: 28px;">
+      <i class="bi bi-arrow-left"></i>
     </a>
   </div>
-
-  <h1 class="text-center computer-title mb-5">
-    {{computer_details.brand}} - {{computer_details.name}} <br>
+  <h1 class="text-center computer-title " style="color: #0A21C0;">
+    {{computer_details.name}} <br>
   </h1>
 
-  <div class="row">
-    <div class="col-md-6 mb-4">
-      <div class="image-gallery p-3">
-        
-        <img src="{{computer_details.image}}" alt="TechNova X1 Gaming PC - Front view with RGB lighting" class="img-fluid main-image mb-3" id="mainImage" width="600" height="400">
-        <div class="row">
-          
-          {% for image in computer_details.images %}
-          <div class="col-3">
-            <img src="{{image.src}}" alt="{{image.alt}}" class="img-fluid thumbnail" onclick="changeImage(this.src)" width="150" height="100">
+
+<!-- Photo -->
+  <div class="product-gallery" >
+      <div class="thumbnails-vertical">
+        <!-- Using real demo images with different views -->
+        <div class="thumbnail active">
+          <img src="{{computer_details.image}}" 
+              alt="Front View" 
+              data-full="{{computer_details.image}}">
+        </div>
+
+        {% for image in computer_details.images %}
+          <div class="thumbnail">
+            <img src="{{image.src}}" 
+                alt="Side View {{loop.index}}" 
+                data-full="{{image.src}}">
           </div>
-          {% endfor %}
+        {% endfor %}
+      </div>
+
+      <div class="main-image-section">
+        <div class="main-image-container">
+          <div class="zoom-lens"></div>
+          <div class="zoom-result"></div>
+          <div class="loading-spinner"></div>
+
+          <img src="{{computer_details.image}}" 
+              alt="Computer Front View" 
+              class="main-image">
+          
+          <div class="zoom-hint">
+            <i class="fas fa-search"></i>
+            Cliquer pour agrandir
+          </div>
+
+          <div class="gallery-controls">
+            <button class="gallery-control prev-image">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="gallery-control fullscreen">
+              <i class="fas fa-expand"></i>
+            </button>
+            <button class="gallery-control next-image">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-    
-    <div class="col-md-6 mb-4">
-   
-      <h2 class="section-title mt-4">Caractéristiques clés</h2>
-      <ul class="feature-list">
-        <li><strong>Processor:</strong> AMD Ryzen 9 5950X (16-core, 32-thread)</li>
-        <li><strong>Graphics:</strong> NVIDIA GeForce RTX 3090 (24GB GDDR6X)</li>
-        <li><strong>Memory:</strong> 64GB DDR4-3600 RGB RAM</li>
-        <li><strong>Storage:</strong> 2TB NVMe SSD + 4TB HDD</li>
-        <li><strong>Cooling:</strong> Custom liquid cooling system</li>
-      </ul>
-      
-      <div class="mt-4">
-        <h3 class="mb-3">Price: $3,999.99</h3>
-        <button class="btn btn-custom btn-lg" id="orderButton">Commander</button>
+  </div>
+<!-- Infotmation -->
+  <div class="row mt-1">
+      <!-- Prix -->
+      <div class="spec-group mb-1">
+          <h2>Prix</h2>
+          <table>
+              <tr>
+                <th>Achat (CFA)</th>
+                <th>Livraison</th>
+              </tr>
+
+              <tr>
+                  <td> {{computer_details.price}}</td>
+                  <td> -</td>
+              </tr>
+          </table>
+      </div>
+      <!-- Raison de la recommandation -->
+      {% if computer_details.recommendation_reason is not None %}
+        <div class="spec-group  mb-1">
+            <h2>Pourquoi ?</h2>
+            <table>
+                <tr>
+                  <th scope="col">Raison de la recommendation</th>
+                </tr>
+                <tr>
+                    <td> {{computer_details.recommendation_reason|default:"-"}}</td>
+                </tr>
+            </table>
+        </div>
+      {% endif %}
+      <!-- Stockage -->
+      <div class="spec-group  mb-1">
+          <h2>Stockage (disque dure) </h2>
+          <table>
+              <tr>
+                  <th>
+                    Type 
+                     
+                  </th>
+                  <th>
+                    Capacité
+                    
+                  </th>
+                  <th>
+                    RPM
+                   
+                  </th>
+              </tr>
+              {% for storage in computer_details.storage %}
+              <tr>
+                  <td>{{ storage.type|default:"-" }}</td>
+                  <td>{{ storage.capacity|default:"-" }} GB</td>
+                  <td>{{ storage.rpm|default:"-" }}</td>
+              </tr>
+              {% endfor %}
+          </table>
+      </div>
+      <!-- Processeur -->
+      <div class="spec-group  mb-1">
+          <h2>Processeur</h2>
+          <table>
+              <tr>
+                  <th>Caractéristiques</th>
+                  <th>Valeurs</th>
+              </tr>
+              <tr>
+                  <td>
+                    Fabriquant
+                  </td>
+                  <td>{{ computer_details.processor.brand|default:"-" }}</td>
+              </tr>
+              <tr>
+                  <td>
+                    Modèle
+                   
+                  </td>
+                  <td>{{ computer_details.processor.model|default:"-" }}</td>
+              </tr>
+              <tr>
+                  <td> 
+                    Nombre de coeurs
+                   
+                  </td>
+                  <td>{{ computer_details.processor.cores|default:"-" }}</td>
+              </tr>
+              <tr>
+                  <td>
+                    Vitesse 
+                   
+                  </td>
+                  <td>{{ computer.processor.threads|default:"-" }}</td>
+              </tr>
+              <tr>
+                  <td>
+                    Base Clock Speed
+                   
+                  </td>
+                  <td>{{ computer_details.processor.base_clock_speed|default:"-" }} GHz</td>
+              </tr>
+              <tr>
+                  <td>
+                    Turbo Clock Speed
+                    
+                  </td>
+                  <td>{{ computer.processor.turbo_clock_speed|default:"-" }} GHz</td>
+              </tr>
+          </table>
+      </div>
+      <!-- Caractéristiques graphiques -->
+       {% if computer_details.graphic is not None %}
+      <div class="spec-group  mb-1">
+          <h2 id="graphic">
+            Carte graphiques 
+            
+          </h2>
+          <table>
+              <tr>
+                  <th>Caractéristiques</th>
+                  <th>Valeurs</th>
+              </tr>
+              <tr>
+                  <td>Marque</td>
+                  <td>{{ computer_details.graphic.brand|default:"-" }}</td>
+              </tr>
+              <tr>
+                  <td>modèle</td>
+                  <td>{{ computer_details.graphic.model|default:"-" }}</td>
+              </tr>
+              <tr>
+                  <td>Type</td>
+                  <td>{{ computer_details.graphic.type|default:"-" }}</td>
+              </tr>
+              <tr>
+                  <td>Capacité</td>
+                  <td>{{ computer_details.graphic.memory|default:"-" }} GB</td>
+              </tr>
+          </table>
+      </div>
+      {% endif %}
+      <!-- Connectivités -->
+      <div class="spec-group  mb-1">
+          <h2>Ports et connectivités</h2>
+          <table>
+              <tr>
+                  <th>connectivités</th>
+                  <th>Nombre</th>
+              </tr>
+              <tr>
+                  <td>
+                    Bluetooth
+                    
+                    </td>
+                  <td>{{ computer_details.bluetooth|yesno:"Yes,No" }}</td>
+              </tr>
+              <tr>
+                  <td>
+                    Ethernet 
+                    
+                  </td>
+                  <td>{{ computer_details.ethernet|yesno:"Yes,No" }}</td>
+              </tr>
+              <tr>
+                  <td>
+                    USB 3.2 Gen 2 Type-C
+                    </td>
+                  <td>{{ computer_details.usb3_2_gen2_typeC |default:"-" }}</td>
+              </tr>
+              <tr>
+                  <td>
+                    USB 3.2 Gen 2 Type-A 
+                   
+                  </td>
+                  <td>{{ computer_details.usb3_2_gen2_typeA|default:"-" }}</td>
+              </tr>
+              <tr>
+                  <td>
+                    USB 3.2 Gen 1 Type-A
+                   </td>
+                  <td>{{ computer_details.usb3_2_gen1_typeA|default:"-" }}</td>
+              </tr>
+              <tr>
+                  <td>
+                    USB 2.0
+                    </td>
+                  <td>{{ computer_details.usb2_0|default:"-" }}</td>
+              </tr>
+              <tr>
+                  <td>
+                    Port HDMI
+                   
+                    </td>
+                  <td>{{ computer_details.hdmi_ports|default:"-" }}</td>
+              </tr>
+              <tr>
+                  <td>
+                    Port display
+                    
+                    </td>
+                  <td>{{ computer_details.display_ports|default:"-" }}</td>
+              </tr>
+              <tr>
+                  <td>
+                    Audio (Front Panel)
+                   
+                    </td>
+                  <td>{{ computer_details.audio_front_panel|default:"-" }}</td>
+              </tr>
+              <tr>
+                  <td>
+                    Audio (Rear Panel) 
+                   
+                    </td>
+                  <td>{{ computer_details.audio_rear_panel|default:"-" }}</td>
+              </tr>
+          </table>
+      </div>
+      <!-- Dimensions -->
+      <div class="spec-group  mb-1">
+          <h2>Caractéristiques physiques</h2>
+          <table>
+              <tr>
+                  <th>Dimension</th>
+                  <th>Valeurs</th>
+              </tr>
+              <tr>
+                  <td>
+                    Hauteur
+                    </td>
+                  <td>{{ computer_details.height|default:"-" }} mm</td>
+              </tr>
+              <tr>
+                  <td>
+                    Largeur
+                   </td>
+                  <td>{{ computer_details.width|default:"-" }} mm</td>
+              </tr>
+              <tr>
+                  <td>
+                    Profondeur
+                    </td>
+                  <td>{{ computer_details.depth|default:"-" }} mm</td>
+              </tr>
+              <tr>
+                  <td>
+                    Poids
+                  </td>
+                  <td>{{ computer_details.weight|default:"-" }} kg</td>
+              </tr>
+          </table>
+      </div>
+      <!-- Garantie -->
+      <div class="spec-group  mb-1">
+          <h2>Garantie</h2>
+          <table>
+              <tr>
+                  <th>Caractéristiques</th>
+                  <th>Valeurs</th>
+              </tr>
+              <tr>
+                  <td>
+                    Durée de vie estimée
+                    </td>
+                  <td>{{ computer_details.warranty_duration|default:"-" }}</td>
+              </tr>
+              <tr>
+                  <td>
+                    Type
+                    </td>
+                  <td>{{ computer_details.warranty_type|default:"-" }}</td>
+              </tr>
+              <tr>
+                  <td>
+                    Support
+                    </td>
+                  <td>{{ computer_details.warranty_support|default:"-" }}</td>
+              </tr>
+          </table>
+      </div>
+      <!-- Autres informations -->
+      <div class="spec-group  mb-1">
+          <h2>Autres informations</h2>
+          <table>
+              <tr>
+                  <th>Caractéristiques</th>
+                  <th>Valeurs</th>
+              </tr>
+              <tr>
+                  <td>Durée de la batterie </td>
+                  <td>{{ computer_details.energy_rating|default:"-" }}</td>
+              </tr>
+              <tr>
+                  <td>info supplémentaires </td>
+                  <td>{{ computer_details.extras|default:"-" }}</td>
+              </tr>
+            
+          </table>
+      </div>
+  </div>
+  <!-- Acessoirs -->
+   {% if accessoirs %}
+    <div class="row">
+      <h3 class="section-title mt-4" >Acessoirs supplementaires: (gratuit)</h3>
+      <div>
+        L'achat de cette ordinateur vous donne droit gratuitement à:
+        <table>
+          <tr>
+              <th></th>
+              <th></th>
+          </tr>
+
+          {% for accessoir in accessoirs %}
+            <tr>
+                <td>{{accessoir.acessoirs.name}}</td>
+                <td>
+                  {% if accessoir.image %}
+                    <img src="{{ accessoir.image.url }}" alt="{{accessoir.acessoirs.name}}" width="50" height="50">
+                  {% endif %}
+
+                  {% if accessoir.url %}
+                    <img src="{{ accessoir.url }}" alt="{{accessoir.acessoirs.name}}" width="50" height="50">
+                  {% endif %}
+                </td>
+            </tr>
+          {% endfor %}
+      </table>
       </div>
     </div>
-  </div>
-  
-  <div class="row mt-5">
-    <div class="col-md-12 mb-4">
-      <h2 class="section-title">Pourquoi ce PC correspond à vos besoins?</h2>
-      <p>
-        {{computer_details.recommendation_reason}}
-      </p>
-    </div>
-    
-    <!-- <div class="col-md-6 mb-4">
-      <h2 class="section-title">  <p>Acheter avec zoodoComputer</p></h2>
-      L'achat d'un ordinateur chez zoodoComputer vous donne droit à une garantie de trois moix au cours de laquelle vous pourriez par exemple 
-      faire reparer votre ordinateur gratuitement ou vous faire rembourser si des problèmes dont nous somme les causes surviennent.
-    </div> -->
-  </div>
-
-  <div class="row mt-3">
-    <div class=" mb-4">
-      <h2 class="section-title">Toutes les informations sur votre ordinateur</h2>
-
-      <div class="spec-group">
-        <h2>Stockage (disque dure) </h2>
-        <table>
-            <tr>
-                <th>Type <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i>
-                </th>
-                <th>Capacité <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i>
-                </th>
-                <th>RPM <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i>
-                </th>
-            </tr>
-            {% for storage in computer_details.storage %}
-            <tr>
-                <td>{{ storage.type }}</td>
-                <td>{{ storage.capacity }} GB</td>
-                <td>{{ storage.rpm }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
-
-    <div class="spec-group">
-        <h2>Processeur</h2>
-        <table>
-            <tr>
-                <th>Caractéristiques</th>
-                <th>Valeurs</th>
-            </tr>
-            <tr>
-                <td>
-                  Fabriquant <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i>
-                </td>
-                <td>{{ computer_details.processor.brand }}</td>
-            </tr>
-            <tr>
-                <td>Modèle <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i> </td>
-                <td>{{ computer_details.processor.model }}</td>
-            </tr>
-            <tr>
-                <td> Nombre de coeurs <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i>
-                </td>
-                <td>{{ computer_details.processor.cores }}</td>
-            </tr>
-            <tr>
-                <td>Vitesse <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i></td>
-                <td>{{ computer.processor.threads }}</td>
-            </tr>
-            <tr>
-                <td>Base Clock Speed <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i></td>
-                <td>{{ computer_details.processor.base_clock_speed }} GHz</td>
-            </tr>
-            <tr>
-                <td>Turbo Clock Speed <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i> </td>
-                <td>{{ computer.processor.turbo_clock_speed }} GHz</td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="spec-group">
-        <h2>Carte graphiques <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i>
-        </h2>
-        <table>
-            <tr>
-                <th>Caractéristiques</th>
-                <th>Valeurs</th>
-            </tr>
-            <tr>
-                <td>Marque</td>
-                <td>{{ computer_details.graphic.brand }}</td>
-            </tr>
-            <tr>
-                <td>modèle</td>
-                <td>{{ computer_details.graphic.model }}</td>
-            </tr>
-            <tr>
-                <td>Type</td>
-                <td>{{ computer_details.graphic.type }}</td>
-            </tr>
-            <tr>
-                <td>Capacité</td>
-                <td>{{ computer_details.graphic.memory }} GB</td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="spec-group">
-        <h2>Ports et connectivités</h2>
-        <table>
-            <tr>
-                <th>connectivités</th>
-                <th>Nombre</th>
-            </tr>
-            <tr>
-                <td>Bluetooth <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i> </td>
-                <td>{{ computer_details.bluetooth|yesno:"Yes,No" }}</td>
-            </tr>
-            <tr>
-                <td>Ethernet  <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i> </td>
-                <td>{{ computer_details.ethernet|yesno:"Yes,No" }}</td>
-            </tr>
-            <tr>
-                <td>USB 3.2 Gen 2 Type-C <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i> </td>
-                <td>{{ computer_details.usb3_2_gen2_typeC }}</td>
-            </tr>
-            <tr>
-                <td>USB 3.2 Gen 2 Type-A <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i></td>
-                <td>{{ computer_details.usb3_2_gen2_typeA }}</td>
-            </tr>
-            <tr>
-                <td>USB 3.2 Gen 1 Type-A <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i></td>
-                <td>{{ computer_details.usb3_2_gen1_typeA }}</td>
-            </tr>
-            <tr>
-                <td>USB 2.0 <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i></td>
-                <td>{{ computer_details.usb2_0 }}</td>
-            </tr>
-            <tr>
-                <td>Port HDMI <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i></td>
-                <td>{{ computer_details.hdmi_ports }}</td>
-            </tr>
-            <tr>
-                <td>Port display <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i></td>
-                <td>{{ computer_details.display_ports }}</td>
-            </tr>
-            <tr>
-                <td>Audio (Front Panel) <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i></td>
-                <td>{{ computer_details.audio_front_panel }}</td>
-            </tr>
-            <tr>
-                <td>Audio (Rear Panel) <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i></td>
-                <td>{{ computer_details.audio_rear_panel }}</td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="spec-group">
-        <h2>Caractéristiques physiques</h2>
-        <table>
-            <tr>
-                <th>Dimension</th>
-                <th>Valeurs</th>
-            </tr>
-            <tr>
-                <td>Hauteur <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i></td>
-                <td>{{ computer_details.height }} mm</td>
-            </tr>
-            <tr>
-                <td>Largeur <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i> </td>
-                <td>{{ computer_details.width }} mm</td>
-            </tr>
-            <tr>
-                <td>Profondeur <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i></td>
-                <td>{{ computer_details.depth }} mm</td>
-            </tr>
-            <tr>
-                <td>Poids <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i> </td>
-                <td>{{ computer_details.weight }} kg</td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="spec-group">
-        <h2>Garantie</h2>
-        <table>
-            <tr>
-                <th>Caractéristiques</th>
-                <th>Valeurs</th>
-            </tr>
-            <tr>
-                <td>Durée de vie estimée <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i></td>
-                <td>{{ computer_details.warranty_duration }}</td>
-            </tr>
-            <tr>
-                <td>Type <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i></td>
-                <td>{{ computer_details.warranty_type }}</td>
-            </tr>
-            <tr>
-                <td>Support <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i></td>
-                <td>{{ computer_details.warranty_support }}</td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="spec-group">
-        <h2>Autres informations</h2>
-        <table>
-            <tr>
-                <th>Caractéristiques</th>
-                <th>Valeurs</th>
-            </tr>
-            <tr>
-                <td>Durée de la batterie <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i></td>
-                <td>{{ computer_details.energy_rating }}</td>
-            </tr>
-            <tr>
-                <td>info supplémentaires <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i></td>
-                <td>{{ computer_details.extras }}</td>
-            </tr>
-           
-        </table>
-    </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <h3 class="section-title mt-4" >Acessoirs supplementaires: (gratuit)</h3>
-    <div>
-      L'achat de cette ordinateur vous donne droit gratuitement à :
-
-      <ul class="mt-1">
-        <li>Une souris sans fil: <img src="data:image/jpeg;base64,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" alt="souris" width="50" height="50"> </li>
-        <li>Un sac:  <img src="https://m.media-amazon.com/images/I/71jIgs6ArHL._AC_UF1000,1000_QL80_.jpg" alt="souris" width="50" height="50"> </li>
-        <li>5 bics de votre choix: <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxwCzR3KB5rHIcioMBDm7R5BlH7_vgp73fwQ&s" alt="souris" width="50" height="50"></li>
-      </ul>
-    </div>
-  </div>
+  {% endif %}
 </div>
 
-<!-- Loading -->
-<div class="loading-overlay" id="loadingOverlay"></div>
-  <div class="custom-spinner">
-    <div class="custom-spinner-circle"></div>
-    <div class="custom-spinner-square"></div>
-  </div>
-</div>
+<!-- Bouton commander -->
+<button class="floating-order btn  btn-lg" id="orderButton">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+  </svg>
+  Commander
+</button>
 
 <!-- Modal commander-->
 <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+  <!-- Contenu modal tout -->
   <div class="modal-dialog">
-      <div class="modal-content">
+
+      <div class="modal-content" id="modal-content">
+        <!-- modal titre -->
           <div class="modal-header">
-              <h5 class="modal-title" id="orderModalLabel">Enregistrer votre commande</h5>
+              <h5 class="modal-title" id="orderModalLabel">
+                <div class="spinner-border spinner-border-sm" style="color:#0A21C0" role="status" aria-hidden="true"></div>
+                  <b>Enregistrer votre commande </b>
+              </h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
+          <!-- formulaire -->
           <div class="modal-body">
               <form id="orderForm">
                 {% csrf_token %}
+                <!-- Nom prenom -->
                   <div class="mb-1">
-                      <label for="last_name" class="form-label">Nom </label>
+                      <!-- <label for="last_name" class="form-label">Nom </label> -->
                       <input type="text" class="form-control" id="last_name" placeholder="Entrer votre nom" required>
                   </div>
+
                   <div class="mb-1">
                     <label for="first_name" class="form-label">Prenom </label>
                     <input type="text" class="form-control" id="first_name" placeholder="Entrer votre prenom" required>
                 </div>
+                <!-- Phone -->
                   <div class="mb-1">
                       <label for="phone" class="form-label">Télephone</label>
                       <input type="tel" class="form-control" id="phone" placeholder="Entrer votre numéro de télephone" required>
                   </div>
+                <!--Localisation  -->
                   <div class="mb-3">
                     <label for="location" class="form-label">Localisation</label>
                     <input type="text" class="form-control" id="location" placeholder="Entrer votre la ville de residence" required>
                  </div>
+                <!-- Nbre -->
+                <div class="mb-3">
+                  <label for="number_of_item" class="form-label">Nombre de pieces</label>
+                  <input type="number" class="form-control" id="number_of_item" name="number_of_item" value="1" placeholder="expl. 1" min="1" required>
+               </div>
+               <!-- Livraison -->
                  <div class="mb-3">
                   <label class="form-label">
-                    <h5 ><b>Livraison gratuit à :</b> </h5>
+                    <h5 >Livraison gratuit </h5>
                     <ul>
-                      <li>Ouagadougou</li>
-                      <li>Bobo-Dioulasso</li>
+                      <li>Partout au Burkina Faso</li>
                     </ul>
 
                   </label>
               </div>
               </form>
           </div>
+          <!-- Bouton save -->
           <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+              <button type="button" style="background-color: #050A44; color:#fff" class="btn" data-bs-dismiss="modal">Annuler</button>
               <button type="button" class="btn" 
-              style="background-color: #7b1fa2; color:#fff" id="submitOrder">
+              style="background-color: #0A21C0; color:#fff" id="submitOrder">
                 Enregistrer
               </button>
           </div>
@@ -641,33 +1024,46 @@ footer {
   </div>
 </div>
 
+<!-- Loading -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="custom-spinner">
+    <div class="custom-spinner-circle"></div>
+    <div class="custom-spinner-square"></div>
+  </div>
+</div>
 
 {% endblock bodyContent %}
 
 {% block JsContent %}
+<!-- JScontent -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+ 
+    $(document).ready(function() {
+      $('.btn-custom').hover(
+        function() {
+          $(this).html('Commander');
+        },
+        function() {
+          $(this).html('Commander');
+        }
+        );
 
-$(document).ready(function() {
-    $('.btn-custom').hover(
-      function() {
-        $(this).html('Commander');
-      },
-      function() {
-        $(this).html('Commander');
-      }
-      );
-
-      // Order button click handler
-      $('#orderButton').click(function() {
-          $('#orderModal').modal('show');
+        // Order button click handler
+        $('#orderButton').click(function() {
+            $('#orderModal').modal('show');
+      });
     });
-  });
-
 </script>
 
 
+<!--
+  Commend form
+-->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+
       function changeImage(src) {
           document.getElementById('mainImage').src = src;
         }
@@ -676,6 +1072,7 @@ $(document).ready(function() {
           const submitButton = document.getElementById('submitOrder');
           const form = document.getElementById('orderForm');
           const loadingOverlay = document.getElementById('loadingOverlay');
+          loadingOverlay.style.display = 'none';
 
         // Function to create and append error message
       function createErrorMessage(input, message) {
@@ -730,11 +1127,12 @@ $(document).ready(function() {
               last_name: document.getElementById('last_name').value,
               phone: document.getElementById('phone').value,
               location: document.getElementById('location').value,
+              number: document.getElementById('number_of_item').value,
               id_computer:"{{id_computer}}"
           };
           // Send data to the server
           loadingOverlay.style.display = 'flex'; // loading
-          fetch("{% url 'process-order' %}", {
+          fetch("{% url 'main:process-order' %}", {
               method: 'POST',
               headers: {
                 'X-CSRFToken': '{{ csrf_token }}',
@@ -745,18 +1143,19 @@ $(document).ready(function() {
           .then(response => response.json())
           .then(data => {
               if (data.message = "success") {
-                $('#orderModal').modal('hide');
                   // alert('Votre commande a été enregistrée avec succès!');
                         // Reset the form
                   form.reset();
                   setTimeout(function() {
                     loadingOverlay.style.display = 'none';
-                    window.location.href = "{% url 'success-order' %}";
+                    window.location.href = "{% url 'main:success-order' %}";
+                  $('#orderModal').modal('hide');
+
                   }, 3000);
               } else {
                 setTimeout(function() {
                     loadingOverlay.style.display = 'none';
-                    window.location.href = "{% url 'success-order' %}";
+                    window.location.href = "{% url 'main:success-order' %}";
                   }, 3000);
               }
           })
@@ -764,10 +1163,178 @@ $(document).ready(function() {
               console.error('Error:', error);
               setTimeout(function() {
                     loadingOverlay.style.display = 'none';
-                    window.location.href = "{% url 'success-order' %}";
+                    window.location.href = "{% url 'main:error-page' %}";
                   }, 3000);
           });
       });
+  });
+</script>
+
+<!-- 
+  Zoom on image functionnality
+ -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get all necessary elements
+    const mainImage = document.querySelector('.main-image');
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    const zoomLens = document.querySelector('.zoom-lens');
+    const zoomResult = document.querySelector('.zoom-result');
+    const mainImageContainer = document.querySelector('.main-image-container');
+    const prevButton = document.querySelector('.prev-image');
+    const nextButton = document.querySelector('.next-image');
+    const fullscreenButton = document.querySelector('.fullscreen');
+    const colorOptions = document.querySelectorAll('.color-option');
+    const loadingSpinner = document.querySelector('.loading-spinner');
+    
+    let currentImageIndex = 0;
+
+    // Image loading function with proper error handling
+    function loadImage(src) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
+        img.src = src;
+      });
+    }
+
+    // Update main image with loading state
+    async function updateMainImage(src) {
+      try {
+        // Show loading state
+        mainImage.classList.add('loading');
+        loadingSpinner.style.display = 'block';
+
+        // Load the new image
+        await loadImage(src);
+        
+        // Update the main image
+        mainImage.src = src;
+        mainImage.classList.remove('loading');
+      } catch (error) {
+        console.error('Error loading image:', error);
+        // Handle error state if needed
+      } finally {
+        loadingSpinner.style.display = 'none';
+      }
+    }
+
+    // Update gallery state
+    function updateGallery() {
+      // Update thumbnails
+      thumbnails.forEach((thumb, index) => {
+        thumb.classList.toggle('active', index === currentImageIndex);
+      });
+
+      // Get new image source and update
+      const newImageSrc = thumbnails[currentImageIndex].querySelector('img').dataset.full;
+      updateMainImage(newImageSrc);
+    }
+
+    // Thumbnail click handlers
+    thumbnails.forEach((thumbnail, index) => {
+      thumbnail.addEventListener('click', () => {
+        currentImageIndex = index;
+        updateGallery();
+      });
+    });
+
+    // Navigation button handlers
+    prevButton.addEventListener('click', () => {
+      currentImageIndex = (currentImageIndex - 1 + thumbnails.length) % thumbnails.length;
+      updateGallery();
+    });
+
+    nextButton.addEventListener('click', () => {
+      currentImageIndex = (currentImageIndex + 1) % thumbnails.length;
+      updateGallery();
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        prevButton.click();
+      } else if (e.key === 'ArrowRight') {
+        nextButton.click();
+      }
+    });
+
+    // Fullscreen handling
+    fullscreenButton.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        mainImageContainer.requestFullscreen().catch(err => {
+          console.error(`Error attempting to enable fullscreen: ${err.message}`);
+        });
+        fullscreenButton.innerHTML = '<i class="fas fa-compress"></i>';
+      } else {
+        document.exitFullscreen();
+        fullscreenButton.innerHTML = '<i class="fas fa-expand"></i>';
+      }
+    });
+
+    // Color variant handling
+    colorOptions.forEach(option => {
+      option.addEventListener('click', function() {
+        colorOptions.forEach(opt => opt.classList.remove('active'));
+        this.classList.add('active');
+        // Here you would typically load a new set of images for the selected color
+      });
+    });
+
+    // Zoom functionality
+    function getMousePosition(event) {
+      const rect = mainImageContainer.getBoundingClientRect();
+      return {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top
+      };
+    }
+
+    function updateZoom(mousePos) {
+      const lensWidth = Math.min(mainImageContainer.offsetWidth / 4, 150);
+      const lensHeight = lensWidth;
+      zoomLens.style.width = `${lensWidth}px`;
+      zoomLens.style.height = `${lensHeight}px`;
+      
+      let x = mousePos.x - lensWidth / 2;
+      let y = mousePos.y - lensHeight / 2;
+      
+      // Boundary checking
+      x = Math.max(0, Math.min(x, mainImageContainer.offsetWidth - lensWidth));
+      y = Math.max(0, Math.min(y, mainImageContainer.offsetHeight - lensHeight));
+      
+      zoomLens.style.left = x + 'px';
+      zoomLens.style.top = y + 'px';
+      
+      // Calculate zoom
+      const scaleX = zoomResult.offsetWidth / lensWidth;
+      const scaleY = zoomResult.offsetHeight / lensHeight;
+      
+      zoomResult.style.backgroundImage = `url(${mainImage.src})`;
+      zoomResult.style.backgroundSize = `${mainImageContainer.offsetWidth * scaleX}px ${mainImageContainer.offsetHeight * scaleY}px`;
+      zoomResult.style.backgroundPosition = `-${x * scaleX}px -${y * scaleY}px`;
+    }
+
+    // Zoom event handlers
+    mainImageContainer.addEventListener('mouseenter', function(e) {
+      if (window.innerWidth > 1024) {
+        zoomLens.style.display = 'block';
+        zoomResult.style.display = 'block';
+        updateZoom(getMousePosition(e));
+      }
+    });
+
+    mainImageContainer.addEventListener('mouseleave', function() {
+      zoomLens.style.display = 'none';
+      zoomResult.style.display = 'none';
+    });
+
+    mainImageContainer.addEventListener('mousemove', function(e) {
+      if (window.innerWidth > 1024) {
+        updateZoom(getMousePosition(e));
+      }
+    });
   });
 </script>
 {% endblock JsContent %}

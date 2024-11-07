@@ -1,0 +1,51 @@
+<div class="horizontal-menu">
+    <a href="{% url 'dashbord:index' %}" class="home-button">🏠</a>
+  
+    <!-- Commandes -->
+    <div class="menu-item">
+      Commandes
+      <div class="submenu">
+        <a href="{% url 'dashbord:unproccessed-orders' %}">Non traiter</a>
+        <a href="{% url 'dashbord:processed-orders' %}">A traiter</a>
+      </div>
+    </div>
+  
+    <!-- Ordinateurs -->
+    <div class="menu-item">
+      Ordinateurs
+      <div class="submenu">
+        <a href="{% url 'dashbord:add-computer' %}">Ajouter</a>
+        <a href="{% url 'dashbord:add-computer-photo' %}">Ajouter Images</a>
+        <a href="{% url 'dashbord:computer-list' %}">Lister</a>
+      </div>
+    </div>
+  
+    <!-- Fournisseurs -->
+    <div class="menu-item">
+      <a href="{% url 'dashbord:supplier' %}" style="color: #fff; text-decoration: none;">Fournisseurs</a>
+    </div>
+  
+    <!-- Compte -->
+    <div class="menu-item">
+      Compte
+      <div class="submenu">
+        <a href="{% url 'dashbord:register' %}">Ajouter utilisateur</a>
+        <a href="{% url 'dashbord:profile' %}">Profile</a>
+        <a href="{% url 'dashbord:logout' %}">Deconnexion</a>
+      </div>
+    </div>
+  
+    <!-- Rafrachir -->
+    <div class="menu-item">
+      <a href="{% url 'dashbord:index' %}" style="color: #fff; text-decoration: none;">Rafrachir</a>
+    </div>
+  
+    <!-- Deconnexion -->
+    <div class="menu-item">
+      <a href="{% url 'dashbord:logout' %}" style="color: #fff; text-decoration: none;">Deconnexion</a>
+    </div>
+  
+    <!-- Dark Mode -->
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌓</button>
+  </div>
+  

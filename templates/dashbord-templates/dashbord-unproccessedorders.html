@@ -1,0 +1,247 @@
+{% extends '__frames/dashbord-main.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block headLinks %}
+<link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" type="text/css"  href="{% static 'style/dashbord/dashbord-unproccessedorders.css' %}">
+<link rel="stylesheet" type="text/css"  href="{% static 'style/dashbord/dashbord-footer.css' %}">
+<link rel="stylesheet" type="text/css"  href="{% static 'style/dashbord/dashbord-main.css' %}">
+
+<style>
+    footer{
+        position: fixed !important;
+    }
+</style>
+{% endblock headLinks %}
+
+{% block bodyContent %}
+<!-- Navbar -->
+{% include 'dashbord-templates/dashbord-navbar.html' %}
+
+<!-- Content -->
+<div class="container-fluid" >
+    <div class="row">
+        <!-- Main Content -->
+        <main class="col-12 ms-sm-auto col-lg-12 px-md-4 main-content">
+
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Commandes Non Traitées</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group me-2">
+                        <button type="button" class="btn btn-sm text-white" style="background-color: #050A44;" id="exportExcel">
+                            <i class="bi bi-file-earmark-excel"></i> Exporter Excel
+                        </button>
+                        <button type="button" class="btn btn-sm text-white" style="background-color: #0A21C0;" id="exportPDF">
+                            <i class="bi bi-file-earmark-pdf"></i> Exporter PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unprocessed Orders Table -->
+            <div class="card fade-in">
+                <div class="card-body" id="card-body">
+                    <div class="table-responsive">
+                        <table id="unprocessedOrdersTable" class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    
+                                    <th>Nom client</th>
+                                    <th>Tel. client</th>
+                                    <th>Localisation</th>
+                                    <th>Fournisseur</th>
+                                    <th>Ordinateur</th>
+                                    <th>Comission</th>
+                                    <th>Tel. Fournisseur</th>
+                                    <th>Priorité</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Table body will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Order Details Modal -->
+<div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderDetailsModalLabel">Order Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Order details will be populated here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="processOrderBtn">Process Order</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!-- Footer -->
+ {% include 'dashbord-templates/dashbord-footer.html' %}
+
+{% endblock bodyContent %}
+
+{% block JsContent %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
+<script>
+    // Sample data for unprocessed orders
+    const unprocessedOrders = [
+        {id: 2001, userName: "Emma Davis", phone: "+1 444-555-6666", location: "Seattle, WA", supplier: "TechGiant", computer: "Ultrabook Pro", percentage: "6%", dateOrdered: "2023-05-15", priority: "High"},
+        {id: 2002, userName: "Michael Lee", phone: "+1 777-888-9999", location: "Boston, MA", supplier: "MegaBytes", computer: "Gaming Beast", percentage: "8%", dateOrdered: "2023-05-14", priority: "Medium"},
+        {id: 2003, userName: "Sophia Rodriguez", phone: "+1 222-333-4444", location: "Denver, CO", supplier: "CompuTech", computer: "Office Elite", percentage: "5%", dateOrdered: "2023-05-13", priority: "Low"},
+        {id: 2004, userName: "William Chen", phone: "+1 666-777-8888", location: "San Francisco, CA", supplier: "Silicon Systems", computer: "Developer's Dream", percentage: "7%", dateOrdered: "2023-05-12", priority: "High"},
+        {id: 2005, userName: "Olivia Taylor", phone: "+1 999-000-1111", location: "Austin, TX", supplier: "ByteBuilders", computer: "Student Special", percentage: "4%", dateOrdered: "2023-05-11", priority: "Medium"},
+    ];
+
+    $(document).ready(function() {
+        const table = $('#unprocessedOrdersTable').DataTable({
+            data: unprocessedOrders,
+            columns: [
+                
+                {data: 'userName'},
+                {data: 'phone'},
+                {data: 'location'},
+                {data: 'supplier'},
+                {data: 'computer'},
+                {data: 'percentage'},
+                {data: 'dateOrdered'},
+                {
+                    data: 'priority',
+                    render: function(data, type, row) {
+                        const badgeClass = data === 'High' ? 'bg-danger' : (data === 'Medium' ? 'bg-warning' : 'bg-info');
+                        return `<span class="badge ${badgeClass}">${data}</span>`;
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return `
+                            <div class="action-buttons">
+                                <button class="btn btn-sm btn-info view-order" data-id="${row.id}"><i class="bi bi-eye"></i></button>
+                                <button class="btn btn-sm btn-success process-order" data-id="${row.id}"><i class="bi bi-check-lg"></i></button>
+                                <button class="btn btn-sm btn-danger delete-order" data-id="${row.id}"><i class="bi bi-trash"></i></button>
+                            </div>
+                        `;
+                    }
+                }
+            ],
+            pageLength: 10,
+            lengthChange: false,
+            info: false,
+            language: {
+                search: "Rechercher:",
+                paginate: {
+                    next: '<i class="bi bi-chevron-right"></i>',
+                    previous: '<i class="bi bi-chevron-left"></i>'
+                }
+            },
+            createdRow: function(row, data, dataIndex) {
+                $(row).addClass(`priority-${data.priority.toLowerCase()}`);
+            }
+        });
+
+        // View order details
+        $('#unprocessedOrdersTable').on('click', '.view-order', function() {
+            const orderId = $(this).data('id');
+            const order = unprocessedOrders.find(o => o.id === orderId);
+            
+            let modalContent = `
+                <p><strong>Order ID:</strong> ${order.id}</p>
+                <p><strong>User Name:</strong> ${order.userName}</p>
+                <p><strong>Phone:</strong> ${order.phone}</p>
+                <p><strong>Location:</strong> ${order.location}</p>
+                <p><strong>Supplier:</strong> ${order.supplier}</p>
+                <p><strong>Computer:</strong> ${order.computer}</p>
+                <p><strong>Percentage:</strong> ${order.percentage}</p>
+                <p><strong>Date Ordered:</strong> ${order.dateOrdered}</p>
+                <p><strong>Priority:</strong> ${order.priority}</p>
+            `;
+
+            $('#orderDetailsModal .modal-body').html(modalContent);
+            $('#orderDetailsModal').modal('show');
+        });
+
+        // Process order
+        $('#unprocessedOrdersTable').on('click', '.process-order', function() {
+            const orderId = $(this).data('id');
+            if (confirm(`Are you sure you want to process order ${orderId}?`)) {
+                alert(`Order ${orderId} processed (functionality to be implemented)`);
+                // Here you would typically send an AJAX request to update the order status
+                // and then remove the row from the table or refresh the data
+            }
+        });
+
+        // Delete order (placeholder function)
+        $('#unprocessedOrdersTable').on('click', '.delete-order', function() {
+            const orderId = $(this).data('id');
+            if (confirm(`Are you sure you want to delete order ${orderId}?`)) {
+                alert(`Order ${orderId} deleted (functionality to be implemented)`);
+            }
+        });
+
+        // Process order from modal
+        $('#processOrderBtn').click(function() {
+            const orderId = $('#orderDetailsModal').data('orderId');
+            if (confirm(`Are you sure you want to process order ${orderId}?`)) {
+                alert(`Order ${orderId} processed (functionality to be implemented)`);
+                $('#orderDetailsModal').modal('hide');
+            }
+        });
+
+        // Export to Excel
+        $('#exportExcel').click(function() {
+            const ws = XLSX.utils.json_to_sheet(unprocessedOrders);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Unprocessed Orders");
+            XLSX.writeFile(wb, "unprocessed_orders.xlsx");
+        });
+
+        // Export to PDF
+        $('#exportPDF').click(function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.text("Unprocessed Orders", 14, 15);
+            
+            const columns = ["ID", "Name", "Phone", "Location", "Supplier", "Computer", "%", "Date", "Priority"];
+            const rows = unprocessedOrders.map(order => [
+                order.id,
+                order.userName,
+                order.phone,
+                order.location,
+                order.supplier,
+                order.computer,
+                order.percentage,
+                order.dateOrdered,
+                order.priority
+            ]);
+
+            doc.autoTable({
+                head: [columns],
+                body: rows,
+                startY: 20
+            });
+
+            doc.save("unprocessed_orders.pdf");
+        });
+    });
+</script>
+{% endblock JsContent %}

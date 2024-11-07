@@ -5,49 +5,53 @@
 {% block headLinks %}
 
 <!-- CssContent -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet"  type="text/css" href="{% static 'style/loading-page.css' %}">
+<link rel="stylesheet"  type="text/css" href="{% static 'style/promotion-bar.css' %}">
+<script src="{% static 'js/loading-page.js' %}" ></script>
 <style>
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Rubik", sans-serif;
 }
 body {
     background-color: #f8f9fa !important;
     color: #333 !important;
+    background-color: #B3B4BD;
+    font-family: Helvetica, sans-serif;
 }
 .navbar-brand {
-    background-color:  linear-gradient(90deg, #dad4e3, #7b1fa2) !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px #0A21C0;
     
 }
 .navbar {
-    background: linear-gradient(90deg, #4a148c, #7b1fa2) !important;
+    background: #050A44 !important;
+    padding: 1rem 0;
     position: sticky;
     top: 0;
-    z-index: 1000;
+     z-index: 100; 
 }
-
 .navbar-brand img {
     height: 30px;
 }
 .section-title {
-    color: #7b1fa2;
+    color: #141619;
     border-bottom: 2px solid #7b1fa2;
     padding-bottom: 10px;
   }
-  .computer-title {
-    color: #4a148c !important;
-    font-weight: bold !important;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1) !important;
+  .section-title:hover{
+    text-decoration: underline;
   }
 
     .form-section {
         background-color: white;
         border-radius: 10px;
       margin: 0 auto;
+      border-right: 1px solid #B3B4BD;
+      border-left: 1px solid #B3B4BD;
     }
     .progress {
         height: 5px;
@@ -78,54 +82,114 @@ body {
   }
   #jobList li:hover {
     background-color: #f8f9fa;
-  }
-
-  .footer-content {
+}
+footer {
+    background-color: #050A44;
+    color: white;
+    padding: 2rem 1rem;
+    position: relative;
+    overflow: hidden;
+}
+.footer-content {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
-    z-index: 1;
-  }
-  .footer-section {
+    z-index: 10;
+}
+
+.footer-section {
+    flex: 1;
+    margin: 10px;
+    min-width: 200px;
     text-align: center;
-  }
-  .footer-section h3 {
-    margin-bottom: 10px;
-  }
-  .social-icons a {
+}
+.footer-section h3 {
+    margin-bottom: 15px;
+    color: #fff;
+}
+.footer-section p, .footer-section a {
+    color: #ddd;
+    text-decoration: none;
+    margin: 10px 0;
+}
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.social-icons a {
     color: white;
     font-size: 24px;
-    margin: 0 10px;
-    transition: transform 0.3s ease;
-  }
-  .social-icons a:hover {
-    transform: scale(1.2);
-  }
-  .bubbles {
+    transition: color 0.3s ease;
+}
+.social-icons a:hover {
+    opacity: 0.7;
+}
+.country-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.country-info img {
+    width: 30px;
+    height: auto;
+}
+.bubbles {
+  display: none;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0;
-  }
-  .bubble {
+    z-index: 1;
+    background: linear-gradient(45deg, #333, #000);
+}
+.bubbles::before {
+    content: '';
     position: absolute;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    animation: float 4s infinite ease-in-out;
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-  }
+    top: 0;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background-color: #000;
+    background-image: radial-gradient(#333 20%, transparent 20%);
+    background-size: 50px 50px;
+    opacity: 0.3;
+    animation: moveBubbles 20s linear infinite;
+}
+@keyframes moveBubbles {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.copyright {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+@media screen and (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    .footer-section {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+}
 
   .form-control:focus {
-  border-color: #7b1fa2;
-  box-shadow: 0 0 0 0.2rem rgba(123, 31, 162, 0.25);
+  border-color: #0A21C0;
+  box-shadow: 0 0 0 0.2rem #0a22c0db;;
 }
 .ms-auto .nav-item .nav-link{
     color:#fff;
@@ -150,8 +214,8 @@ body {
     text-align: center;
 }
 .card-condition > h3 {
-    color: #7b1fa2;
-    border-bottom: 2px solid #7b1fa2;
+    color: #0A21C0;;
+    border-bottom: 2px solid #0A21C0;;
     padding-bottom: 10px;
 }
 .condition-p {
@@ -183,8 +247,9 @@ body {
     background-color: #2980b9;
 }
 .brand:hover{
-    background-color: #7b1fa2 !important;
+    background-color: #0A21C0!important;
     color:#fff;
+
   }
   .ms-auto .nav-item .nav-link{
     color:#fff;
@@ -192,28 +257,7 @@ body {
   .ms-auto .nav-item .nav-link:hover{
     text-decoration: underline;
   }
-footer {
-    background: #333;
-    color: white;
-    padding: 20px 0;
-    position: relative;
-    overflow: hidden;
-  }
-  .footer-content {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-  }
-  .footer-section {
-    text-align: center;
-  }
-  .footer-section h3 {
-    margin-bottom: 10px;
-  }
+
   .error-message {
     color: red;
     font-size: 0.8em;
@@ -285,7 +329,7 @@ footer {
 
 /* Label styles */
 .form-label strong {
-    color: #7b1fa2;
+    color: #141619;
     font-size: 18px;
     display: block;
     margin-bottom: 0.5rem;
@@ -371,7 +415,10 @@ footer {
         flex: 0 0 50%;
         max-width: 50%;
     }
-  
+    .navbar-brand {
+    box-shadow: none;
+    
+}
 }
 
 /* Checkbox container styles */
@@ -388,7 +435,12 @@ footer {
   font-size: 0.9rem;
 }
 #accept {
-    margin-right: 0.5rem;
+    margin-right: 10px;
+    width: 25px;
+    height: 25px;
+}
+#accept:hover {
+    cursor: pointer;
 }
 
   /* Media query footer */
@@ -405,10 +457,16 @@ footer {
   h3 {
     font-size: 1.1rem;
   }
-
-  .social-icons {
-    justify-content:left;
-  }
+  .navbar-brand {
+    box-shadow: none;
+    
+}
+  .social-icons{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          display: inline-block;
+      }
   .info-icon,.tooltip{
       display: none;
     }
@@ -428,6 +486,13 @@ h3 {
 .social-icons a {
     font-size: 1.2rem;
   }
+  .navbar-brand {
+    box-shadow: none;
+    
+}
+#form_ai_title{
+    font-size: 20px;
+  }
 }
 
 
@@ -436,6 +501,10 @@ h3 {
 .container {
     padding-top: 10px;
     padding-bottom: 10px;
+}
+.navbar-brand {
+    box-shadow: none;
+    
 }
 .info-icon,.tooltip{
       display: none;
@@ -457,7 +526,10 @@ h3 {
   .footer-content {
     flex-direction: column;
   }
-
+  .navbar-brand {
+    box-shadow: none;
+    
+}
   .footer-section {
     margin: 10px 0;
   }
@@ -465,12 +537,20 @@ h3 {
   .form-label strong {
     font-size: 16px;
   }
+  #form_ai_title{
+    font-size: 20px;
+  }
 }
+
 
 @media (max-width: 576px) {
   h4 {
     font-size: 1.5rem;
   }
+  .navbar-brand {
+    box-shadow: none;
+    
+}
   .info-icon,.tooltip{
       display: none;
     }
@@ -487,12 +567,15 @@ h3 {
     font-size: 20px;
     margin: 0 5px;
   }
+  #form_ai_title{
+    font-size: 20px;
+  }
 }
 
 /* Accessibility improvements */
 .form-control:focus,
 .btn:focus {
-  outline: 3px solid #7b1fa2;
+  outline: 3px solid #0A21C0;
   outline-offset: 2px;
 }
 
@@ -522,25 +605,37 @@ h3 {
 }
 </style>
 
+
 {% endblock headLinks %}
 
 {% block bodyContent %}
-    <!-- Form container -->
-    <div class="container" style="background-color: #fff; min-height:600px; margin-bottom: 10px;">
-        <div class="row justify-content-center mb-3">
-            <div class="col-lg-10 form-section">
-                <h4 class="text-center mb-4">
-                  <b>  ZoodoAI </b>
-                </h4>
-                <!-- Form -->
-                <form id="recommendationForm">
-                    {% csrf_token %}
-                    <h5 style="text-align:center"> <span class="badge bg-warning text-dark">1/1</span> </h5>
 
+{% include 'loading-page.html' %}
+{% include 'promotion-bar.html' %}
+  <!-- Header  -->
+  {% include 'header.html' %}
+    <!-- Form container -->
+    <div class="container" style="background-color: #b3b4bd15; min-height:600px; margin-bottom: 10px;">
+        <div class="row justify-content-center mb-3">
+            <div class="col-lg-10 form-section" style="border:1px solid #14161967">
+                <h4 class="text-center mb-4 pt-5 " id="form_ai_title">
+                  <b><i class="fa-solid fa-laptop"></i> Trouver l'ordinateur parfait avec  Zoodo IA <i class="fa-solid fa-robot"></i></b>
+                </h4>
+              <h4 style="text-align: center; display: flex; justify-content: center; align-items: center;" >
+                  <button class="btn"  id="faqButton" data-bs-toggle="modal" data-bs-target="#faqModal"
+                   style="width: 50%; background-color: #050A44; color: #fff;">CLIQUER ICI POUR DEMARER</button>
+              </h4>
+
+                <!-- Form -->
+                <form id="recommendationForm" >
+                    {% csrf_token %}
+                    <!-- <h5 style="text-align:center"> <span class="badge bg-warning text-dark">1/1</span> </h5> -->
+                    <i style="font-size: 11px;">* obligatoire</i>
+                    <!-- Budget -->
                     <div class="mb-3">
                         <label for="minBudget" class="form-label">
-                            <strong style="color:#7b1fa2;font-size: 18px;">
-                                * Budget (FCFA) 
+                            <strong style="color:#050A44;font-size: 18px;">
+                                 Budget (FCFA) <b style="color:red">*</b>
                                   <div class="info-icon">
                                     <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i>
                                     <span class="tooltip">
@@ -558,11 +653,11 @@ h3 {
                             </div>
                         </div>
                     </div>
-                
-                    <div class="mb-3">
+                    <!-- Activité -->
+                    <div class="mb-3" id="job-list-div">
                         <label for="jobInput" class="form-label">
-                            <b style="color:#7b1fa2;font-size: 18px;">
-                               * Votre activité
+                            <b style="color:#050A44;font-size: 18px;">
+                               Votre activité <b style="color:red">*</b>
                                <div class="info-icon">
                                 <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i>
                                 <span class="tooltip">
@@ -570,14 +665,16 @@ h3 {
                                 </span>
                             </div>
                             </b> </label>
+
                         <input type="text" class="form-control" id="jobInput" placeholder="Aucune sélection"
                          data-bs-toggle="modal" data-bs-target="#jobModal" readonly required>
+
                     </div>
-                
+                    <!-- Description activite -->
                     <div class="mb-3">
                         <label for="jobDescription" class="form-label">
-                          <strong>
-                            Description de l'usage de l'ordinateur (pas obligatoire): <i>max.250 Mots</i>
+                          <strong style="font-size: 18px;">
+                            Usage de l'ordinateur <i style="font-size: 11px;">(max.250 Mots)</i>
                             <div class="info-icon">
                               <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i>
                               <span class="tooltip">
@@ -590,11 +687,10 @@ h3 {
                         <textarea class="form-control" id="jobDescription"
                          placeholder="Par exemple: j'utilise des logiciels comme autoCard, photoshop, android studio, etc.." oninput="checkWordLimit(this)" style="min-height: 100px;"></textarea>
                       </div>
-                
-                    
+                      <!-- Marge de tolerence -->
                     <div class="mb-3">
                         <label class="form-label">
-                            <strong>Inclure une marge de tolérance du prix maximal <b style="color:red">*</b></strong>
+                            <strong style="font-size: 18px;">Marge de tolérance du prix max. <b style="color:red">*</b></strong>
                         </label>
                         <div class="d-flex flex-wrap">
                             {% for tolerance in tolerances %}
@@ -609,27 +705,34 @@ h3 {
                     </div>
                     <div class="mb-3">
                         <label for="calculatedPrice" class="form-label">
-                            <strong>Prix maximal calculé = budget_maximal * (1 + %alpha)</strong>
+                            <strong style="font-size: 18px;">Prix maximal calculé</strong>
                         </label>
                         <textarea class="form-control" id="calculatedPrice" style="max-height: 50px;" disabled>0 FCFA</textarea>
                     </div>
-                
+                  <!-- condition d'utilisation -->
                     <div class="mb-3">
-                        <p class="small">La gestion des commandes nécessite la collecte de données personnelles telles que votre nom, prénom et numéro de téléphone. Ces informations sont strictement utilisées à cette fin, elles seront cryptées et ne seront pas divulguées à des tiers.</p>
                         <div class="checkbox-container">
-                          <label for="accept" id="condition-label">
+                          <label for="accept" >
                             <input type="checkbox" id="accept" name="accept" required>
                             J'ai lu et j'accepte les conditions et les politiques d'utilisation
                           </label>
                         </div>
                     </div>
+                    <!-- Soumission -->
+                    <div class="d-flex justify-content-center pb-5" style="flex-direction: column;">
+                      <button type="submit" class="btn btn-success" id="submitBtn" 
+                          style="background-color: #0A21C0 ;" disabled>
+                          Lancer la recherche
+                      </button>
 
-                    <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-success" id="submitBtn" 
-                        style="background-color: #7b1fa2;" disabled>
-                        Rechercher un ordinateur
-                    </button>
+                      <div class="mt-3 text-center ">
+                        <a href="{% url 'main:order-without-ai' %}" class="btn "
+                         style="background-color:#050A44; color:#fff; width: 100%;" >
+                          Rechercher sans l'IA
+                        </a>
+                      </div>
                     </div>
+                    
                 </form>
             </div>
         </div>
@@ -661,6 +764,76 @@ h3 {
           <div class="custom-spinner-square"></div>
         </div>
     </div>
+
+    <!-- Modal Faq -->
+  <div class="modal fade" id="faqModal" tabindex="-1" aria-labelledby="faqModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="faqModalLabel"> <b style="color:#0A21C0"> FAQ ?  </b>  </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h5>Comment se fait la recommandation ?</h5>
+        
+            <div>
+              <b style="color:#0A21C0">Zoodo IA</b> analyse attentivement la liste des ordinateurs de <b style="color:#0A21C0">Zoodo Computer</b> et vous recommande des ordinateurs de qualité 
+              qui correspondent au mieux à votre activité et aux tâches que vous souhaitez réaliser en fonction de votre <b>budget</b>.
+        
+              <br><br>
+              Les caractéristiques analysées sont par exemple :
+        
+              <ul>
+                <li>La capacité de la mémoire RAM</li>
+                <li>La capacité du disque de stockage</li>
+                <li>La nature du disque (SSD, HDD, ...)</li>
+                <li>Les performances du processeur (nombre de cœurs, vitesse, ...)</li>
+                <li>La durée de vie de la batterie</li>
+                <li>La carte graphique</li>
+                <li>Les ports de connectivité</li>
+                <li>...</li>
+              </ul>
+        
+              <h5>Comment remplir le formulaire ?</h5>
+              <div>
+                Vous devez renseigner <b>votre budget, votre activité et une marge de tolérance</b> sur votre budget.
+                <br><br>
+        
+                <ul>
+                  <li>
+                    La marge de tolérance indique le coût maximum que vous accepteriez. Cela permet d'accroître vos chances de trouver un ordinateur.
+                  </li>
+                </ul>
+              </div>
+        
+              <h5>Comment obtenir de bons résultats ?</h5>
+              <div>
+                Pour obtenir de bons résultats, vous devez <b>bien décrire votre activité :</b>
+                <br><br>
+        
+                <ul>
+                  <li>Choisir l'activité dans la liste ou cliquer sur <b>Autre</b> pour saisir votre activité</li>
+        
+                  <li>
+                    Décrivez brièvement votre activité dans <b>Usage de l'ordinateur</b>. Insistez surtout sur les logiciels que vous utiliserez et qui sont importants (informez-vous si nécessaire).
+                  </li>
+                </ul>
+              </div>
+        
+              <br>
+                <h5>Comment se faire rembourser ?</h5>
+
+                <div>
+                    En cas d'insatisfaction, vous avez la possibilité de vous faire rembourser et de retourner l'ordinateur si la raison est valable.
+                </div>
+                <br> <br>
+              <h6><u style="color: #0A21C0;">NB:</u> Au cas où aucun ordinateur n'a été trouvé, si la recommandation ne vous convient pas ou si une erreur s'est produite, n'hésitez pas à réessayer.</h6>
+            </div>
+        </div>
+        
+        </div>
+      </div>
+  </div>
     <!-- Footer -->
     {% endblock bodyContent %}
 
@@ -668,6 +841,7 @@ h3 {
     <!-- JScontent -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Collect submit data -->
     <script >
       document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById('recommendationForm');
@@ -719,6 +893,11 @@ h3 {
 
         }
 
+        /**
+         * Valide le formulaire et renvoie un booléen indiquant si le formulaire est valide.
+         * Si le formulaire est valide, le bouton de soumission est activé, sinon il est désactivé.
+         * @returns {boolean} - True si le formulaire est valide, false sinon.
+         */
         function validateForm() {
             let isValid = true;
             
@@ -768,6 +947,11 @@ h3 {
             return isValid;
         }
 
+        /**
+         * Show an error message associated with a form field.
+         * @param {string} fieldId The id of the form field with which the error is associated.
+         * @param {string} message The error message to display.
+         */
         function showError(fieldId, message) {
             const field = document.getElementById(fieldId);
             let errorDiv = field.parentNode.querySelector('.error-message');
@@ -782,6 +966,10 @@ h3 {
             errorDiv.textContent = message;
         }
 
+        /**
+         * Removes the error message from the given field.
+         * Supprimer les msg d'erreurs
+         */
         function clearError(fieldId) {
             const field = document.getElementById(fieldId);
             const errorDiv = field.parentNode.querySelector('.error-message');
@@ -790,21 +978,33 @@ h3 {
             }
         }
 
+        // Recuperation des données du formulaire
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             if (validateForm()) {
-                const url = "{% url 'withai_submit' %}"; 
+                const url = "{% url 'main:withai_submit' %}"; 
+                // donnee metier
+                let job = "";
+                if(jobInput.value === "Autre") job = document.getElementById("jobInputSub").value;
+                else job = jobInput.value;
+
                 const formData = {
                     "budgetMin": document.getElementById('minBudget').value,
                     "budgetMax": document.getElementById('maxBudget').value,
                     "alpha": getCheckedRadioValue(),
-                    "jobTile": jobInput.value,
+                    "jobTile": job, //
                     "jobDescription": document.getElementById('jobDescription').value
                 };
+                //console.log(formData)
                 bdQuery_2(formData, url);
             }
         });
 
+        /**
+         * Mise a jour de la valeur du prix maximal qui sera utilise pour la recommandation
+         * en fonction du prix maximal que l'utilisateur est pret a payer et de la marge
+         * de tolerance qu'il a renseignee.
+         */
         function updateMaxPrice(){
             const maxBudget = parseFloat(document.getElementById('maxBudget').value) || 0;
             const alpha = parseFloat(getCheckedRadioValue()) / 100 || 0;
@@ -818,6 +1018,7 @@ h3 {
             radio.addEventListener('change', updateMaxPrice);
         });
 
+        // Description acti nbre de mot < 250
         document.getElementById('jobDescription').addEventListener('input', function() {
             const words = this.value.trim().split(/\s+/);
             if (words.length > 250) {
@@ -851,7 +1052,7 @@ h3 {
         // Initial validation
         validateForm();
 
-        //
+        //Icon d'information sur les champs
         const infoIcon = document.querySelector('.info-icon');
         const tooltip = infoIcon.querySelector('.tooltip');
 
@@ -868,43 +1069,67 @@ h3 {
       });
     </script>
 
+    <!-- Model joblist -->
     <script>
-        const jobs = [
-        "Développeur web", "Ingénieur logiciel", "Designer graphique", "Médecin", "Avocat",
-        "Enseignant", "Comptable", "Infirmier", "Chef cuisinier", "Architecte",
-        "Journaliste", "Photographe", "Électricien", "Plombier", "Mécanicien",
-        "Coiffeur", "Dentiste", "Pharmacien", "Vétérinaire", "Pilote", "Autres"
-        ];
+        // {"list": [""]}
+        let jobs =JSON.parse('{{ jobs|safe|escapejs }}');
+        jobs = jobs.list
         
         let currentIndex = 0;
         const itemsPerLoad = 15;
         
+        // contenu du modal metier
         function loadMoreJobs() {
-        const jobList = document.getElementById('jobList');
-        const endIndex = Math.min(currentIndex + itemsPerLoad, jobs.length);
-        
-        for (let i = currentIndex; i < endIndex; i++) {
-            const li = document.createElement('li');
-            li.textContent = jobs[i];
-            li.onclick = function() {
-            document.getElementById('jobInput').value = this.textContent;
-            $('#jobModal').modal('hide');
-            };
-            jobList.appendChild(li);
-        }
-        
-        currentIndex = endIndex;
-        
-        if (currentIndex >= jobs.length) {
-            document.getElementById('loadMore').style.display = 'none';
-        } else {
-            document.getElementById('loadMore').style.display = 'block';
-        }
+          const jobList = document.getElementById('jobList');
+          const endIndex = Math.min(currentIndex + itemsPerLoad, jobs.length);
+          
+          for (let i = currentIndex; i < endIndex; i++) {
+              const li = document.createElement('li');
+              li.textContent = jobs[i];
+
+              // Remplissage du formulaire metier après selection 
+              li.onclick = function() {
+                document.getElementById('jobInput').value = this.textContent;
+                $('#jobModal').modal('hide');
+
+                  // creation d'un nouvelle input pour renseigner le metier
+                  const jobListDiv = document.querySelector("#job-list-div");
+                  if(this.textContent === "Autre"){
+                    // creer l'input a add
+                    const fieldInput = document.createElement('Input');
+                    fieldInput.type="text"
+                    fieldInput.className="form-control" 
+                    fieldInput.id="jobInputSub"
+                    fieldInput.name = "jobInputSub"
+                    fieldInput.placeholder = "Entrer votre metier"
+                    fieldInput.style.marginTop="10px"
+                    fieldInput.focus()
+                    fieldInput.required = true;
+                    // l'ajouter Input
+                    jobListDiv.appendChild(fieldInput)
+
+                  }else{ // valeur choisie pas autre: pas afficher l'input
+                    if(document.getElementById("jobInputSub")){
+                      jobListDiv.removeChild(document.getElementById("jobInputSub"))
+                    }
+                  }
+              };
+              jobList.appendChild(li);
+          }
+          
+          currentIndex = endIndex;
+          
+          if (currentIndex >= jobs.length) {
+              document.getElementById('loadMore').style.display = 'none';
+          } else {
+              document.getElementById('loadMore').style.display = 'block';
+          }
         }
         
         document.getElementById('loadMore').querySelector('button').addEventListener('click', loadMoreJobs);
         
         document.getElementById('jobSearch').addEventListener('input', function() {
+
         const searchTerm = this.value.toLowerCase();
         const jobList = document.getElementById('jobList');
         jobList.innerHTML = '';
@@ -913,9 +1138,12 @@ h3 {
         filteredJobs.forEach(job => {
             const li = document.createElement('li');
             li.textContent = job;
+
+            // renseigner la valeur du metier dans son modal au choix d'un métier
             li.onclick = function() {
-            document.getElementById('jobInput').value = this.textContent;
-            $('#jobModal').modal('hide');
+              document.getElementById('jobInput').value = this.textContent;
+                
+              $('#jobModal').modal('hide');
             };
             jobList.appendChild(li);
         });
@@ -924,32 +1152,43 @@ h3 {
         });
         
         $('#jobModal').on('shown.bs.modal', function () {
-        document.getElementById('jobList').innerHTML = '';
-        currentIndex = 0;
-        loadMoreJobs();
+          document.getElementById('jobList').innerHTML = '';
+          currentIndex = 0;
+          loadMoreJobs();
         });
         
 
+        // description de l'activité
         function checkWordLimit(textarea) {
-        const maxWords = 250;
-        const words = textarea.value.trim().split(/\s+/); // Split by whitespace
-        if (words.length > maxWords) {
-            alert(`Vous ne pouvez pas dépasser ${maxWords} mots.`);
-            textarea.value = words.slice(0, maxWords).join(' '); // Trim to max words
-        }
+          const maxWords = 250;
+          const words = textarea.value.trim().split(/\s+/); // Split by whitespace
+          if (words.length > maxWords) {
+              alert(`Vous ne pouvez pas dépasser ${maxWords} mots.`);
+              textarea.value = words.slice(0, maxWords).join(' '); // Trim to max words
+          }
         }
     </script>
 
-<script>
-    function submitConditionForm() {
-        const checkbox = document.getElementById('accept');
-        if (checkbox.checked) {
-            alert('Form submitted successfully!');
-        } else {
-            alert('Please accept the terms and conditions before submitting.');
-        }
-    }
-</script>
+    <!-- Accept condtion -->
+  <script>
+      function submitConditionForm() {
+          const checkbox = document.getElementById('accept');
+          if (checkbox.checked) {
+              alert('Form submitted successfully!');
+          } else {
+              alert('Please accept the terms and conditions before submitting.');
+          }
+      }
+  </script>
 
+  <!-- FaqModel -->
+  <script>
+    // Button
+    const model_faq = document.getElementById('#faqButton'); 
 
+    // CLick open model
+    model_faq.addEventListener("click", ()=>{
+        $('#faqModal').modal('show');
+    })
+  </script>
 {% endblock JsContent %}

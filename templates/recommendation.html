@@ -5,385 +5,605 @@
 {% block headLinks %}
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet"  type="text/css" href="{% static 'style/promotion-bar.css' %}">
+
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Rubik", sans-serif;
-}
-:root {
-    --primary-color: #7b1fa2;
-    --secondary-color: #2c3e50;
-    --accent-color: #e74c3c;
-    --light-bg: #f8f9fa;
-}
-body {
-    background-color: var(--light-bg) !important;
-    color: #333 !important;
-}
-.navbar {
-    background: linear-gradient(90deg, #4a148c, #7b1fa2) !important;
-    padding: 1rem 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-.navbar-brand img {
-    height: 40px;
-}
-
-.section-title {
-    color: #7b1fa2;
-    padding-bottom: 10px;
-  }
-.ms-auto .nav-item .nav-link{
-    color:#fff;
-  }
-.ms-auto .nav-item .nav-link:hover{
-text-decoration: underline;
-}
-.brand:hover{
-    background-color: #7b1fa2 !important;
-    color:#fff;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-
-/* Produits */
-.container-product {
-    display: flex;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-}
-
-.filters {
-    flex: 0 0 250px;
-    background-color: var(--light-bg);
-    padding: 20px;
-    border-radius: 8px;
-    margin-right: 20px;
-    transition: all 0.3s ease;
-}
-
-.products {
-    flex: 1;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-}
-
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Rubik", sans-serif;
+    }
+    :root {
+        --primary-color: #0A21C0;
+        --secondary-color: #2c3e50;
+        --accent-color: #e74c3c;
+        --light-bg: #f8f9fa;
+    }
+    body {
+        background-color: var(--light-bg) !important;
+        color: #333 !important;
+    }
+    
+    .navbar {
+        background: #050A44 !important;
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+         z-index: 100; 
+    }
+    .navbar-brand img {
+        height: 40px;
+    }
+    
+    .product-card{
+        z-index: 98;
+    }
+    .section-title {
+        color: #141619;
+        padding-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    .ms-auto .nav-item .nav-link{
+        color:#fff;
+      }
+    .ms-auto .nav-item .nav-link:hover{
+    text-decoration: underline;
+    }
+    .brand:hover{
+        background-color: #0A21C0 !important;
+        color:#fff;
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    
+    
+    /* Produits */
+    .container-product {
+        display: flex;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+    }
+    
+    .filters {
+        flex: 0 0 250px;
+        background-color: var(--light-bg);
+        padding: 20px;
+        border-radius: 8px;
+        margin-right: 20px;
+        transition: all 0.3s ease;
+    }
+    
+    .products {
+        flex: 1;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    
 .product-card {
     background-color: #fff;
     border-radius: 8px;
     overflow: hidden;
     transition: all 0.3s ease;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 0;
 }
-
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
+    
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
 .product-image {
     width: 100%;
-    height: 180px;
+    height: 200px;
+    max-width: 300px; /* Adjust based on the layout */
     object-fit: cover;
     transition: transform 0.3s ease;
 }
-
-.product-card:hover .product-image {
-    transform: scale(1.05);
-}
-
-.product-info {
-    padding: 15px;
-}
-
-.product-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: var(--primary-color);
-}
-
-.product-specs {
-    font-size: 14px;
-    margin-bottom: 10px;
-}
-
-.product-price {
-    font-size: 20px;
-    font-weight: bold;
-    color: var(--secondary-color);
-    margin-bottom: 10px;
-}
-
-.detail-button {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.1s ease;
-    width: 100%;
-}
-
-.detail-button:hover {
-    background-color: #9c27b0;
-    color: #fff;
-}
-
-.detail-button:active {
-    transform: scale(0.95);
-}
-
-
-.filters h2 {
-    margin-bottom: 15px;
-    color: var(--primary-color);
-}
-
-.filter-group {
-    margin-bottom: 20px;
-}
-
-.filter-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.filter-group input[type="range"],
-.filter-group select {
-    width: 100%;
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    background-color: #f5f5f5;
-}
-
-#filter-toggle {
-    display: none;
-    position: fixed;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1001;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 10px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-radius: 0 5px 5px 0;
-}
-
-/* Footer */
-
-    footer {
-        background: #333;
-        color: white;
-        padding: 20px 0;
-        position: relative;
-        overflow: hidden;
+    
+    .product-card:hover .product-image {
+        transform: scale(1.05);
     }
-  .footer-content {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-  }
-  .footer-section {
-    text-align: center;
-  }
-  .footer-section h3 {
-    margin-bottom: 10px;
-  }
-  .social-icons a {
-    color: white;
-    font-size: 24px;
-    margin: 0 10px;
-    transition: transform 0.3s ease;
-  }
-  .social-icons a:hover {
-    transform: scale(1.2);
-  }
-  .bubbles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-  }
-  .bubble {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    animation: float 4s infinite ease-in-out;
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-  }
-  .remove-field {
-        cursor: pointer;
-        color: red;
+    
+    .product-info {
+        padding: 15px;
     }
- 
-    /* No computer find */
-    .no-products-message {
-        border: 2px solid #7b1fa2; 
-        border-radius: 15px; 
-        padding: 20px;
+    
+    .product-title {
         text-align: center;
-        font-size: 1.5rem;
-        color: #ff0000; 
-        background-color: #fff3f3;
-        margin: 20px auto;
-        max-width: 400px; 
-        height: 400px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #141619;
+    }
+    
+    .product-specs {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    
+    .product-price {
+        font-size: 20px;
+        font-weight: bold;
+        color: var(--secondary-color);
+    }
+    
+    .detail-button {
+        background-color: var(--primary-color);
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+        width: 100%;
+        /* font-size: 18px; */
+        /* font-weight: bold; */
+    
+    }
+    
+    .detail-button:hover {
+        background-color: #fff;
+        color: #141619;
+        border: 1px solid #0A21C0;
+    }
+    
+    .detail-button:active {
+        transform: scale(0.95);
+    }
+    
+    /* Filters */
+    .filters h2 {
+        margin-bottom: 15px;
+        color: var(--primary-color);
+    }
+    
+    .filter-group {
+        margin-bottom: 20px;
+    }
+    
+    .filter-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    
+    .filter-group input[type="range"],
+    .filter-group select {
+        width: 100%;
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        background-color: #f5f5f5;
+    }
+    
+    #filter-toggle {
+        display: none;
+        position: fixed;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 100;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 10px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-radius: 0 5px 5px 0;
+    }
+    
+    /* Footer */
+    footer {
+    background-color: #050A44;
+    color: white;
+    padding: 2rem 1rem;
+    position: relative;
+    overflow: hidden;
+     }
+    
+     .navbar-brand {
+        box-shadow: none;
+        
+    }
+    .footer-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 10;
+    }
+    .footer-section {
+        flex: 1;
+        margin: 10px;
+        min-width: 200px;
+        text-align: center;
+    }
+    .footer-section h3 {
+        margin-bottom: 15px;
+        color: #fff;
+    }
+    .footer-section p, .footer-section a {
+        color: #ddd;
+        text-decoration: none;
+        margin: 10px 0;
+    }
+    .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+    .social-icons a {
+        color: white;
+        font-size: 24px;
+        transition: color 0.3s ease;
+    }
+    .social-icons a:hover {
+        opacity: 0.7;
+    }
+    .country-info {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+    .country-info img {
+        width: 30px;
+        height: auto;
+    }
+    .bubbles {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        background: linear-gradient(45deg, #333, #000);
+    }
+    .bubbles::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background-color: #000;
+        background-image: radial-gradient(#333 20%, transparent 20%);
+        background-size: 50px 50px;
+        opacity: 0.3;
+        animation: moveBubbles 20s linear infinite;
+    }
+    @keyframes moveBubbles {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    .copyright {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 0.9rem;
+        color: #aaa;
+    }
+    @media screen and (max-width: 768px) {
+        .footer-content {
+            flex-direction: column;
+            align-items: center;
+        }
+        .footer-section {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .social-icons{
         display: flex;
         justify-content: center;
         align-items: center;
-      }
-    /* Media query footer */
-  @media screen and (max-width: 768px) {
-    .footer-content {
-      flex-direction: column;
-      justify-items: left;
+        display: inline-block;
     }
-
-    .footer-section {
-      margin: 1rem 0;
-    }
-
-    h3 {
-      font-size: 1.1rem;
-    }
-
-    .social-icons {
-      justify-content:left;
-    }
-    .info-icon,.tooltip{
+    #recommandation-none-el{
         display: none;
-      }
-  }
-
-  @media screen and (max-width: 480px) {
-  footer {
-      padding: 1rem;
     }
-    .info-icon,.tooltip{
+    }
+      .remove-field {
+            cursor: pointer;
+            color: red;
+        }
+     
+        /* No computer find */
+        .no-products-message {
+            border: 2px solid #0A21C0; 
+            border-radius: 15px; 
+            padding: 20px;
+            text-align: center;
+            font-size: 1.5rem;
+            color: #ff0000; 
+            background-color: #fff3f3;
+            margin: 20px auto;
+            max-width: 400px; 
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        /* Media query footer */
+      @media screen and (max-width: 768px) {
+        .footer-content, .section-title {
+          flex-direction: column;
+          justify-items: left;
+        }
+        #recommandation-none-el{
         display: none;
+    }
+    
+        .footer-section {
+          margin: 1rem 0;
+        }
+    
+        h3 {
+          font-size: 1.1rem;
+        }
+    
+        .social-icons {
+          justify-content:left;
+        }
+        .info-icon,.tooltip{
+            display: none;
+          }
       }
-  h3 {
-      font-size: 1rem;
-  }
-
-  .social-icons a {
-      font-size: 1.2rem;
+    
+      @media screen and (max-width: 480px) {
+      footer {
+          padding: 1rem;
+        }
+        #recommandation-none-el{
+        display: none;
     }
-  }
-
-/* Resp */
-@media (max-width: 768px) {
-    .container-product {
-        flex-direction: column;
+        .info-icon,.tooltip{
+            display: none;
+          }
+      h3 {
+          font-size: 1rem;
+      }
+    
+      .social-icons a {
+          font-size: 1.2rem;
+        }
+      }
+    
+    /* Resp */
+    @media (max-width: 768px) {
+        .container-product {
+            flex-direction: column;
+        }
+        #recommandation-none-el{
+        display: none;
     }
-
-    .filters {
-        position: fixed;
-        left: -250px;
-        top: 0;
-        bottom: 0;
-        width: 250px;
-        z-index: 1000;
-        overflow-y: auto;
-        transition: left 0.3s ease;
+        .filters {
+            position: fixed;
+            left: -250px;
+            top: 0;
+            bottom: 0;
+            width: 250px;
+            z-index: 100;
+            overflow-y: auto;
+            transition: left 0.3s ease;
+        }
+    
+        .filters.active {
+            left: 0;
+        }
+    
+        #filter-toggle {
+            display: block;
+        }
+    
+        .products {
+            margin-left: 0;
+        }
     }
-
-    .filters.active {
+    
+    /* Pagination */
+    .pagination-container {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        width: 100%;
+    }
+    
+    .pagination-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+    
+    .pagination-btn {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        min-width: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        font-weight: 500;
+    }
+    
+    .pagination-btn:hover:not(:disabled) {
+        background-color: #e9ecef;
+        border-color: #ccd1d5;
+    }
+    
+    .pagination-btn:active:not(:disabled) {
+        transform: translateY(1px);
+    }
+    
+    .pagination-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background-color: #e9ecef;
+    }
+    
+    .pagination-btn i {
+        font-size: 0.8rem;
+    }
+    
+    .page-indicator {
+        background-color: #fff;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        border: 1px solid #dee2e6;
+        font-weight: 500;
+        min-width: 100px;
+        text-align: center;
+    }
+    
+    #page-number {
+        font-weight: 600;
+        color: #0d6efd;
+    }
+    
+    /* Loading state for pagination */
+    .pagination-btn.loading {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .pagination-btn.loading::after {
+        content: "";
+        position: absolute;
         left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+        animation: loading 1s infinite;
     }
-
-    #filter-toggle {
-        display: block;
+    
+    @keyframes loading {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
     }
-
-    .products {
-        margin-left: 0;
-    }
-}
 </style>
 {% endblock headLinks %}
 
 {% block bodyContent %}
-  <h2 class="text-center section-title mt-4 ">
-    Recommandations
-  </h2>
+{% include 'promotion-bar.html' %}
+{% include 'header.html' %}
 
-  <button id="filter-toggle">
-      <i class="fas fa-filter"></i>
-  </button>
-  <div class="container-product">
-    <div class="filters" id="filters">
-        <h2>Filtres</h2>
-        <div class="filter-group">
-            <label for="price-range">Prix: <span id="price-display">${{minBudget}} - ${{maxBudget}}</span></label>
-            <input type="range" id="price-range" min="{{minBudget}}" max="{{maxBudget}}" step="1">
+<div class="container p-0 pt-3 pb-3 mt-2 mb-2" 
+        style="background-color: #fff; padding-top:20px; border:1px solid #b3b4bd2f ">
+
+        <!-- Pet navigation -->
+    <h2 class="section-title mt-4 ">
+        <!-- Precedent -->
+        <div >
+            <a href="javascript:history.back()" class="p-2" style="color:#4a148c; ">
+                <i class="bi bi-arrow-left"></i>
+              </a>
         </div>
-        <div class="filter-group">
-            <label for="brand">Marque:</label>
-            <select id="brand">
-                <option value="">Aucune sélection</option>
-                {% for brand in computerBrands %}
-                    <option value="{{brand.name}}">{{brand.name}}</option>
-                {% endfor %}
-            </select>
+        <!-- Titre -->
+        <div style="border-bottom :1px solid #eee"> 
+            RECOMMANDATIONS  
         </div>
-        <div class="filter-group">
-            <label for="color">Couleur:</label>
-            <select id="color">
-                <option value="">Aucune sélection</option>
-                {% for computerColor in computerColors %}
-                    <option value="{{computerColor.color}}">{{computerColor.color}}</option>
-                {% endfor %}
-            </select>
+         <div id="recommandation-none-el"></div> 
+    </h2>
+    
+    <button id="filter-toggle">
+          <i class="fas fa-filter"></i>
+    </button>
+
+    <!-- Produits -->
+    <div class="container-product p-3" style="border:1px solid #b3b4bd35; ">
+        
+        <!-- Filtre -->
+        <div class="filters" id="filters" style="background-color: white; border: 1px solid #B3B4BD;">
+           
+            <h4 class="mt-3 mb-3 text-center " 
+            style="border-bottom: 1px solid #B3B4BD;">
+            <i class="fa-solid fa-magnifying-glass"></i> Filtrer par  </h4>
+
+            <div class="filter-group">
+                <label for="price-range">
+                    Prix: <span id="price-display">{{minBudget}} - {{maxBudget}}</span>
+                </label>
+                <input type="range" id="price-range" min="{{minBudget}}" max="{{maxBudget}}" step="1">
+    
+            </div>
+            <div class="filter-group">
+                <label for="brand">Marque:</label>
+                <select id="brand">
+                    <option value="">Aucune sélection</option>
+                    {% for brand in computerBrands %}
+                        <option value="{{brand.name}}">{{brand.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="color">Couleur:</label>
+                <select id="color">
+                    <option value="">Aucune sélection</option>
+                    {% for computerColor in computerColors %}
+                        <option value="{{computerColor.color}}">{{computerColor.color}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="ram">RAM:</label>
+                <select id="ram">
+                    <option value="">Aucune sélection</option>
+                    {% for computerRAM in computerRAMS %}
+                        <option value="{{computerRAM.capacity}}">{{computerRAM.capacity}}GB</option>
+                    {% endfor %}
+                </select>
+            </div>
         </div>
-        <div class="filter-group">
-            <label for="ram">RAM:</label>
-            <select id="ram">
-                <option value="">Aucune sélection</option>
-                {% for computerRAM in computerRAMS %}
-                    <option value="{{computerRAM.capacity}}">{{computerRAM.capacity}}GB</option>
-                {% endfor %}
-            </select>
+        <!-- Liste des produits -->
+        <div class="products" id="product-container">
+            <!-- Product cards will be dynamically inserted here -->
         </div>
+    
     </div>
-    <div class="products" id="product-container">
-        <!-- Product cards will be dynamically inserted here -->
+    <!-- Pagination -->
+    <div class="pagination-container">
+        <div class="pagination-controls"  style="border-bottom: 1px solid #eee;">
+            <button id="prev-btn" class="pagination-btn">
+                <i class="fas fa-chevron-left"></i> Précédent
+            </button>
+            <span class="page-indicator">Page <span id="page-number">1</span></span>
+            <button id="next-btn" class="pagination-btn">
+                Suivant <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
     </div>
 </div>
+
 {% endblock bodyContent %}
 
 {% block JsContent %}
@@ -394,44 +614,133 @@ text-decoration: underline;
     const computers = computerRecommended;
 
     function getDetailUrl(id, time) {
-        return `/bright.cbuy/detail/${id}/${time}`;
+        return `/zoodo/detail/${id}/${time}`;
     }
 
-    function renderProducts(products) {
+    // Function to determine items per page based on screen size
+    function getItemsPerPage() {
+        // Check if device is mobile using window width
+        return window.innerWidth <= 768 ? 5 : 12;
+    }
+
+    // Initialize items per page
+    let itemsPerPage = getItemsPerPage();
+    let currentPage = 1;
+
+    // Update items per page when window is resized
+    window.addEventListener('resize', () => {
+        const newItemsPerPage = getItemsPerPage();
+        if (newItemsPerPage !== itemsPerPage) {
+            itemsPerPage = newItemsPerPage;
+            // Reset to first page when screen size changes
+            currentPage = 1;
+            renderProducts(computers);
+        }
+    });
+
+    function renderProducts(products, isFirstLoad = false) {
         const container = document.getElementById('product-container');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const pageNumber = document.getElementById('page-number');
+        const paginationContainer = document.querySelector('.pagination-container');
+        
+        // Show loading state
+        if (!isFirstLoad) {
+            container.style.opacity = '0.5';
+            prevBtn.classList.add('loading');
+            nextBtn.classList.add('loading');
+        }
+
+        // Clear previous content
         container.innerHTML = '';
 
-              // Check if the products array is empty
-          if (products.length === 0) {
-              const messageDiv = document.createElement('div');
-              messageDiv.className = 'no-products-message';
-              messageDiv.innerHTML = 'Pas d\'ordinateurs  trouvés.';
-              container.appendChild(messageDiv);
-              return; 
-          }
-          // else
-        products.forEach((product, index) => {
+        // Check if products array is empty
+        if (!products || products.length === 0) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'no-products-message';
+            messageDiv.innerHTML = `
+                <div class="alert alert-info text-center">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Pas d'ordinateurs trouvés.
+                </div>
+            `;
+            container.appendChild(messageDiv);
+            paginationContainer.style.display = 'none';
+            return;
+        }
+
+        // Calculate pagination
+        const totalPages = Math.ceil(products.length / itemsPerPage);
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = Math.min(startIndex + itemsPerPage, products.length);
+        const paginatedProducts = products.slice(startIndex, endIndex);
+
+        // Render products with animation
+        paginatedProducts.forEach((product, index) => {
             const card = document.createElement('div');
             card.className = 'product-card';
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
             card.innerHTML = `
-                <img class="product-image" src="${product.image}" alt="${product.brand} ${product.model}" loading="lazy">
+                <img class="product-image" src="${product.image}" alt="${product.brand} ${product.model}"  loading="lazy" srcset="${product.image} 200w, ${product.image} 300w, ${product.image} 600w" 
+                sizes="(max-width: 600px) 100vw, 300px">
                 <div class="product-info">
                     <div class="product-title">${product.brand} ${product.model}</div>
                     <div class="product-specs">
-                        <p>RAM: ${product.ram}GB</p>
-                        <p>Processor: ${product.processor}</p>
-                        <p>Vitesse: ${product.processor_speed || 'N/A'}</p>
+                        <p class="m-0">Processeur: ${product.processor}</p>
+                        <p class="m-0">RAM: ${product.ram}GB</p>
+                        <p class="m-0">Disque: ${product.storage } </p>
+                        <p class="m-0">Type: SSD</p>
+                        Prix:
                     </div>
-                    <div class="product-price text-center">$${product.price.toLocaleString()}</div>
+                    <div class="product-price text-center mt-0 p-0">${product.price.toLocaleString()}</div>
                     <a href="${getDetailUrl(product.id, product.time)}" class="btn detail-button">
                         Voir Détails
                     </a>
                 </div>
             `;
+           
             container.appendChild(card);
+
+            // Animate card entrance
+            setTimeout(() => {
+                card.style.transition = 'all 0.3s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 50);
+        });
+
+        // Update pagination controls
+        pageNumber.textContent = currentPage;
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage >= totalPages;
+
+        // Remove loading state
+        setTimeout(() => {
+            container.style.opacity = '1';
+            prevBtn.classList.remove('loading');
+            nextBtn.classList.remove('loading');
+        }, 300);
+
+        // Event listeners for pagination
+        prevBtn.onclick = () => handlePageChange(currentPage - 1, products);
+        nextBtn.onclick = () => handlePageChange(currentPage + 1, products);
+    }
+
+    function handlePageChange(newPage, products) {
+        if (newPage < 1 || newPage > Math.ceil(products.length / itemsPerPage)) return;
+        
+        currentPage = newPage;
+        renderProducts(products);
+        
+        // Scroll to top smoothly
+        window.scrollTo({
+            top: document.getElementById('product-container').offsetTop - 20,
+            behavior: 'smooth'
         });
     }
-    
+
 
     function applyFilters() {
         const priceRange = document.getElementById('price-range').value;
@@ -452,7 +761,7 @@ text-decoration: underline;
     }
     
     document.getElementById('price-range').addEventListener('input', function() {
-        document.getElementById('price-display').textContent = `$${this.value}`;
+        document.getElementById('price-display').textContent = `${this.value}`;
         applyFilters();
     });
     
@@ -460,8 +769,8 @@ text-decoration: underline;
     document.getElementById('color').addEventListener('change', applyFilters);
     document.getElementById('ram').addEventListener('change', applyFilters);
     
-    // Initial render
-    renderProducts(computers);
+    // Initialize with first load flag
+    renderProducts(computers, true);
 
     // Filter toggle functionality
     const filterToggle = document.getElementById('filter-toggle');

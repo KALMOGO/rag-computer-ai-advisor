@@ -961,7 +961,7 @@ button[type="submit"]:not(:disabled):hover {
   </div>
 
   <div class="mt-2">
-    <a href="{% url 'main:recommendationForm' %}" style="background-color:  #0A21C0; color:#fff"
+    <a href="{% url 'main:index' %}" style="background-color:  #0A21C0; color:#fff"
     id="btn-avec-ai" class="btn btn-lg px-5 py-3">
     Rechercher avec L'IA
     </a>
@@ -1232,43 +1232,11 @@ button[type="submit"]:not(:disabled):hover {
   <h2 class="text-center mb-5 section-title">Tous nos Produits</h2>
 
   <div class="partner-scroll">
-    <div class="partner-logo">
-      <img src="https://via.placeholder.com/150?text=Partner+1" alt="Tech Innovators Inc. logo, modern minimalist design in blue" width="160" height="80">
-    </div>
-    <div class="partner-logo">
-      <img src="https://newtechburkina.com/storage/produits/October2020/1qLNA2LuHmPntNDqeQtg.jpg" alt="Green Earth Solutions logo, leaf-shaped icon in green" width="160" height="80">
-    </div>
-    <div class="partner-logo">
-      <img src="https://via.placeholder.com/150?text=Partner+2" alt="Global Connections logo, abstract globe icon in purple" width="160" height="80">
-    </div>
-    <div class="partner-logo">
-      <img src="https://via.placeholder.com/150?text=Partner+3" alt="Future Finance logo, stylized bar chart icon in gold" width="160" height="80">
-    </div>
-    <div class="partner-logo">
-      <img src="https://via.placeholder.com/150?text=Partner+4" alt="Health Horizons logo, abstract DNA helix in teal" width="160" height="80">
-    </div>
-    <div class="partner-logo">
-      <img src="https://via.placeholder.com/150?text=Partner+5" alt="Smart Systems logo, interconnected nodes icon in red" width="160" height="80">
-    </div>
-    <div class="partner-logo">
-      <img src="https://via.placeholder.com/150?text=Partner+6" alt="Creative Minds Studio logo, colorful paintbrush icon" width="160" height="80">
-    </div>
-    <div class="partner-logo">
-      <img src="https://via.placeholder.com/150?text=Partner+9" alt="Eco Builders logo, house with leaf icon in green and brown" width="160" height="80">
-    </div>
-    <!-- Duplicate logos to ensure smooth infinite scrolling -->
-    <div class="partner-logo">
-      <img src="https://via.placeholder.com/150?text=Partner+7" alt="Tech Innovators Inc. logo, modern minimalist design in blue" width="160" height="80">
-    </div>
-    <div class="partner-logo">
-      <img src="https://via.placeholder.com/150?text=Partner+8" alt="Green Earth Solutions logo, leaf-shaped icon in green" width="160" height="80">
-    </div>
-    <div class="partner-logo">
-      <img src="https://via.placeholder.com/150?text=Partner+9" alt="Global Connections logo, abstract globe icon in purple" width="160" height="80">
-    </div>
-    <div class="partner-logo">
-      <img src="https://via.placeholder.com/150?text=Partner+10" alt="Future Finance logo, stylized bar chart icon in gold" width="160" height="80">
-    </div>
+    {% for product in produits %}
+      <div class="partner-logo">
+        <img src="{{ product.url }}" alt="Image-{{ product.id }}" width="160" height="80">
+      </div>
+    {% endfor %}  
   </div>
 </section>
 

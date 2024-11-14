@@ -5,6 +5,7 @@ from django.db.models import Q,Min,Max
 from .models import *
 
 from zoodoAI.zoodo_model import zoodoAI
+from zoodoAI.zoodoia_utils import delete_recommendation_log_files
 from article.computers.models import *
 from article.computers.computer_utils import get_computers_data, get_client_ip, get_location_by_ip, delete_file
 from article.computers.file_creater import convertComputerListTotxtFile
@@ -13,15 +14,41 @@ from main.models import *
 from .computer_utils import recommended_object_builder
 from .simple_order_utils import *
 from django.shortcuts import redirect
-
+from .send_email_utils import send_pdf_email
 import json
 import time
-import random
 
 def home(request) :
+    """
+    Render the homepage with a list of products, each represented 
+    by a randomly selected computer and its cover image.
+
+    Retrieves up to 10 random Computer objects, fetches their cover 
+    images, and prepares a context dictionary with the page title and 
+    the list of products. Each product in the list includes the image 
+    URL and the computer ID.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: A response object with the rendered index.html 
+        template and the context containing the page title and 
+        products list.
+    """
+        # Images List of products
+    computers = Computer.objects.all().order_by('?')[:10]
+    products = []
+    for computer in computers:
+        cover_image = ComputerPhoto.objects.filter(computer=computer, is_cover=True).first()
+        products.append({"url":cover_image.image.url if cover_image else cover_image.url,  "id":computer.id})
+
+    # Context
     context = {
         "page_title":"index.ph",
+        "produits":products,
     }
+
     return render(request,"index.html", context)
 
 
@@ -39,17 +66,23 @@ def market(request) :
 
     for computer_instance in computers:
         cover_image       = ComputerPhoto.objects.filter(computer=computer_instance, is_cover=True).first()
+
+        storage = ''
+        if computer_instance.storages.exists():  # Check if there are any storages
+            first_storage = computer_instance.storages.first()  # Get the first storage
+            if first_storage:  # Ensure that first_storage is not None
+                storage = first_storage.capacity  # Get the capacity
         computer_recommended.append({
                                 "id": computer_instance.id,
                                 "model":computer_instance.model,
                                 "time": computer_instance.id,
-                                "image": cover_image.image.url if cover_image else cover_image.url,
+                                "image": cover_image.image.url  if hasattr(cover_image, 'image') else  None,
                                 "price": float(computer_instance.price_amount),
                                 "color":computer_instance.color.color,
                                 "processor": f'{computer_instance.processor.model}',
                                 "brand":computer_instance.brand.name,
                                 "ram": computer_instance.memory.capacity,
-                                "storage": computer_instance.storages.first().capacity,
+                                "storage": storage,
                             })
     return render(request,"market-place.html",  {
                         "recommendation":json.dumps(computer_recommended, cls=DecimalEncoder),
@@ -71,6 +104,9 @@ def recommendationForm(request): # Avec IA
     :param request: The HTTP request object.
     :return: A rendered HTML page.
     """
+    # Supprime les fichiers de log de recommandation de l'IA
+    delete_recommendation_log_files()
+
     context = {
         "tolerances":["50", "60", "80", "100", ],
         "minBudget":Computer.objects.aggregate(Min('price_amount'))['price_amount__min'], # le plus petit budget
@@ -92,13 +128,22 @@ def recommendationFormWithoutAI(request): # Sans IA
         - a checkbox list to select the number of cores
     The form will filter the computers and redirect to the recommendation page with the filtered computers.
     """
-    processor_speeds = [processor.base_clock_speed for processor in Processor.objects.all()]
+      # Supprime les fichiers de log de recommandation de l'IA
+    delete_recommendation_log_files()
+
+    # Retourner les informations pour la page
+    processor_speeds = list(set( processor.base_clock_speed for processor in Processor.objects.all()) )
+    computerColors   = [color.color for color in ComputerColor.objects.all()]
+    computerOs       = list(set(os.name for os in OperatingSystem.objects.all()))
+
     context = {
         "brands":Brand.objects.all(),
         "computerRAMS":Memory.objects.all(),
         "storages":Storage.objects.all(),
         
         "processor_speeds":  json.dumps(processor_speeds),
+        "computerColors":  json.dumps(computerColors),
+        "computerOs":  json.dumps(computerOs),
         "minBudget":Computer.objects.aggregate(Min('price_amount'))['price_amount__min'],
         "maxBudget":Computer.objects.aggregate(Max('price_amount'))['price_amount__max'],
         "cores":[int(processor.cores - 1) for processor in Processor.objects.all()], # la capacité des procs - 1
@@ -150,19 +195,6 @@ def contact(request):
         return JsonResponse({"message": str(e)}, status=500)
 
 
-def privacy(request) :
-    context = {
-        "page_title":"privacies.ph"
-    }
-    
-    return render(request,"privacy.html", context)
-
-def about(request) :
-    
-    context = {
-        "page_title":"about.ph"
-    }
-    return render(request,"detail.html", context)
 
 def successPage(request):
     context = {
@@ -222,7 +254,8 @@ def detail(request, id, time) :
         "computer_details":recommend,
         "id_computer":id,
         "time_info":time,
-        "accessoirs":ComputerAcessoirsInfo.objects.filter(computer=relevant_computer.id, is_applied=True)
+        "accessoirs":ComputerAcessoirsInfo.objects.filter(computer=relevant_computer.id, is_applied=True),
+        "pre_installed_software":PreInstalledSoftware.objects.filter(computer=relevant_computer.id)
     }
     return render(request,"detail.html", context)
 
@@ -299,8 +332,10 @@ def withai_recommendation(request):
         alpha     = request.POST.get('alpha', '0')
         jobTile   = request.POST.get('jobTile', '')
         jobDescription   = request.POST.get('jobDescription', '')
+        # Calcul du prix maximal que l'utilisateur est prêt à payer
         max_price_set =  (int(budgetMax) * (int(alpha)/100)) + int(budgetMax) 
 
+        # print(max_price_set)
         # Processus selection des ordinateurs
         relevant_computers = select_computers(budgetMin=budgetMin, max_price_set=max_price_set)
 
@@ -338,7 +373,7 @@ def withai_recommendation(request):
                     recommendation = RecommendationResult(
                         computer_id=r["id"],
                         choose_reason=r["reason"],
-                        recommendation_time=start_time,
+                        recommendation_time=start_time, # Permet d'identifier de façon unique la recommendation de façon unique en plus de l'id
                         max_budget=max_price_set,
                         min_budget=budgetMin,
                         job_title=jobTile,
@@ -348,17 +383,24 @@ def withai_recommendation(request):
 
                     computer_instance = Computer.objects.filter(pk=r["id"]).first()
                     cover_image       = ComputerPhoto.objects.filter(computer=computer_instance, is_cover=True).first()
+                    
+                    storage = ''
+                    if computer_instance.storages.exists():  # Check if there are any storages
+                        first_storage = computer_instance.storages.first()  # Get the first storage
+                        if first_storage:  # Ensure that first_storage is not None
+                            storage = first_storage.capacity  # Get the capacity
+                            
                     computer_recommended.append({
                             "id": r["id"],
                             "model":computer_instance.model,
                             "time": start_time,
-                            "image": cover_image.image.url if cover_image else cover_image.url,
+                            "image": cover_image.image.url if hasattr(cover_image, 'image') else cover_image.url,
                             "price": float(computer_instance.price_amount),
                             "color":computer_instance.color.color,
                             "processor": f'{computer_instance.processor.model}',
                             "brand":computer_instance.brand.name,
                             "ram": computer_instance.memory.capacity,
-                            "storage": computer_instance.storages.first().capacity,
+                            "storage":storage,
                         })
                             
             except Exception as e :
@@ -367,8 +409,8 @@ def withai_recommendation(request):
 
     return render(request,"recommendation.html", {
                         "recommendation":json.dumps(computer_recommended, cls=DecimalEncoder),
-                        "minBudget":budgetMin,
-                        "maxBudget":max_price_set,
+                        "minBudget":int(budgetMin),
+                        "maxBudget":int(max_price_set),
                         "computerBrands":Brand.objects.all(),
                         "computerColors":ComputerColor.objects.all(),
                         "computerRAMS":Memory.objects.all()
@@ -376,6 +418,7 @@ def withai_recommendation(request):
 
 # Enregistrer la comande
 from datetime import datetime, timedelta
+from django.core.mail import send_mail
 @require_POST
 def processOrderPage(request):
     """
@@ -410,8 +453,12 @@ def processOrderPage(request):
         location   = data.get('location', '')
         computer   = data.get('id_computer', '')
         number     = data.get('number', '')
+        email      = data.get('email', '')
 
-        # print(request.body)
+        # Save the email in the session
+        request.session["order_email"] = email
+        time = request.session["time"] if "time" in request.session else ""
+
         # Check if the computer exists
         relevant_computer = Computer.objects.filter(pk=computer).first()
         if not relevant_computer:
@@ -423,13 +470,28 @@ def processOrderPage(request):
             last_name=last_name,
             computer=relevant_computer,
             phone=phone, location=location,
-            number=number           
+            number=number,
+            email=email       
         )
         if instance_commend.exists():
             # Update the existing order to be traited again
             instance_commend.first().is_traited = False
             pos = instance_commend.first()
             pos.save()
+
+            # Envoie du mail
+            try:
+                # Envoie du mail
+                success = send_pdf_email(
+                        to_email=email,
+                        subject="Zoodo Computer: Détails sur votre commande",
+                        template_src="pdf/pdf.html",
+                        commande_instance=pos,
+                        time=time
+                )
+                print(success)
+            except Exception as e:
+                print(e)
 
             request.session["computer_recommended"] = pos.pk
             return JsonResponse({"message": "Order updated successfully"}, status=200)
@@ -443,9 +505,24 @@ def processOrderPage(request):
             phone=phone,
             location=location,
             delivery_date=delivery_date,
-            number=number
+            number=number,
+            email=email
         )
         isinstance_order.save()
+
+        try:
+            # Envoie du mail
+            success = send_pdf_email(
+                    to_email=email,
+                    subject="Zoodo Computer: Détails sur votre commande",
+                    template_src="pdf/pdf.html",
+                    commande_instance=isinstance_order,
+                    time=time
+            )
+            # print(success)
+        except Exception as e:
+            print(e)
+       
         request.session["computer_recommended"] = isinstance_order.pk
 
         return JsonResponse({"message": "Order created successfully"}, status=200)
@@ -460,7 +537,6 @@ def processOrderPage(request):
 # Commander sans l'ia
 @require_POST
 def performSimpleOrder(request):
-
     """
     Permet de traiter une requête de recommendation d'un ordinateur.
     
@@ -492,6 +568,9 @@ def performSimpleOrder(request):
         # budget_tolerance      = computer.get('budget', '').get('tolerance', '')
         budget_calculated_max = budget_calculated_max.split(" ")[0] 
         storage = storage.split(" ")[0] + " "+ storage.split(" ")[1]
+        budget_calculated_max = int(budget_calculated_max.replace(",",""))
+
+        # print("budget", budget_calculated_max)
 
         # Recherche des ordinateurs pertinents repondant aux besoins de l'utilisateur
         relevant_computers = Computer.objects.filter(
@@ -576,23 +655,29 @@ def displaySimpleOrderRecommendation(request, id):
     for r in computer_instances:
         computer_instance = Computer.objects.filter(pk=r.computer_id).first()
         cover_image       = ComputerPhoto.objects.filter(computer=computer_instance, is_cover=True).first()
+        # Evite l'erreur NoneType pour le stockage
+        storage = ''
+        if computer_instance.storages.exists():  # Check if there are any storages
+            first_storage = computer_instance.storages.first()  # Get the first storage
+            if first_storage:  # Ensure that first_storage is not None
+                storage = first_storage.capacity  # Get the capacity
+        
         computer_recommended.append({
             "id": r.computer_id,
             "model":computer_instance.model,
             "time": id,
-            "image": cover_image.image.url if cover_image else cover_image.url,
+            "image": cover_image.image.url  if hasattr(cover_image, 'image') else  None,
             "price": float(computer_instance.price_amount),
             "color":computer_instance.color.color,
             "processor": f'{computer_instance.processor.model}',
             "brand":computer_instance.brand.name,
             "ram": computer_instance.memory.capacity,
-            "storage": computer_instance.storages.first().capacity,
+            "storage":storage,
         })
     
 
     budgetMin     = computer_instances.first().min_budget
     max_price_set = computer_instances.first().max_budget
-
     return  render(request,"recommendation.html", {
                         "recommendation":json.dumps(computer_recommended, cls=DecimalEncoder),
                         "minBudget":budgetMin,
@@ -607,14 +692,13 @@ def displaySimpleOrderRecommendation(request, id):
 from .render_html_to_pdf import render_html_to_pdf
 
 def downloadOrderPdf(request):
-    
     """
-    Permet de télécharger la commande en format PDF.
-    
-    La fonction prend comme paramètre la requête.
-    Elle récupère l'instance de la commande associée à la session.
-    Elle crée un dictionnaire contenant les informations de la commande.
-    Elle appelle la fonction render_html_to_pdf pour convertir le modèle HTML en PDF.
+        Permet de télécharger la commande en format PDF.
+        
+        La fonction prend comme paramètre la requête.
+        Elle récupère l'instance de la commande associée à la session.
+        Elle crée un dictionnaire contenant les informations de la commande.
+        Elle appelle la fonction render_html_to_pdf pour convertir le modèle HTML en PDF.
     """
     
     id_command = request.session["computer_recommended"]
@@ -639,7 +723,6 @@ def downloadOrderPdf(request):
     }
 
     return render_html_to_pdf('pdf/pdf.html', data)
-
 
 
 # 404 pas d'url

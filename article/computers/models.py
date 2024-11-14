@@ -36,7 +36,7 @@ class Processor(models.Model):
     turbo_clock_speed = models.CharField(max_length=20,blank=True, null=True)
 
     def __str__(self):
-        return f"{self.brand} {self.model}"
+        return f"{self.brand} {self.cores}"
 
 class Memory(models.Model):
     type = models.CharField(max_length=20,blank=True, null=True)
@@ -44,7 +44,7 @@ class Memory(models.Model):
     speed = models.CharField(max_length=20,blank=True, null=True)
 
     def __str__(self):
-        return f"{self.capacity} GB // {self.type} - {self.speed}"
+        return f"{self.capacity}"
 
 class Storage(models.Model):
     type = models.CharField(max_length=20,blank=True, null=True)
@@ -103,6 +103,20 @@ class OperatingSystem(models.Model):
     def __str__(self):
         return f"{self.name} {self.version} {self.bitness}-bit"
 
+
+class ComputerKeyboard(models.Model):
+    type = models.CharField(max_length=200)
+    is_backlit = models.BooleanField(default=False)
+    as_numeric_panel = models.BooleanField(default=False)
+    as_finger_print = models.BooleanField(default=False)
+    creation_date = models.DateField( auto_now_add=True)
+
+    class Meta:
+        ordering = ("-creation_date",)
+    
+    def __str__(self) -> str:
+        return self.type + " lum : " + str(self.is_backlit) + " et num : " + str(self.as_numeric_panel) + " et finger : " + str(self.as_finger_print)
+
 class ComputerManager(models.Manager):
     def get_next_id(self):
         last_computer = self.order_by('-id').first()
@@ -127,7 +141,6 @@ class ComputerColor(models.Model):
     
     def __str__(self) -> str:
         return self.color
-    
 
 class Computer(models.Model):
     id    = models.CharField(max_length=20, primary_key=True, editable=False)
@@ -140,11 +153,11 @@ class Computer(models.Model):
 
     processor = models.ForeignKey(Processor, on_delete=models.PROTECT)
     memory    = models.ForeignKey(Memory, on_delete=models.PROTECT)
-    graphics  = models.ForeignKey(Graphics, on_delete=models.PROTECT)
-    motherboard = models.ForeignKey(Motherboard, on_delete=models.PROTECT)
-    power_supply= models.ForeignKey(PowerSupply, on_delete=models.PROTECT)
-    cooling = models.ForeignKey(Cooling, on_delete=models.PROTECT)
-    case    = models.ForeignKey(Case, on_delete=models.PROTECT)
+    graphics  = models.ForeignKey(Graphics, on_delete=models.PROTECT,blank=True, null=True)
+    motherboard = models.ForeignKey(Motherboard, on_delete=models.PROTECT,blank=True, null=True)
+    power_supply= models.ForeignKey(PowerSupply, on_delete=models.PROTECT,blank=True, null=True)
+    cooling = models.ForeignKey(Cooling, on_delete=models.PROTECT,blank=True, null=True)
+    case    = models.ForeignKey(Case, on_delete=models.PROTECT,blank=True, null=True)
     operating_system = models.ForeignKey(OperatingSystem, on_delete=models.PROTECT)
 
     storages  = models.ManyToManyField(Storage, related_name='computers')
@@ -187,6 +200,9 @@ class Computer(models.Model):
     supplier    = models.ForeignKey(Supplier, on_delete=models.PROTECT, related_name='computers')
     percentage  = models.FloatField(default=0.0)
     description = HTMLField(blank=True, null=True) 
+    screen_size = models.CharField(max_length=50, blank=True, null=True)
+    keyboard     = models.ForeignKey(ComputerKeyboard, on_delete=models.PROTECT,blank=True, null=True)
+
     
     def save(self, *args, **kwargs):
         if not self.id:
@@ -196,6 +212,31 @@ class Computer(models.Model):
     def __str__(self):
         return f"{self.brand} {self.model}"
 
+class ListSofware(models.Model):
+    name = models.CharField(max_length=100,blank=True, null=True)
+    version = models.CharField(max_length=100,blank=True, null=True)
+    creation_date = models.DateField( auto_now_add=True)
+    description   = models.TextField(blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = "Liste des logiciels"
+        ordering = ("-creation_date",)
+        
+    def __str__(self):
+        return self.name
+class PreInstalledSoftware(models.Model):
+    name = models.CharField(max_length=100,blank=True, null=True)
+    version = models.CharField(max_length=100,blank=True, null=True)
+    computer      = models.ForeignKey(Computer, on_delete=models.CASCADE, related_name='pre_installed_software')
+    creation_date = models.DateField( auto_now_add=True)
+    description   = models.TextField(blank=True, null=True)
+
+    class Meta:
+        # verbose_name_plural = "Logiciels pre-installés",
+        ordering = ("-creation_date",)
+        
+    def __str__(self):
+        return self.name
 
 
 class ComputerPhoto(models.Model):

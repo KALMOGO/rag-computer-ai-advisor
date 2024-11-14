@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'tinymce',
     "main",
     "article",
-    'dashbord'
+    'dashbord',
+    "accounts"
 ]
 
 MIDDLEWARE = [
@@ -77,7 +78,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "computerWebsite.wsgi.application"
 
+AUTHENTICATION_BACKENDS = [
+    'accounts.authentication.EmailBackend',  # custom auth backend
+    'django.contrib.auth.backends.ModelBackend',  # default backend
+]
 
+AUTH_USER_MODEL = 'accounts.CustomUser'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -132,6 +138,9 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# Create media directories if they don't exist
+os.makedirs(os.path.join(MEDIA_ROOT, 'users/photos'), exist_ok=True)
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
@@ -176,3 +185,34 @@ SECURE_HSTS_PRELOAD = not DEBUG
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
+# Session settings
+SESSION_COOKIE_AGE = 3600 * 24 * 30  # 30 days
+SESSION_COOKIE_HTTPONLY = True  # prevents JavaScript access to session cookie
+SESSION_COOKIE_SAMESITE = 'Lax'  # prevents CSRF attacks
+
+# Send email settings 
+
+
+# Create config object with the path
+from decouple import Config, RepositoryEnv
+
+ENV_PATH = os.path.join(BASE_DIR, 'zoodoAI', '.env')
+config = Config(RepositoryEnv(ENV_PATH))
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config("EMAIL_HOST", cast=str)
+EMAIL_PORT = config("EMAIL_PORT", cast=int)  # Make sure this is cast to int
+EMAIL_HOST_USER = config("EMAIL_HOST_USER", cast=str)
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", cast=str)
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool, default=True)
+
+# Remove or comment out EMAIL_USE_SSL since we're using TLS
+ADMIN_USER_NAME = config("ADMIN_USER_NAME", default="Admin user")
+ADMIN_USER_EMAIL = config("ADMIN_USER_EMAIL", default=None)
+
+MANAGERS = []
+ADMINS = []
+if all([ADMIN_USER_NAME, ADMIN_USER_EMAIL]):
+    ADMINS += [
+        (f'{ADMIN_USER_NAME}', f'{ADMIN_USER_EMAIL}')
+    ]
+    MANAGERS = ADMINS

@@ -3,45 +3,188 @@
 {% load i18n %}
 
 {% block headLinks %}
+<!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
 <link rel="stylesheet" type="text/css"  href="{% static 'style/dashbord/dashbord-addcomputer.css' %}">
 <link rel="stylesheet" type="text/css"  href="{% static 'style/dashbord/dashbord-footer.css' %}">
 <link rel="stylesheet" type="text/css"  href="{% static 'style/dashbord/dashbord-main.css' %}">
 
 <style>
-  footer{
-        position: fixed !important;
-    }
- 
-.step-indicator {
-      margin: 20px 0;
-  }
-  .step-circle {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background-color: #e9ecef;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 10px;
-  }
-  .step-circle.active {
-      background-color: #0d6efd;
-      color: white;
-  }
-  .step-circle.completed {
-      background-color: #198754;
-      color: white;
-  }
-  .step-title {
-      font-size: 0.875rem;
-      text-align: center;
-  }
+    
 
-  .modal-content{
-    height: 600px !important;
-  }
-    </style>
+footer{
+    position: fixed !important;
+}
+
+.step-indicator {
+  margin: 20px 0;
+}
+.step-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #e9ecef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+}
+.step-circle.active {
+  background-color: #0d6efd;
+  color: white;
+}
+.step-circle.completed {
+  background-color: #198754;
+  color: white;
+}
+.step-title {
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+
+.form-floating > .select2-container {
+    padding-top: 1.625rem;
+}
+
+.form-floating > .select2-container ~ label {
+    opacity: .65;
+    transform: scale(.85) translateY(-0.5rem) translateX(0.15rem);
+}
+
+.form-floating > label.focused {
+    opacity: .65;
+    transform: scale(.85) translateY(-0.5rem) translateX(0.15rem);
+}
+
+.preview-container {
+    max-width: 300px;
+    max-height: 300px;
+    overflow: hidden;
+    margin: 20px auto;
+    border: 2px dashed #007bff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    .preview-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    }
+    @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+    }
+    .fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+    }
+
+@media screen and (max-width: 768px) {
+    .modal-content{
+        height: 100% !important;
+    }
+}
+
+.software-section {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .software-category {
+            margin-bottom: 25px;
+        }
+
+        .software-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-title {
+            color: #2c3e50;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .form-check {
+            margin-bottom: 10px;
+            padding-left: 2rem;
+        }
+
+        .form-check-input {
+            cursor: pointer;
+            width: 1.2em;
+            height: 1.2em;
+            margin-top: 0.25em;
+        }
+
+        .form-check-input:checked {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+        .form-check-input:focus {
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+
+        .form-check-label {
+            cursor: pointer;
+            font-size: 0.95rem;
+            color: #495057;
+            padding-left: 0.5rem;
+            user-select: none;
+        }
+
+        .software-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+
+        .form-check:hover .form-check-label {
+            color: #0d6efd;
+        }
+
+        .badge-version {
+            font-size: 0.75rem;
+            background-color: #e9ecef;
+            color: #6c757d;
+            padding: 0.25em 0.6em;
+            border-radius: 10px;
+            margin-left: 8px;
+        }
+
+        /* Custom scroll styling */
+        .software-list {
+         
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .software-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .software-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .software-list::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+
+        .software-list::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+</style>
 {% endblock headLinks %}
 
 {% block bodyContent %}
@@ -51,19 +194,18 @@
 <!-- Content -->
   <div class="container-fluid">
     <div class="row">
-    
       <!-- Main content -->
       <main class="col-md-12 ms-sm-auto col-lg-12 px-md-4 main-content">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center  pb-2 mb-3 border-bottom">
           <h1 class="h2">Ajouter Ordinateurs</h1>
         </div>
 
-        <div class="row fade-in">
+        <div class="row">
           <div class="col-lg-8 mx-auto">
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title mb-4">Entrer détails</h5>
-                <form id="addComputerForm"> 
+                <form > 
                   <div class="row">
                     <div >
                       <div class="form-floating mb-3">
@@ -80,7 +222,6 @@
                   </div>
 
                   <div>
-
                   </div>
                 </form>
               </div>
@@ -88,250 +229,525 @@
           </div>
         </div>
 
-       
-      <!-- Modal  Ajout-->
-      <div class="modal fade" id="addComputerModal" tabindex="-1" aria-labelledby="addComputerModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addComputerModalLabel">Nouveau Ordinateur</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Stepper -->
-                    <div class="row step-indicator mb-4">
-                        <div class="col">
-                            <div class="step-circle active" id="step1-indicator">1</div>
-                            <div class="step-title">Basic Info</div>
-                        </div>
-                        <div class="col">
-                            <div class="step-circle" id="step2-indicator">2</div>
-                            <div class="step-title">Components</div>
-                        </div>
-                        <div class="col">
-                            <div class="step-circle" id="step3-indicator">3</div>
-                            <div class="step-title">Connectivity</div>
-                        </div>
-                        <div class="col">
-                            <div class="step-circle" id="step4-indicator">4</div>
-                            <div class="step-title">Physical Specs</div>
-                        </div>
-                        <div class="col">
-                            <div class="step-circle" id="step5-indicator">5</div>
-                            <div class="step-title">Warranty & Details</div>
-                        </div>
+        <!-- Modal Ajout -->
+        <div class="modal fade" id="addComputerModal" tabindex="-1" aria-labelledby="addComputerModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addComputerModalLabel">Nouvel Ordinateur</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
-                    <form id="addComputerForm">
-                        <!-- Step 1: Basic Info -->
-                        <div class="step-content" id="step1">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="computerName" required>
-                                        <label>Computer Name</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3">
-                                        <select class="form-select" id="brand" required>
-                                            <option value="">Select Brand</option>
-                                        </select>
-                                        <label>Brand</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="model">
-                                        <label>Model</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3">
-                                        <select class="form-select" id="type">
-                                            <option value="">Select Type</option>
-                                            <option value="Desktop">Desktop</option>
-                                            <option value="Laptop">Laptop</option>
-                                        </select>
-                                        <label>Type</label>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="modal-body">
+                        <!-- Stepper -->
+                        <div class="row step-indicator mb-4">
+                            <div class="col"><div class="step-circle active" id="step1-indicator">1</div>
+                            <div class="step-title">Informations de base</div></div>
+
+                            <div class="col"><div class="step-circle" id="step2-indicator">2</div>
+                            <div class="step-title">Composants</div></div>
+
+                            <div class="col"><div class="step-circle" id="step3-indicator">3</div>
+                            <div class="step-title">Connectivité</div></div>
+
+                            <div class="col"><div class="step-circle" id="step4-indicator">4</div>
+                            <div class="step-title">Audio & Physique</div></div>
+
+                            <div class="col"><div class="step-circle" id="step5-indicator">5</div>
+                            <div class="step-title">Détails supplémentaires</div></div>
+
+                            <div class="col"><div class="step-circle" id="step6-indicator">6</div>
+                            <div class="step-title">Images</div></div>
                         </div>
 
-                        <!-- Step 2: Components -->
-                        <div class="step-content d-none" id="step2">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3">
-                                        <select class="form-select" id="processor" required>
-                                            <option value="">Select Processor</option>
-                                        </select>
-                                        <label>Processor</label>
+                        <form id="addComputerForm">
+                            {% csrf_token %}
+                            <!-- Step 1: Basic Info -->
+                            <div class="step-content" id="step1">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" id="brand" name="brand" required>
+                                                <option value="">Sélectionner une marque</option>
+                                                {% for brand in brands %}
+                                                    <option value="{{ brand.id }}">{{ brand.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label>Marque</label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3">
-                                        <select class="form-select" id="memory" required>
-                                            <option value="">Select Memory</option>
-                                        </select>
-                                        <label>Memory</label>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="model" name="model" required>
+                                            <label>Modèle</label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3">
-                                        <select class="form-select" id="graphics" required>
-                                            <option value="">Select Graphics</option>
-                                        </select>
-                                        <label>Graphics</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3">
-                                        <select class="form-select" id="motherboard" required>
-                                            <option value="">Select Motherboard</option>
-                                        </select>
-                                        <label>Motherboard</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Step 3: Connectivity -->
-                        <div class="step-content d-none" id="step3">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="wifi">
-                                        <label>WiFi</label>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" id="type" name="type" required>
+                                                <option value="">Sélectionner un type</option>
+                                                <option value="Desktop">Bureau</option>
+                                                <option value="Laptop">Portable</option>
+                                            </select>
+                                            <label>Type</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" id="color" name="color" required>
+                                                <option value="">Sélectionner une couleur</option>
+                                                {% for color in colors %}
+                                                    <option value="{{ color.id }}">{{ color.color }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label>Couleur</label>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="bluetooth">
-                                        <label>Bluetooth</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="ethernet">
-                                        <label>Ethernet</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-floating mb-3">
-                                        <input type="number" class="form-control" id="usb3_2_gen2_typeC" value="0">
-                                        <label>USB 3.2 Gen2 Type-C</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-floating mb-3">
-                                        <input type="number" class="form-control" id="usb3_2_gen2_typeA" value="0">
-                                        <label>USB 3.2 Gen2 Type-A</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-floating mb-3">
-                                        <input type="number" class="form-control" id="hdmi_ports" value="0">
-                                        <label>HDMI Ports</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-floating mb-3">
-                                        <input type="number" class="form-control" id="display_ports" value="0">
-                                        <label>Display Ports</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Step 4: Physical Specs -->
-                        <div class="step-content d-none" id="step4">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="height">
-                                        <label>Height</label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" id="storage" name="storage" required>
+                                                <option value="">Aucune selection</option>
+                                                {% for storage in storages %}
+                                                    <option value="{{ storage.id }}">
+                                                       capacité: {{ storage.capacity }}/
+                                                       type: {{ storage.type }}
+                                                       interface: {{ storage.interface |default:"-" }}
+                                                       rpm: {{ storage.rpm |default:"-" }}
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                            <label>Disque dure</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" id="supplier" name="supplier" required>
+                                                <option value="">Sélectionner un fournisseur</option>
+                                                {% for supplier in suppliers %}
+                                                    <option value="{{ supplier.id }}">
+                                                        {{ supplier.company }}/
+                                                        {{ supplier.first_name }} {{ supplier.last_name }}
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                            <label>Fournisseur</label>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="width">
-                                        <label>Width</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="depth">
-                                        <label>Depth</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="weight">
-                                        <label>Weight</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Step 5: Warranty & Details -->
-                        <div class="step-content d-none" id="step5">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="warranty_duration">
-                                        <label>Warranty Duration</label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="number" step="1000" class="form-control" id="price_amount" name="price_amount" required>
+                                            <label>Prix</label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="warranty_type">
-                                        <label>Warranty Type</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="warranty_support">
-                                        <label>Warranty Support</label>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" id="price_currency" name="price_currency" required>
+                                                <option value="CFA">CFA</option>
+                                            </select>
+                                            <label>Devise</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3">
-                                        <input type="number" class="form-control" id="price_amount" required>
-                                        <label>Price Amount</label>
+
+                            <!-- Step 2: Components -->
+                            <div class="step-content d-none" id="step2">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" id="processor" name="processor" required>
+                                                <option value="">Sélectionner un processeur</option>
+                                                {% for processor in processors %} 
+                                                    <option value="{{ processor.id }}">
+                                                        Marque: {{ processor.brand }} - coeurs {{ processor.cores }}
+                                                        - vitesse {{ processor.base_clock_speed }}: cores i Cores: {{ processor.cores|add:"-1" }}
+                                                        - threads {{ processor.threads|default:"-" }}
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                            <label>Processeur</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" id="memory" name="memory" required>
+                                                <option value="">Sélectionner la mémoire</option>
+                                                {% for memory in memories %}
+                                                    <option value="{{ memory.id }}">{{ memory.capacity }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label>Mémoire</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" id="graphics" name="graphics">
+                                                <option value="">Sélectionner la carte graphique</option>
+                                                {% for graphic in graphics %}
+                                                    <option value="{{ graphic.id }}">
+                                                        Marque: {{ graphic.brand.name | default:"-" }}
+                                                        - coeurs {{ graphic.memory | default:"-" }}
+                                                        - modèle {{ graphic.model | default:"-" }} 
+                                                        - type {{ graphic.type|default:"-" }}
+                                                    </option >
+                                                {% endfor %}
+                                            </select>
+                                            <label>Carte graphique</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" id="motherboard" name="motherboard">
+                                                <option value="">Sélectionner la carte mère</option>
+                                                {% for motherboard in motherboards %}
+                                                    <option value="{{ motherboard.id }}">
+                                                        Marque: {{ motherboard.brand.name | default:"-" }}
+                                                        {{ motherboard.model | default:"-" }}
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                            <label>Carte mère</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" id="power_supply" name="power_supply">
+                                                <option value="">Sélectionner l'alimentation</option>
+                                                {% for power_supply in powersupplies %}
+                                                    <option value="{{ power_supply.id }}">
+                                                        Watt: {{ power_supply.wattage | default:"-" }}
+                                                        {{ power_supply.efficiency | default:"-" }} W
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                            <label>Alimentation</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" id="cooling" name="cooling">
+                                                <option value="">Sélectionner le refroidissement</option>
+                                                {% for cooling in coolings %}
+                                                    <option value="{{ cooling.id }}">
+                                                        Type {{ cooling.type | default:"-" }}
+                                                        -taille {{ cooling.radiator_size | default:"-" }}
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                            <label>Refroidissement</label>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" id="case" name="case">
+                                                <option value="">Sélectionner le boîtier</option>
+                                            </select>
+                                            <label>Boîtier</label>
+                                        </div>
+                                    </div> -->
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" id="operating_system" name="operating_system" required>
+                                                <option value="">Sélectionner le système d'exploitation</option>
+                                                {% for operating_system in operating_systems %}
+                                                    <option value="{{ operating_system.id }}">
+                                                        {{ operating_system.name }}
+                                                        {{ operating_system.version | default:"-" }}
+                                                        {{ operating_system.bitness | default:"-" }} bits
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                            <label>Système d'exploitation</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="number" step="1000"  class="form-control" id="percentage" name="percentage"  required>
+                                            <label>Commission</label>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3">
-                                        <select class="form-select" id="price_currency">
-                                            <option value="USD">USD</option>
-                                            <option value="EUR">EUR</option>
-                                            <option value="GBP">GBP</option>
-                                        </select>
-                                        <label>Currency</label>
+                                
+                            </div>
+    
+                            <!-- Step 3: Connectivity -->
+                            <div class="step-content d-none" id="step3">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="wifi" name="wifi">
+                                            <label>WiFi (oui/non/version) </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="bluetooth" name="bluetooth">
+                                            <label>Bluetooth (oui/non/version)</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="ethernet" name="ethernet">
+                                            <label>Ethernet (oui/non/vitesse)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-floating mb-3">
+                                            <input type="number" class="form-control" id="usb3_2_gen2_typeC" name="usb3_2_gen2_typeC" value="0">
+                                            <label>USB 3.2 Gen2 Type-C</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-floating mb-3">
+                                            <input type="number" class="form-control" id="usb3_2_gen2_typeA" name="usb3_2_gen2_typeA" value="0">
+                                            <label>USB 3.2 Gen2 Type-A</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-floating mb-3">
+                                            <input type="number" class="form-control" id="usb3_2_gen1_typeA" name="usb3_2_gen1_typeA" value="0">
+                                            <label>USB 3.2 Gen1 Type-A</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-floating mb-3">
+                                            <input type="number" class="form-control" id="usb2_0" name="usb2_0" value="0">
+                                            <label>USB 2.0</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Ports -->
+                                <div class="row">
+                                    <!-- Ports HDMI -->
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="number" class="form-control" id="hdmi_ports" name="hdmi_ports" value="0">
+                                            <label>Ports HDMI</label>
+                                        </div>
+                                    </div>
+                                    <!-- Ports Display -->
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="number" class="form-control" id="display_ports" name="display_ports" value="0">
+                                            <label>Ports Display</label>
+                                        </div>
+                                    </div>
+                                   
+                                    <!-- Clavier -->
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" id="keyboard" name="keyboard">
+                                                <option value="">Sélectionner un clavier</option>
+                                                {% for keyboard in keyboards %}
+                                                    <option value="{{ keyboard.id }}">
+                                                        type: {{ keyboard.type }} 
+                                                        - est_lumineux: {{ keyboard.is_backlit | yesno:"oui,non" }} 
+                                                        - pavet numeric: {{ keyboard.as_numeric_panel | yesno:"oui,non" }} 
+                                                        - emprunt digital: {{ keyboard.as_finger_print | yesno:"oui,non" }}   
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                            <label>Clavier</label>
+                                        </div>
+                                    </div>
+
+                                     <!-- Délai de livraison estimé -->
+                                     <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="estimated_shipping_time" name="estimated_shipping_time">
+                                            <label>Délai de livraison estimé</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-floating mb-3">
-                                <textarea class="form-control" id="description" style="height: 100px"></textarea>
-                                <label>Description</label>
+
+                            <!-- Step 4: Audio & Physical -->
+                            <div class="step-content d-none" id="step4">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="audio_front_panel" name="audio_front_panel">
+                                            <label>Audio panneau avant</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="audio_rear_panel" name="audio_rear_panel">
+                                            <label>Audio panneau arrière</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="height" name="height">
+                                            <label>Hauteur</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="width" name="width">
+                                            <label>Largeur</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="depth" name="depth">
+                                            <label>Profondeur</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="weight" name="weight">
+                                            <label>Poids</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="warranty_duration" name="warranty_duration">
+                                            <label>Durée de garantie</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="warranty_type" name="warranty_type">
+                                            <label>Type de garantie</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="warranty_support" name="warranty_support">
+                                            <label>Support de garantie</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="screen_size" name="screen_size">
+                                            <label>Taille d'écran</label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn text-white" style="background-color: #050A44" id="prevStep" disabled>Précedent</button>
-                    <button type="button" class="btn text-white" style="background-color: #0A21C0" id="nextStep">Suivant</button>
-                    <button type="button" class="btn  text-white d-none" style="background-color: red" id="submitForm">Enregister</button>
+
+                            <!-- Step 5: Additional Details -->
+                            <div class="step-content d-none" id="step5">
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <textarea class="form-control" id="description" name="description" style="height: 100px"></textarea>
+                                            <label>Description</label>
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <textarea class="form-control" id="extras" name="extras" style="height: 100px"></textarea>
+                                            <label>Extras</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row"> 
+                                    <div class="col-md-12" >
+                                        <label class="form-label">Logiciels pré-installés</label>
+                                        <div class="software-list  pt-5"
+                                         style="border:1px solid #eee; border-radius:5px;">
+                                            <!-- Office Suite -->
+                                            <div class="software-category col-md-12 d-flex flex-wrap">
+                                                    <!-- <div class="ms-2"> -->
+                                                        {% for software in preInstalledSofwares %}
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" name="software[]" value="{{software.id}}" id="{{software.id}}">
+                                                                <label class="form-check-label" for="office365">
+                                                                    {{software.name}}
+                                                                </label>
+                                                            </div>
+                                                        {% endfor %}
+                                                    <!-- </div> -->
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    
+                                </div>                         
+                                
+                            </div>
+
+                            <!-- Step 6:Ajout des images -->
+                            <div class="step-content d-none" id="step6">
+                                <div class="row">
+                                    <!-- Cover image -->
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="cover-image" class="form-label">Image de couverture</label>
+                                            <input class="form-control" type="file" id="cover-image" name="cover-image" accept="image/*" required>
+                                        </div>
+
+                                        <div class="mb-3"> 
+                                            <div class="preview-container" id="previewContainer">
+                                                <p class="text-muted">Vue de la photo</p>
+                                            </div>
+                                       
+                                            <div class="d-flex justify-content-center align-items-center">
+                                                <button type="button" class="btn text-white" id="btnRafraichir" style="background-color: #050A44;">
+                                                    <i class="bi bi-cloud-upload"></i> Rafrachir 
+                                                </button>
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+
+                                    <!-- Image -->
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="image-1" class="form-label">Image 1</label>
+                                            <input type="file" class="form-control" id="image-1" name="image-1" accept="image/*">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="image-2" class="form-label">Image 2</label>
+                                            <input type="file" class="form-control" id="image-2" name="image-2" accept="image/*">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="image-3" class="form-label">Image 3</label>
+                                            <input type="file" class="form-control" id="image-3" name="image-3" accept="image/*">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="image-4" class="form-label">Image 4</label>
+                                            <input type="file" class="form-control" id="image-4" name="image-4" accept="image/*">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn text-white" style="background-color: #050A44" id="prevStep" disabled>Précédent</button>
+                        <button type="button" class="btn text-white" style="background-color: #0A21C0" id="nextStep">Suivant</button>
+                        <button type="button" class="btn text-white d-none"
+                         style="background-color: red" id="enregistrer">
+                            Enregistrer</button>
+                    </div>
                 </div>
             </div>
         </div>
-      </div>
       </main>
     </div>
   </div>
@@ -340,85 +756,264 @@
   {% include 'dashbord-templates/dashbord-footer.html' %}
   
   {% block JsContent %}
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    document.getElementById('addComputerForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      // Here you would typically send the form data to your backend
-      // For this example, we'll just show an alert
-      alert('Computer added successfully!');
-      this.reset();
-    });
-  </script>
-
+  <!-- Add these in your header if not already present -->
+    
+<!-- Selection des logiciels  -->
+<!-- Envoyer données -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-      let currentStep = 1;
-      const totalSteps = 5;
-      
-      const nextBtn = document.getElementById('nextStep');
-      const prevBtn = document.getElementById('prevStep');
-      const submitBtn = document.getElementById('submitForm');
-  
-      function updateStepVisibility() {
-          // Hide all steps
-          document.querySelectorAll('.step-content').forEach(step => {
-              step.classList.add('d-none');
-          });
-          
-          // Show current step
-          document.getElementById(`step${currentStep}`).classList.remove('d-none');
-          
-          // Update indicators
-          for (let i = 1; i <= totalSteps; i++) {
-              const indicator = document.getElementById(`step${i}-indicator`);
-              if (i === currentStep) {
-                  indicator.classList.add('active');
-                  indicator.classList.remove('completed');
-              } else if (i < currentStep) {
-                  indicator.classList.remove('active');
-                  indicator.classList.add('completed');
-              } else {
-                  indicator.classList.remove('active', 'completed');
-              }
-          }
-          
-          // Update buttons
-          prevBtn.disabled = currentStep === 1;
-          if (currentStep === totalSteps) {
-              nextBtn.classList.add('d-none');
-              submitBtn.classList.remove('d-none');
-          } else {
-              nextBtn.classList.remove('d-none');
-              submitBtn.classList.add('d-none');
-          }
-      }
-  
-      nextBtn.addEventListener('click', () => {
-          if (currentStep < totalSteps) {
-              currentStep++;
-              updateStepVisibility();
-          }
-      });
-  
-      prevBtn.addEventListener('click', () => {
-          if (currentStep > 1) {
-              currentStep--;
-              updateStepVisibility();
-          }
-      });
-  
-      submitBtn.addEventListener('click', () => {
-          // Collect all form data
-          const formData = new FormData(document.getElementById('addComputerForm'));
-          // Add your form submission logic here
-          console.log('Form submitted');
-      });
-  
-      // Initialize form
-      updateStepVisibility();
-  });
-  </script>
+    // Initialize variables
+    let currentStep = 1;
+    const totalSteps = 6;
+    
+    // Get DOM elements
+    const modal     = document.getElementById('addComputerModal');
+    const form      = document.getElementById('addComputerForm');
+    const prevBtn   = document.getElementById('prevStep');
+    const nextBtn   = document.getElementById('nextStep');
+    const submitBtn = document.getElementById('enregistrer');
+    
+    // Handle step navigation
+    function showStep(step) {
+        // Hide all steps
+        document.querySelectorAll('.step-content').forEach(el => el.classList.add('d-none'));
+        // Show current step
+        document.getElementById(`step${step}`).classList.remove('d-none');
+        
+        // Update indicators
+        document.querySelectorAll('.step-circle').forEach(el => el.classList.remove('active'));
+        document.getElementById(`step${step}-indicator`).classList.add('active');
+        
+        // Update buttons
+        prevBtn.disabled = step === 1;
+        nextBtn.classList.toggle('d-none', step === totalSteps);
+        submitBtn.classList.toggle('d-none', step !== totalSteps);
+    }
+
+    // Send computer images
+    function sendComputerImages(computerId, images) {
+        let formData = new FormData();
+
+        // Add computer ID
+        formData.append("computer_id", computerId)
+
+        // Add cover image
+        let coverImage = document.getElementById('cover-image').files[0];
+        if (coverImage) {
+            formData.append('cover-image', coverImage);
+        }
+        // Add additional images
+        for (let i = 1; i <= 4; i++) {
+            let image = document.getElementById(`image-${i}`).files[0];
+            if (image) {
+                formData.append(`image-${i}`, image);
+            }
+        }
+
+        // Add other form data if needed
+        // formData.append('otherField', otherFieldValue);
+        const url = "{% url 'dashbord:perform_add_computer_images' %}";
+        fetch(url, {  // Replace with your actual URL
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken')
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert("Images Enregistrer avec success");
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert("Error: Images non enregistrer!!");
+        });
+    }
+
+    // Js to save Pre installed softwares
+    function savePreInstalledSoftwares(computerId, selectedSoftware) {
+        const url = "{% url 'dashbord:savePreInstalledSoftwares'%}"
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+            'X-CSRFToken': getCookie('csrftoken'),
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                 selectedSoftware: selectedSoftware,
+                  computer_id: computerId 
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:');
+            alert('Error sending data. Please try again.');
+        });
+    }
+
+    // Previous button click handler
+    prevBtn.addEventListener('click', function() {
+        if (currentStep > 1) {
+            currentStep--;
+            showStep(currentStep);
+        }
+    });
+
+    // Next button click handler
+    nextBtn.addEventListener('click', function() {
+        if (currentStep < totalSteps) {
+            // Validate current step
+            const currentStepElement = document.getElementById(`step${currentStep}`);
+            const requiredFields = currentStepElement.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                if (!field.value) {
+                    isValid = false;
+                    field.classList.add('is-invalid');
+                } else {
+                    field.classList.remove('is-invalid');
+                }
+            });
+
+            if (isValid) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+    });
+
+    // Form submission handler
+    submitBtn.addEventListener('click', async function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        try {
+            // Validate form
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            // Prepare form data
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            const url  = "{% url 'dashbord:perform_add_computer' %}";
+
+            // console.log(data);
+            // Add default values for rating fields
+            data.average_rating = 0.01;
+            data.number_of_reviews = 0;
+            // console.log(data);
+
+            // Send data to server
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                // const modalInstance_1 = bootstrap.Modal.getInstance(modal);
+                // modalInstance_1.hide();
+                $('#addComputerModal').modal('hide');          
+                return;
+            }
+
+            // Success handling
+            const result = await response.json();
+            
+            // Send computer images
+            const computerId = result.data.id;
+            sendComputerImages(computerId, formData);
+
+            // Get all checked software
+            const selectedSoftware = Array.from(
+                form.querySelectorAll('input[name="software[]"]:checked')
+            )
+            .map(checkbox => checkbox.value);
+            
+            // console.log(selectedSoftware);
+
+            // savePreInstalledSoftwares
+            savePreInstalledSoftwares(computerId, selectedSoftware);
+
+            // Show success message
+            showToast('Succès', 'Ordinateur ajouté avec succès');
+
+            // Close modal and refresh data
+            $('#addComputerModal').modal('hide');
+            document.querySelector(".modal-backdrop").style.display = "none";
+
+            // Refresh everythings
+            window.location.href = window.location.href; // Refreshes the current page
+
+        } catch (error) {
+            console.log(error)
+            // Close modal and refresh data
+            $('#addComputerModal').modal('hide');
+            document.querySelector(".modal-backdrop").style.display = "none";
+            // Supprimer l'enregistrement de l'ordi --- A FAIRE
+
+            showToast('Erreur', 'Erreur: l\'ordinateur n\'a pas été ajouter correctement', 'error');
+        }
+    });
+
+    // Helper function to get CSRF token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // Helper function to show toast notifications
+    function showToast(title, message, type = 'success') {
+        // Implement your toast notification logic here
+        alert(message);
+    }
+</script>
+
+<!-- Vue prealable des images -->
+<script>
+    document.getElementById('cover-image').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('previewContainer').innerHTML = `<img src="${e.target.result}" alt="Preview" class="img-fluid">`;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Rafrachissement
+    document.getElementById('btnRafraichir').addEventListener('click', function() {
+        previewContainer.innerHTML = '<p class="text-muted">Vue de la photo</p>';
+        document.getElementById('cover-image').value = '';
+        document.getElementById('image-1').value = '';
+        document.getElementById('image-2').value = '';
+        document.getElementById('image-3').value = '';
+        document.getElementById('image-4').value = '';
+
+
+    });
+</script>
+
 {% endblock JsContent %}
 
 {% endblock bodyContent %}

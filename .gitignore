@@ -31,8 +31,6 @@ debug_toolbar/
 *.sqlite3
 
 # Media and static files (if they are generated automatically)
-media/
-static/
 staticfiles/
 
 # If you're using the Django compressor

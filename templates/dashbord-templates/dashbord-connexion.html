@@ -21,6 +21,7 @@
       <form id="loginForm">
         {% csrf_token %}
 
+        <!-- Email -->
         <div class="mb-3">
           <div class="input-group">
             <span class="input-group-text">
@@ -31,6 +32,8 @@
             <input type="email" class="form-control" id="email" placeholder="Email" required>
           </div>
         </div>
+
+        <!-- Mot de passe -->
         <div class="mb-3">
           <div class="input-group">
             <span class="input-group-text">
@@ -41,6 +44,8 @@
             <input type="password" class="form-control" id="password" placeholder="Password" required>
           </div>
         </div>
+
+        <!-- Mot de passe -->
         <div class="mb-3">
           <div class="input-group">
             <span class="input-group-text">
@@ -52,12 +57,12 @@
             <input type="text" class="form-control" id="keyword" placeholder="Keyword" required>
           </div>
         </div>
-        <button  id="loginBtn" class="btn btn-primary w-100">Se Connecter</button>
+        <button  type="button" id="loginBtn" class="btn btn-primary w-100">Se Connecter</button>
       </form>
 
     </div>
     <div class="auth-footer">
-      <p>Don't have an account? >Sign up</a></p>
+      <p></a></p>
     </div>
   </div>
 {% endblock bodyContent %}
@@ -68,6 +73,11 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     const INDEX_URL = "{% url 'dashbord:index' %}";
+    const LOGIN_URL = "{% url 'accounts:login' %}";
+    const CSRF_TOKEN = "{{ csrf_token }}";
+
+    // waiting 1 minute
+    const WAITING_TIME = 60000;
 </script>
   <script src="{% static 'js/dashbord-connection.js' %}"> </script>
 {% endblock JsContent %}

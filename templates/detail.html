@@ -635,7 +635,7 @@ table tr th a:hover, table tr td a:hover, #graphic a:hover{
               </tr>
           </table>
       </div>
-      <!-- Raison de la recommandation -->
+      <!-- Raison de la arecommandation -->
       {% if computer_details.recommendation_reason is not None %}
         <div class="spec-group  mb-1">
             <h2>Pourquoi ?</h2>
@@ -653,26 +653,29 @@ table tr th a:hover, table tr td a:hover, #graphic a:hover{
       <div class="spec-group  mb-1">
           <h2>Stockage (disque dure) </h2>
           <table>
-              <tr>
-                  <th>
-                    Type 
-                     
-                  </th>
-                  <th>
-                    Capacité
-                    
-                  </th>
-                  <th>
-                    RPM
-                   
-                  </th>
-              </tr>
+            <tr>
+              <th>Caracteristiques</th>
+              <th>Description</th>
+              <th>Valeur</th>
+            </tr>
+
               {% for storage in computer_details.storage %}
-              <tr>
-                  <td>{{ storage.type|default:"-" }}</td>
-                  <td>{{ storage.capacity|default:"-" }} GB</td>
+                <tr>
+                    <td>Type</td>
+                    <td>Le type de stockage </td>
+                    <td>{{ storage.type|default:"-" }}</td>
+                </tr>
+                <tr>
+                  <td>Capacité</td>
+                  <td>La capacité de stockage </td>
+                  <td>{{ storage.capacity|default:"-" }}</td>
+                </tr>
+                <tr>
+                  <td>RPM</td>
+                  <td>Vitesse de rotation du disque (tours/minute) </td>
                   <td>{{ storage.rpm|default:"-" }}</td>
-              </tr>
+                </tr>
+            
               {% endfor %}
           </table>
       </div>
@@ -682,46 +685,60 @@ table tr th a:hover, table tr td a:hover, #graphic a:hover{
           <table>
               <tr>
                   <th>Caractéristiques</th>
-                  <th>Valeurs</th>
+                  <th>Description</th>
+                  <th>Valeur</th>
               </tr>
               <tr>
                   <td>
                     Fabriquant
+                  </td>
+                  <td>
+                    Le fabriquant du processeur
                   </td>
                   <td>{{ computer_details.processor.brand|default:"-" }}</td>
               </tr>
               <tr>
                   <td>
                     Modèle
-                   
+                  </td>
+                  <td>
+                    Le modèle spécifique du processeur
                   </td>
                   <td>{{ computer_details.processor.model|default:"-" }}</td>
               </tr>
               <tr>
+                <td>
+                  Coeurs physiques
+                </td>
                   <td> 
-                    Nombre de coeurs
-                   
+                    Nombre de coeurs physiques du processeur
                   </td>
                   <td>{{ computer_details.processor.cores|default:"-" }}</td>
               </tr>
               <tr>
                   <td>
-                    Vitesse 
-                   
+                    Threads
+                  </td>
+                  <td>
+                    Nombre de threads logique gérer simultanément
                   </td>
                   <td>{{ computer.processor.threads|default:"-" }}</td>
               </tr>
               <tr>
                   <td>
-                    Base Clock Speed
-                   
+                    Vitesse de base
                   </td>
-                  <td>{{ computer_details.processor.base_clock_speed|default:"-" }} GHz</td>
+                  <td>
+                    Vitesse de base du processeur
+                  </td>
+                  <td>{{ computer_details.processor.base_clock_speed|default:"-" }}</td>
               </tr>
               <tr>
                   <td>
                     Turbo Clock Speed
-                    
+                  </td>
+                  <td>
+                    Fréquence maximun que peur atteindre le processeur
                   </td>
                   <td>{{ computer.processor.turbo_clock_speed|default:"-" }} GHz</td>
               </tr>
@@ -732,190 +749,383 @@ table tr th a:hover, table tr td a:hover, #graphic a:hover{
       <div class="spec-group  mb-1">
           <h2 id="graphic">
             Carte graphiques 
-            
           </h2>
           <table>
               <tr>
                   <th>Caractéristiques</th>
+                  <th>Description</th>
                   <th>Valeurs</th>
               </tr>
               <tr>
                   <td>Marque</td>
+                  <td>
+                    Frabriquant de la carte graphique
+                  </td>
                   <td>{{ computer_details.graphic.brand|default:"-" }}</td>
               </tr>
               <tr>
                   <td>modèle</td>
+                  <td>
+                    Modèle spécifique de la carte graphique
+                  </td>
                   <td>{{ computer_details.graphic.model|default:"-" }}</td>
               </tr>
               <tr>
                   <td>Type</td>
+                  <td>
+                    Type de la carte graphique
+                  </td>
                   <td>{{ computer_details.graphic.type|default:"-" }}</td>
               </tr>
               <tr>
                   <td>Capacité</td>
+                  <td>
+                    Capacité de la carte graphique
+                  </td>
                   <td>{{ computer_details.graphic.memory|default:"-" }} GB</td>
               </tr>
           </table>
       </div>
       {% endif %}
-      <!-- Connectivités -->
+     <!-- Connectivités -->
       <div class="spec-group  mb-1">
           <h2>Ports et connectivités</h2>
           <table>
               <tr>
-                  <th>connectivités</th>
-                  <th>Nombre</th>
+                  <th>Caracteristiques</th>
+                  <th>Description</th>
+                  <th>Valeur</th>
               </tr>
               <tr>
                   <td>
                     Bluetooth
-                    
-                    </td>
-                  <td>{{ computer_details.bluetooth|yesno:"Yes,No" }}</td>
+                  </td>
+                  <td>
+                    Version du Bluetooth prise en charge
+                  </td>
+                  <td>{{ computer_details.bluetooth|default:"-" }}</td>
               </tr>
               <tr>
                   <td>
                     Ethernet 
-                    
                   </td>
-                  <td>{{ computer_details.ethernet|yesno:"Yes,No" }}</td>
+                  <td>
+                    Vitesse de connexion du cable ethernet
+                  </td>
+                  <td>{{ computer_details.ethernet|default:"-" }}</td>
               </tr>
               <tr>
                   <td>
-                    USB 3.2 Gen 2 Type-C
+                    USB Type-C
+                    </td>
+                    <td>
+                      Nombre de port type C
                     </td>
                   <td>{{ computer_details.usb3_2_gen2_typeC |default:"-" }}</td>
               </tr>
               <tr>
                   <td>
-                    USB 3.2 Gen 2 Type-A 
-                   
+                    USB  Type-A 
+                  </td>
+                  <td>
+                    Nombre de port type A
                   </td>
                   <td>{{ computer_details.usb3_2_gen2_typeA|default:"-" }}</td>
               </tr>
+              
               <tr>
                   <td>
-                    USB 3.2 Gen 1 Type-A
-                   </td>
-                  <td>{{ computer_details.usb3_2_gen1_typeA|default:"-" }}</td>
-              </tr>
-              <tr>
+                    USB
+                  </td>
                   <td>
-                    USB 2.0
-                    </td>
+                    Nombre de USB
+                  </td>
                   <td>{{ computer_details.usb2_0|default:"-" }}</td>
               </tr>
               <tr>
                   <td>
                     Port HDMI
-                   
-                    </td>
+                  </td>
+                  <td>
+                    Nombre de port HDMI
+                  </td>
                   <td>{{ computer_details.hdmi_ports|default:"-" }}</td>
               </tr>
               <tr>
                   <td>
                     Port display
-                    
-                    </td>
+                  </td>
+                  <td>
+                    Nombre de port  display
+                  </td>
                   <td>{{ computer_details.display_ports|default:"-" }}</td>
               </tr>
               <tr>
                   <td>
-                    Audio (Front Panel)
-                   
-                    </td>
+                    Audio
+                  </td>
+                  <td>
+                    Nombre de port Audion (connexion casque, ...)
+                  </td>
                   <td>{{ computer_details.audio_front_panel|default:"-" }}</td>
               </tr>
-              <tr>
-                  <td>
-                    Audio (Rear Panel) 
-                   
-                    </td>
-                  <td>{{ computer_details.audio_rear_panel|default:"-" }}</td>
-              </tr>
+             
           </table>
-      </div>
-      <!-- Dimensions -->
+      </div> 
+      
+      <!-- OS -->
+    <div class="spec-group  mb-1">
+        <h2>Système d'exploitation</h2>
+        <table>
+            <tr>
+                <th>Caracteristiques</th>
+                <th>Description</th>
+                <th>Valeur</th>
+            </tr>
+            <tr>
+                <td>
+                  Nom
+                </td>
+                <td>
+                  Nom du système d'exploitation
+                </td>
+                <td>{{ computer_details.os_name|default:"-" }} {{ computer_details.os_version|default:"-" }} </td>
+            </tr>
+            <tr>
+                <td>
+                  Architecture 
+                </td>
+                <td>
+                  Architecture du système d'exploitation
+                </td>
+                <td>{{ computer_details.os_bitness|default:"-" }} bits</td>
+  
+        </table>
+    </div>
+    <!-- Caractéristiques physiques -->
+    <div class="spec-group  mb-1">
+        <h2>Caractéristiques physiques</h2>
+        <table>
+            <tr>
+                <th>Caractéristiques</th>
+                <th>Description</th>
+                <th>Valeur</th>
+            </tr>
+            <tr>
+                <td>
+                  Hauteur
+                </td>
+                <td> 
+                  Hauteur de l'ordinateur
+                </td>
+                <td>{{ computer_details.height|default:"-" }} </td>
+            </tr>
+            <tr>
+                <td>
+                  Largeur
+                </td>
+                <td> 
+                  Largeur de l'ordinateur
+                </td>
+                <td>{{ computer_details.width|default:"-" }} </td>
+            </tr>
+            <!-- <tr>
+              <td>
+                  Profondeur
+              </td>
+                <td>{{ computer_details.depth|default:"-" }} </td>
+            </tr> -->
+            <tr>
+                <td>
+                  Poids
+                </td>
+                <td> 
+                  Poids de l'ordinateur
+                </td>
+                <td>{{ computer_details.weight|default:"-" }}</td>
+            </tr>
+            <tr>
+              <td>
+                Ecran
+              </td>
+              <td> 
+                Taille de l'ecran de l'ordinateur
+              </td>
+              <td>{{ computer_details.screen_size|default:"-" }}</td>
+          </tr>
+          <tr>
+            <td>
+              Couleur
+            </td>
+            <td> 
+              Couleur de l'ordinateur
+            </td>
+            <td>{{ computer_details.color|default:"-" }}</td>
+        </tr>
+        <tr>
+          <td>
+            Boitier 
+          </td>
+          <td> 
+            Taille et du boitier de l'ordinateur
+          </td>
+          <td>{{ computer_details.case|default:"-" }}</td>
+      </tr>
+        </table>
+    </div>
+
+      <!-- Keyboard -->
       <div class="spec-group  mb-1">
-          <h2>Caractéristiques physiques</h2>
-          <table>
+        <h2>Caracteristiques du clavier</h2>
+        <table>
+            <tr>
+                <th>Caractéristiques</th>
+                <th>Description</th>
+                <th>Valeur</th>
+            </tr>
+
+            <tr>
+              <td>Type</td>
+              <td>Le type de clavier de l'ordinateur</td>
+              <td>
+                {{computer_details.keyboard_type |default:"-" }}
+              </td>
+            </tr>
+
               <tr>
-                  <th>Dimension</th>
-                  <th>Valeurs</th>
+                <td>Clavier numérique</td>
+                <td>Si oui ou non l'ordinateur a un clavier numérique</td>
+                <td>
+                  {% if computer_details.keybord_as_numeric_panel %}
+                    Oui
+                  {% else %}
+                    Non
+                  {% endif %}
+                </td>
               </tr>
+
               <tr>
-                  <td>
-                    Hauteur
-                    </td>
-                  <td>{{ computer_details.height|default:"-" }} mm</td>
+                <td>Clavier lumineux</td>
+                <td>Si oui ou non l'ordinateur a un clavier lumineux</td>
+                <td>
+                  {% if computer_details.keyboard_is_backlit %}
+                    Oui
+                  {% else %}
+                    Non
+                  {% endif %}
+                </td>
               </tr>
+
               <tr>
-                  <td>
-                    Largeur
-                   </td>
-                  <td>{{ computer_details.width|default:"-" }} mm</td>
+                <td>Emprunte digitale</td>
+                <td>Si oui ou non l'emprunte digitale existe</td>
+                <td>
+                  {% if computer_details.keybord_as_finger_print %}
+                    Oui
+                  {% else %}
+                    Non
+                  {% endif %}
+                </td>
               </tr>
-              <tr>
-                  <td>
-                    Profondeur
-                    </td>
-                  <td>{{ computer_details.depth|default:"-" }} mm</td>
-              </tr>
-              <tr>
-                  <td>
-                    Poids
-                  </td>
-                  <td>{{ computer_details.weight|default:"-" }} kg</td>
-              </tr>
-          </table>
-      </div>
-      <!-- Garantie -->
-      <div class="spec-group  mb-1">
-          <h2>Garantie</h2>
-          <table>
-              <tr>
-                  <th>Caractéristiques</th>
-                  <th>Valeurs</th>
-              </tr>
-              <tr>
-                  <td>
-                    Durée de vie estimée
-                    </td>
-                  <td>{{ computer_details.warranty_duration|default:"-" }}</td>
-              </tr>
-              <tr>
-                  <td>
-                    Type
-                    </td>
-                  <td>{{ computer_details.warranty_type|default:"-" }}</td>
-              </tr>
-              <tr>
-                  <td>
-                    Support
-                    </td>
-                  <td>{{ computer_details.warranty_support|default:"-" }}</td>
-              </tr>
-          </table>
-      </div>
-      <!-- Autres informations -->
-      <div class="spec-group  mb-1">
-          <h2>Autres informations</h2>
-          <table>
-              <tr>
-                  <th>Caractéristiques</th>
-                  <th>Valeurs</th>
-              </tr>
-              <tr>
-                  <td>Durée de la batterie </td>
-                  <td>{{ computer_details.energy_rating|default:"-" }}</td>
-              </tr>
-              <tr>
-                  <td>info supplémentaires </td>
-                  <td>{{ computer_details.extras|default:"-" }}</td>
-              </tr>
-            
-          </table>
-      </div>
+        </table>
+    </div>
+
+    <!-- Preinstalled sofwares -->
+  <div class="spec-group  mb-1">
+      <h2>Logiciels preinstallés</h2>
+      <table>
+          <tr>
+              <th>Logiciels</th>
+              <th>Description</th>
+              <th>Valeur</th>
+          </tr>
+          {% for software in computer_details.pre_installed_software %}
+            <tr>
+                <td>
+                  {{ software.name|default:"-" }}
+                </td>
+                <td> 
+                  {{ software.description|default:"-" }}
+                </td>
+                <td>{{ software.version|default:"-" }}</td>
+            </tr>
+          {% endfor %}
+      </table>
+  </div>
+    <!-- Energie de la batterie -->
+  <div class="spec-group  mb-1">
+      <h2>Batterie</h2>
+      <table>
+          <tr>
+              <th>Caractéristiques</th>
+              <th>Description</th>
+              <th>Valeurs</th>
+          </tr>
+          <tr>
+              <td>Durée </td>
+              <td>Durée de la batterie</td>
+              <td>{{ computer_details.power_supply_efficiency|default:"-" }}</td>
+          </tr>
+          <tr>
+              <td>Puissance </td>
+              <td> Puissance delivrée (Watt)</td>
+              <td>{{computer_details.power_supply_wattage|default:"-"}} W</td>
+          </tr>
+        
+      </table>
+  </div>
+  
+    <!-- Système de refroidissement -->
+  <div class="spec-group  mb-1">
+      <h2>Système de refroidissement</h2>
+      <table>
+          <tr>
+              <th>Caractéristiques</th>
+              <th>Description</th>
+              <th>Valeurs</th>
+          </tr>
+          <tr>
+              <td>Type </td>
+              <td>Type de refroidissement </td>
+              <td>{{ computer_details.cooling_type|default:"-" }}</td>
+          </tr>
+          <tr>
+              <td>Radiateur </td>
+              <td> Taille du radiateur</td>
+              <td>{{computer_details.cooling_radiatorSize|default:"-"}}</td>
+          </tr>
+      </table>
+  </div>
+
+  <!-- Garantie -->
+  <div class="spec-group  mb-1">
+      <h2>Garantie</h2>
+      <table>
+          <tr>
+              <th>Caractéristiques</th>
+              <th>Valeurs</th>
+          </tr>
+          <tr>
+              <td>
+                Durée de vie estimée
+                </td>
+              <td>{{ computer_details.warranty_duration|default:"-" }}</td>
+          </tr>
+          <tr>
+              <td>
+                Type
+                </td>
+              <td>{{ computer_details.warranty_type|default:"-" }}</td>
+          </tr>
+          <tr>
+              <td>
+                Support
+                </td>
+              <td>{{ computer_details.warranty_support|default:"-" }}</td>
+          </tr>
+      </table>
+  </div>
+  
   </div>
   <!-- Acessoirs -->
    {% if accessoirs %}
@@ -967,7 +1177,7 @@ table tr th a:hover, table tr td a:hover, #graphic a:hover{
           <div class="modal-header">
               <h5 class="modal-title" id="orderModalLabel">
                 <div class="spinner-border spinner-border-sm" style="color:#0A21C0" role="status" aria-hidden="true"></div>
-                  <b>Enregistrer votre commande </b>
+                  <b>Enregistrer votre commande</b>
               </h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
@@ -977,39 +1187,37 @@ table tr th a:hover, table tr td a:hover, #graphic a:hover{
                 {% csrf_token %}
                 <!-- Nom prenom -->
                   <div class="mb-1">
-                      <!-- <label for="last_name" class="form-label">Nom </label> -->
+
+                      <label for="last_name" class="form-label">Nom <b style="color:red">*</b></label>
                       <input type="text" class="form-control" id="last_name" placeholder="Entrer votre nom" required>
                   </div>
 
                   <div class="mb-1">
-                    <label for="first_name" class="form-label">Prenom </label>
-                    <input type="text" class="form-control" id="first_name" placeholder="Entrer votre prenom" required>
+                    <label for="first_name" class="form-label">Prenom <b style="color:red">*</b></label>
+                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Entrer votre prenom" required>
                 </div>
                 <!-- Phone -->
                   <div class="mb-1">
-                      <label for="phone" class="form-label">Télephone</label>
-                      <input type="tel" class="form-control" id="phone" placeholder="Entrer votre numéro de télephone" required>
+                      <label for="phone" class="form-label">Télephone <b style="color:red">*</b></label>
+                      <input type="tel" class="form-control" name="phone" id="phone" placeholder="Entrer votre numéro de télephone" required>
                   </div>
+                <!-- Email -->
+                <div class="mb-1">
+                    <label for="email" class="form-label">Email (Optionnel)</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Recevoir les détails par email" >
+                </div>
+              
                 <!--Localisation  -->
                   <div class="mb-3">
-                    <label for="location" class="form-label">Localisation</label>
-                    <input type="text" class="form-control" id="location" placeholder="Entrer votre la ville de residence" required>
+                    <label for="location" class="form-label">Localisation <b style="color:red">*</b></label>
+                    <input type="text" class="form-control" id="location" name="location" placeholder="Entrer votre la ville de residence" required>
                  </div>
                 <!-- Nbre -->
                 <div class="mb-3">
-                  <label for="number_of_item" class="form-label">Nombre de pieces</label>
+                  <label for="number_of_item" class="form-label">Quantité <b style="color:red">*</b></label>
                   <input type="number" class="form-control" id="number_of_item" name="number_of_item" value="1" placeholder="expl. 1" min="1" required>
                </div>
-               <!-- Livraison -->
-                 <div class="mb-3">
-                  <label class="form-label">
-                    <h5 >Livraison gratuit </h5>
-                    <ul>
-                      <li>Partout au Burkina Faso</li>
-                    </ul>
-
-                  </label>
-              </div>
+               
               </form>
           </div>
           <!-- Bouton save -->
@@ -1128,6 +1336,7 @@ table tr th a:hover, table tr td a:hover, #graphic a:hover{
               phone: document.getElementById('phone').value,
               location: document.getElementById('location').value,
               number: document.getElementById('number_of_item').value,
+              email:document.getElementById('email').value,
               id_computer:"{{id_computer}}"
           };
           // Send data to the server

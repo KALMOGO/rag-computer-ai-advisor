@@ -9,537 +9,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 <link rel="stylesheet"  type="text/css" href="{% static 'style/promotion-bar.css' %}">
-
-<style>
-      *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Rubik", sans-serif;
-}
-  body {
-    background-color: #f8f9fa !important;
-    color: #333 !important;
-    font-family: Helvetica, sans-serif;
-
-  }
-  .navbar-brand {
-    box-shadow: 0 2px 4px #0A21C0;
-    
-}
-.navbar {
-    background: #050A44 !important;
-    padding: 1rem 0;
-    position: sticky;
-    top: 0;
-     z-index: 100; 
-}
-  .navbar-brand img {
-    height: 30px;
-}
-  .section-title {
-    color: #141619;
-    border-bottom: 2px solid #141619;
-    padding-bottom: 10px;
-  }
-  .computer-title {
-    color: #4a148c !important;
-    font-weight: bold !important;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1) !important;
-  }
-.form-section {
-        background-color: white;
-        border-radius: 10px;
-        /* box-shadow: 0 0 20px rgba(0,0,0,0.1); */
-        padding: 30px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-.progress {
-    height: 5px;
-    margin-bottom: 20px;
-}
-.btn-nav {
-    margin-top: 20px;
-}
-.hidden {
-    display: none;
-}
-.form-check-input{
-    padding:12px;
-}
-
-.card-condition {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-    padding: 20px;
-    width: 100%;
-    transition: transform 0.3s ease-in-out;
-}
-.card-condition:hover {
-    transform: translateY(-5px);
-}
-.card-condition > h1 {
-    color: #333;
-    text-align: center;
-}
-.card-condition > h3 {
-    color: #141619;
-    border-bottom: 2px solid #141619;
-    padding-bottom: 10px;
-}
-.condition-p {
-    color: #34495e;
-    line-height: 1.6;
-}
-.condition-container {
-    display: flex;
-    align-items: center;
-    margin-top: 20px;
-}
-#accept {
-    margin-right: 10px;
-}
-#condition-label {
-    color: #34495e;
-}
-#condition-btn {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-#condition-btn:hover {
-    background-color: #2980b9;
-}
-.brand:hover{
-    background-color: #0A21C0 !important;
-    color:#fff;
-  }
-  .ms-auto .nav-item .nav-link{
-    color:#fff;
-  }
-  .ms-auto .nav-item .nav-link:hover{
-    text-decoration: underline;
-  }
-
-  footer {
-            background-color: #050A44;
-            color: white;
-            padding: 2rem 1rem;
-            position: relative;
-            overflow: hidden;
-        }
-        .footer-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
-        }
-        .footer-section {
-            flex: 1;
-            margin: 10px;
-            min-width: 200px;
-            text-align: center;
-        }
-        .footer-section h3 {
-            margin-bottom: 15px;
-            color: #fff;
-        }
-        .footer-section p, .footer-section a {
-            color: #ddd;
-            text-decoration: none;
-            margin: 10px 0;
-        }
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-        .social-icons a {
-            color: white;
-            font-size: 24px;
-            transition: color 0.3s ease;
-        }
-        .social-icons a:hover {
-            opacity: 0.7;
-        }
-        .country-info {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .country-info img {
-            width: 30px;
-            height: auto;
-        }
-        .bubbles {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            background: linear-gradient(45deg, #333, #000);
-        }
-        .bubbles::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background-color: #000;
-            background-image: radial-gradient(#333 20%, transparent 20%);
-            background-size: 50px 50px;
-            opacity: 0.3;
-            animation: moveBubbles 20s linear infinite;
-        }
-        @keyframes moveBubbles {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-        .copyright {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: #aaa;
-        }
-        @media screen and (max-width: 768px) {
-            .footer-content {
-                flex-direction: column;
-                align-items: center;
-            }
-            .footer-section {
-                width: 100%;
-                text-align: center;
-                margin-bottom: 20px;
-            }
-            .social-icons{
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          display: inline-block;
-      }
-        }
-
-
-/* General form styles */
-#recommendationForm {
-    max-width: 800px;
-    margin: 0 auto;
-    font-family: Arial, sans-serif;
-}
-
-/* Section styles */
-.mb-3 {
-    margin-bottom: 1.5rem;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 1rem;
-}
-
-/* Label styles */
-.form-label strong {
-    color: #141619;
-    font-size: 18px;
-    display: block;
-    margin-bottom: 0.5rem;
-}
-
-/* Checkbox and radio button styles */
-.form-check-input {
-    margin-right: 0.5rem;
-}
-
-.form-check-label {
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-/* Select styles */
-.form-select {
-    width: 100%;
-    padding: 0.5rem;
-    border-radius: 4px;
-    border: 1px solid #ced4da;
-}
-
-/* Input styles */
-.form-control {
-    width: 100%;
-    padding: 0.5rem;
-    border-radius: 4px;
-    border: 1px solid #ced4da;
-}
-.form-control:focus,
-.btn:focus,
-#accept:focus {
-  outline: 3px solid #0A21C0;
-  outline-offset: 2px;
-}
-.form-control:focus {
-  border-color: #0A21C0;
-  box-shadow: 0 0 0 0.2rem #0A21C0;
-}
-/* Button styles */
-.btn {
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.btn-secondary {
-    background-color: #6c757d;
-    color: #fff;
-}
-
-#nextBtn, #submitBtn {
-    background-color: #141619;
-    color: #fff;
-}
-
-/* Responsive grid */
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
-}
-
-.col-12 {
-    flex: 0 0 100%;
-    max-width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-}
-
-@media (min-width: 768px) {
-    .col-md-6 {
-        flex: 0 0 50%;
-        max-width: 50%;
-    }
-}
-
-/* Checkbox container styles */
-.checkbox-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#condition-label {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-}
-
-.navbar-brand {
-    box-shadow: none;
-    
-}
-#accept {
-    margin-right: 10px;
-    width: 25px;
-    height: 25px;
-}
-#accept:hover {
-    cursor: pointer;
-}
- /* Media query footer */
- @media screen and (max-width: 768px) {
-  .footer-content {
-    flex-direction: column;
-    justify-items: left;
-  }
-
-  .footer-section {
-    margin: 1rem 0;
-  }
-
-  h3 {
-    font-size: 1.1rem;
-  }
-
-  .social-icons {
-    justify-content:left;
-  }
-  .info-icon,.tooltip{
-      display: none;
-    }
-    #form_ai_title{
-    font-size: 20px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-footer {
-    padding: 1rem;
-  }
-  .info-icon,.tooltip{
-      display: none;
-    }
-h3 {
-    font-size: 1rem;
-}
-
-.social-icons a {
-    font-size: 1.2rem;
-  }
-  #form_ai_title{
-    font-size: 20px;
-  }
-}
-
-
-/* Responsive styles */
-@media (max-width: 768px) {
-.container {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-.navbar-brand {
-    box-shadow: none;
-    
-}
-.info-icon,.tooltip{
-      display: none;
-    }
-  .form-section {
-    width: 97%;
-  }
-
-  #maxBudget{
-    margin-top: 10px;
-  }
-  .row.g-2 > div {
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-
-  .form-check {
-    flex: 0 0 50%;
-    min-width: unset;
-  }
-
-  .footer-content {
-    flex-direction: column;
-  }
-
-  .footer-section {
-    margin: 10px 0;
-  }
-
-  .form-label strong {
-    font-size: 16px;
-  }
-  #form_ai_title{
-    font-size: 20px;
-  }
-}
-
-@media (max-width: 576px) {
-.navbar-brand img {
-    height: 30px;
-}
-.navbar-brand {
-    box-shadow: none;
-    
-}
-    h4 {
-    font-size: 1.5rem;
-  }
-  .info-icon,.tooltip{
-      display: none;
-    }
-  .form-check {
-    flex: 0 0 100%;
-  }
-
-  .btn {
-    width: 100%;
-    
-  }
-  #maxBudget{
-    margin-top: 10px;
-  }
-  .social-icons a {
-    font-size: 20px;
-    margin: 0 5px;
-  }
-  #form_ai_title{
-    font-size: 20px;
-  }
-}
-
-
-  /* Loading */
-  .loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    display: none;
-  }
-  .custom-spinner {
-    width: 80px;
-    height: 80px;
-    position: relative;
-    animation: spinner-rotate 2s linear infinite;
-  }
-  .custom-spinner-circle {
-    width: 100%;
-    height: 100%;
-    border: 8px solid #ffffff;
-    border-radius: 50%;
-    opacity: 0.7;
-  }
-  .custom-spinner-square {
-    width: 30%;
-    height: 30%;
-    background-color: #ffffff;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: square-pulse 1s ease-in-out infinite alternate;
-  }
-  @keyframes spinner-rotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  @keyframes square-pulse {
-    0% { transform: translate(-50%, -50%) scale(0.8); }
-    100% { transform: translate(-50%, -50%) scale(1.2); }
-  }
-
-  .form-control:focus,
-.btn:focus {
-  outline: 3px solid #0A21C0;
-  outline-offset: 2px;
-}
-</style>
+<link rel="stylesheet"  type="text/css" href="{% static 'style/recommendation-withoutia-form-page.css' %}">
 
 {% endblock headLinks %}
 
@@ -551,16 +21,15 @@ h3 {
 
   <!-- Content -->
     <div class="container" style="background-color: #b3b4bd15; min-height:600px; margin-bottom: 10px; border:1px solid #14161914">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" id="row-content-main">
             <div class="col-10  form-section" style="border:1px solid #14161967">
 
                 <h4 class="text-center mb-4 pt-3"  id="form_ai_title">
-                   <b> <i class="fa-solid fa-laptop"></i>  Trouver l'ordinateur parfait sans l'IA <i class="fa-solid fa-brain"></i>  </b>
+                   <b>Commander l'ordinateur parfait sans l'IA <i class="fa-solid fa-brain"></i>  </b>
                 </h4>
 
                 <h4 style="text-align: center; display: flex; justify-content: center; align-items: center;" >
-                    <button class="btn"  id="faqButton" data-bs-toggle="modal" data-bs-target="#faqModal"
-                     style="width: 50%; background-color: #050A44; color: #fff;">CLIQUER ICI POUR DEMARER</button>
+                    <button class="btn"  id="faqButton" data-bs-toggle="modal" data-bs-target="#faqModal">CLIQUER ICI POUR DEMARRER</button>
                 </h4>
 
                 <form id="recommendationForm" >
@@ -569,8 +38,10 @@ h3 {
 
                     {% csrf_token %}
                     <div class="mb-3">
-                        <label for="brand" class="form-label">
-                            <strong>Marque de l'ordinateur <b style="color:red">*</b></strong>
+                        <label for="brand" class="form-label dis-lg-screen-label">
+                            <strong>Marque <b style="color:red">*</b></strong>
+                            <strong class="message-info"  data-bs-target="faqModal-cest-ceque-est" aria-label="la marque"
+                            >Qu'est ce que c'est ? <span style="font-size:12px">  (cliquer) </span> </strong>
                         </label>
                         <div id="brand" class="d-flex flex-wrap">
                             {% for brand in brands %}
@@ -585,13 +56,18 @@ h3 {
                                 </label>
                             </div>
                             {% endfor %}
+                            <button type="button" data-bs-target="faqModal-cest-ceque-est" 
+                             class="btn btn-info-label" aria-label="la marque">La Marque c'est quoi ?</button>
                         </div>
                     </div>
                     <!-- RAM -->
                     <div class="mb-3">
-                        <label for="ram" class="form-label">
+                        <label for="ram" class="form-label dis-lg-screen-label">
                             <strong>RAM <b style="color:red">*</b></strong>
+                            <strong class="message-info" data-bs-target="faqModal-cest-ceque-est" aria-label="la RAM">
+                            Qu'est ce que c'est ? <span style="font-size:12px">  (cliquer) </span> </strong>
                         </label>
+
                         <div id="ram" class="d-flex flex-wrap">
                             {% for computerRAM in computerRAMS %}
                             <div class="form-check" style="flex: 0 0 25%; min-width: 200px;">
@@ -603,17 +79,25 @@ h3 {
                                     value="{{computerRAM.capacity}}" id="ram{{computerRAM.capacity}}" required>
                                 {% endif %}
                                 <label class="form-check-label" for="ram{{computerRAM.capacity}}">
-                                    {{computerRAM.capacity}} GB
+                                    {{computerRAM.capacity}} 
                                 </label>
                             </div>
                             {% endfor %}
+
+                            <button type="button"  data-bs-target="faqModal-cest-ceque-est" 
+                                class="btn btn-info-label" aria-label="la RAM" id="btn-ram-info">
+                                Qu'est ce que c'est ?
+                            </button>
                         </div>
                     </div>
                     <!-- Capacité processeur -->
                     <div class="mb-3">
-                        <label for="processor" class="form-label">
-                            <strong>Capacité du processeur <b style="color:red">*</b></strong>
+                        <label for="processor" class="form-label dis-lg-screen-label">
+                            <strong>Processeur <b style="color:red">*</b></strong>
+                            <strong class="message-info" data-bs-target="faqModal-cest-ceque-est"aria-label="le processeur">
+                                Qu'est ce que c'est ? <span style="font-size:12px">  (cliquer) </span> </strong>
                         </label>
+
                         <div id="processor" class="d-flex flex-wrap">
                             {% for core in cores %}
                             <div class="form-check" style="flex: 0 0 25%; min-width: 200px;">
@@ -627,24 +111,37 @@ h3 {
                                 </label>
                             </div>
                             {% endfor %}
+                            <button type="button"data-bs-target="faqModal-cest-ceque-est"
+                            class="btn btn-info-label" aria-label="le processeur" id="btn-processor-info">Qu'est ce que c'est ?</button>
                         </div>
                     </div>
 
                     <!-- Capacité de stockage -->
                     <div class="mb-3">
-                        <label for="storage" class="form-label">
+                      
+                        <label for="processor" class="form-label dis-lg-screen-label">
                             <strong>Stockage <b style="color:red">*</b></strong>
+                            <strong class="message-info"  data-bs-target="faqModal-cest-ceque-est" aria-label="le stockage">
+                                Qu'est ce que c'est ?  <span style="font-size:12px">  (cliquer) </span> </strong>
                         </label>
                         <select class="form-select" id="storage">
                             {% for storage in storages %}
                                 <option value="{{storage}}">  {{storage }}</option>
                             {% endfor %} 
                         </select>
+
+                        <button type="button" data-bs-target="faqModal-cest-ceque-est" 
+                        class="btn btn-info-label" aria-label="le stockage" id="btn-storage-info">
+                            Qu'est ce que c'est ?
+                        </button>
                     </div>
                     <!-- Budget -->
                     <div class="mb-3">
-                        <label for="budget" class="form-label">
+                       
+                        <label for="budget" class="form-label dis-lg-screen-label">
                             <strong>Budget (FCFA) <b style="color:red">*</b></strong>
+                            <strong class="message-info"  data-bs-target="faqModal-cest-ceque-est" aria-label="le budget">
+                            Qu'est ce que c'est ?  <span style="font-size:12px">  (cliquer) </span> </strong>
                         </label>
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -657,11 +154,18 @@ h3 {
                                  id="maxBudget" placeholder="Budget Maximum" required>
                             </div>
                         </div>
+                        <button type="button" data-bs-target="faqModal-cest-ceque-est" 
+                        class="btn btn-info-label" aria-label="le budget" id="btn-budget-info">
+                            Qu'est ce que c'est ?
+                        </button>
                     </div>
                     <!-- Marge de tolérance -->
                     <div class="mb-3">
-                        <label class="form-label">
-                            <strong style="font-size: 18px;">Marge de tolérance du prix maximal <b style="color:red">*</b></strong>
+                
+                        <label  class="form-label dis-lg-screen-label">
+                            <strong>Marge <b style="color:red">*</b></strong>
+                            <strong class="message-info" data-bs-target="faqModal-cest-ceque-est" aria-label="la marge">
+                                Qu'est ce que c'est ?  <span style="font-size:12px">  (cliquer) </span> </strong>
                         </label>
                         <div class="d-flex flex-wrap">
                             {% for tolerance in tolerances %}
@@ -672,6 +176,8 @@ h3 {
                                 </label>
                             </div>
                             {% endfor %}
+                            <button type="button"  data-bs-target="faqModal-cest-ceque-est" 
+                            class="btn btn-info-label" aria-label="la marge" >Qu'est ce que c'est ?</button>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -682,9 +188,12 @@ h3 {
                     </div>
                     <!-- Caracteristique supps -->
                     <div class="mb-3">
-                        <label for="characteristicSelect" class="form-label" style="color: green;">
-                            <strong>Caractéristiques supplémentaires (Optionel)</strong>
+                        <label for="characteristicSelect" class="form-label dis-lg-screen-label" >
+                            <strong>Caractéristiques supplémentaires (Optionel)<b style="color:red">*</b></strong>
+                            <strong class="message-info" data-bs-target="faqModal-cest-ceque-est"aria-label="les caracteristiques supplementaires">
+                                Qu'est ce que c'est ?  <span style="font-size:12px">  (cliquer) </span> </strong>
                         </label>
+                        
                         <select class="form-select" id="characteristicSelect">
                             <option value="">Sélectionné</option>
                             <option value="couleur">Couleur</option>
@@ -695,6 +204,9 @@ h3 {
                             <option value="Systeme_exploitation">Système d'exploitation</option>
                             <option value="Vitesse_processeur">Vitesse du processeur</option>
                         </select>
+
+                        <button type="button"  data-bs-target="faqModal-cest-ceque-est"
+                        class="btn btn-info-label" aria-label="les caracteristiques supplementaires" >Qu'est ce que c'est ?</button>
                     </div>
                     <div id="dynamicFields"></div>
 
@@ -708,13 +220,13 @@ h3 {
                         </div>
                     </div>
                     <!-- Bnt de soumission -->
-                    <div class="d-flex justify-content-center p-2" style="flex-direction: column;">
+                    <div class="d-flex justify-content-center" style="flex-direction: column;">
                         <button type="submit" class="btn btn-success" id="submitBtn" style="background-color: #0A21C0;" disabled>
                             Lancer la recherche
                         </button>
 
                         <div class="mt-3 text-center ">
-                            <a href="{% url 'main:recommendationForm' %}" class="btn "
+                            <a href="{% url 'main:index' %}" class="btn "
                              style="background-color:#050A44; color:#fff; width: 100%;" >
                               Rechercher avec Zoodo AI
                             </a>
@@ -733,67 +245,96 @@ h3 {
         </div>
     </div>
 
-       <!-- Modal Faq -->
-  <div class="modal fade" id="faqModal" tabindex="-1" aria-labelledby="faqModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="faqModalLabel"> <b style="color:#0A21C0"> FAQ ?  </b>  </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <h5>Comment se fait la recommandation ?</h5>
-        
-            <div>
-                Nous analysons attentivement la liste des ordinateurs de <b style="color:#0A21C0">Zoodo Computer</b> et sélectionnons des ordinateurs de qualité 
-                qui correspondent <b>exactement</b> aux caractéristiques que vous avez renseignées. <b>Par ailleurs</b>, nous recommandons également des ordinateurs 
-                de grandes performances en adéquation avec <b>votre budget.</b>
-        
-                <br><br>
-                Les ordinateurs recommandés <b>en plus</b> sont ceux possédant :
-        
-                <ul>
-                    <li>une carte graphique</li>
-                    <li>une capacité de RAM supérieure ou égale à 8 Go</li>
-                    <li>une capacité de stockage supérieure ou égale à 512 Go SSD</li>
-                    <li>une durée de vie de batterie élevée</li>
-                </ul>
-        
-                Ces ordinateurs sont connus pour être performants et adaptés à toutes les activités.
-                <br><br>
-                <h5>Comment remplir le formulaire ?</h5>
+       <!-- Modal Faq-->
+    <div class="modal fade" id="faqModal" tabindex="-1" aria-labelledby="faqModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content" >
+            <div class="modal-header">
+            <h5 class="modal-title" id="faqModalLabel"> <b style="color:#0A21C0"> FAQ ?  </b>  </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" 
+            style="font-family:Arial, Helvetica, sans-serif; font-weight: bold;
+             text-align: justify;">
+                <h5>Comment se fait la recommandation ?</h5>
+            
                 <div>
-                    Vous devez renseigner <b>les caractéristiques principales de l'ordinateur (marque, RAM, processeur, stockage), votre budget et une marge de tolérance sur le budget.</b> 
-                    Vous pouvez également sélectionner et renseigner d'autres caractéristiques comme la couleur, le système d'exploitation, etc.
-        
+                    Nous analysons attentivement la liste des ordinateurs de <b style="color:#0A21C0">Zoodo Computer</b> et sélectionnons des ordinateurs de qualité 
+                    qui correspondent <b>exactement</b> aux caractéristiques que vous avez renseignées. <b>Par ailleurs</b>, nous recommandons également des ordinateurs 
+                    de grandes performances en adéquation avec <b>votre budget.</b>
+            
                     <br><br>
-        
+                    Les ordinateurs recommandés <b>en plus</b> sont ceux possédant :
+            
                     <ul>
-                        <li>
-                            La marge de tolérance indique le coût maximum que vous accepteriez. Cela permet d'accroître vos chances de trouver un ordinateur.
-                        </li>
-        
-                        <li>
-                            Les caractéristiques supplémentaires ne sont pas obligatoires.
-                        </li>
+                        <li>une carte graphique</li>
+                        <li>une capacité de RAM supérieure ou égale à 8 Go</li>
+                        <li>une capacité de stockage supérieure ou égale à 512 Go SSD</li>
+                        <li>une durée de vie de batterie élevée</li>
                     </ul>
-                </div>
-                
-                <br>
-                <h5>Comment se faire rembourser ?</h5>
+            
+                    Ces ordinateurs sont connus pour être performants et adaptés à toutes les activités.
+                    <br><br>
+                    <h5>Comment remplir le formulaire ?</h5>
+                    <div>
+                        Vous devez renseigner <b>les caractéristiques principales de l'ordinateur (marque, RAM, processeur, stockage), votre budget et une marge de tolérance sur le budget.</b> 
+                        Vous pouvez également sélectionner et renseigner d'autres caractéristiques comme la couleur, le système d'exploitation, etc.
+            
+                        <br><br>
+            
+                        <ul>
+                            <li>
+                                La marge de tolérance indique le coût maximum que vous accepteriez. Cela permet d'accroître vos chances de trouver un ordinateur.
+                            </li>
+            
+                            <li>
+                                Les caractéristiques supplémentaires ne sont pas obligatoires.
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <br>
+                    <h5>Comment se faire rembourser ?</h5>
 
-                <div>
-                    En cas d'insatisfaction, vous avez la possibilité de vous faire rembourser et de retourner l'ordinateur si la raison est valable.
+                    <div>
+                        En cas d'insatisfaction, vous avez la possibilité de vous faire
+                        rembourser et de retourner l'ordinateur si la raison est valable.
+                    </div>
+                    <br> 
+                    <h5>Seconde methode de recherche</h5>
+                    <div>
+                    Le bouton <b>Rechercher avec Zoodo IA</b> 
+                    au bas du formulaire vous permet également d'obtenir des 
+                    recommandations d'ordinateurs performants en utilisans Zoodo IA.
+                    </div>
+                    <br> <br>
+                    <h6><u style="color: #0A21C0;">NB :</u> Au cas où aucun ordinateur n'a été trouvé, si la recommandation ne vous convient pas ou si une erreur s'est produite, n'hésitez pas à réessayer.</h6>
                 </div>
-                <br> <br>
-                <h6><u style="color: #0A21C0;">NB :</u> Au cas où aucun ordinateur n'a été trouvé, si la recommandation ne vous convient pas ou si une erreur s'est produite, n'hésitez pas à réessayer.</h6>
             </div>
         </div>
-        
-      
-      </div>
+        </div>
     </div>
-</div>
+
+      <!-- Modal Faq  Quest ce c'est -->
+      <div class="modal fade" id="faqModal-cest-ceque-est" tabindex="-1" aria-labelledby="faqModal-cest-ceque-estLabel" aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content" style="font-family:Arial, Helvetica, sans-serif">
+            <div class="modal-header">
+            <h5 class="modal-title"> <b style="color:#0A21C0"> FAQ ?  </b>  </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <h5 id="faqModal-cest-ceque-est-title"></h5>
+            
+                <div id="faqModal-cest-ceque-est-content">
+                    
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
     <!-- Footer -->
 {% endblock bodyContent %}
 
@@ -1121,6 +662,7 @@ h3 {
     </script>
  <!-- Ajouter les caracteristiques supp -->
      <script>
+
         // Ajouter les caracteristiques supp
         const characteristicSelect = document.getElementById('characteristicSelect');
         const dynamicFields = document.getElementById('dynamicFields');
@@ -1128,19 +670,21 @@ h3 {
         
         // Ajouter les champs dynamiques et valeurs. Identique avec 'value=""' dans options
         const processorSpeeds = JSON.parse('{{ processor_speeds|safe|escapejs }}');
-        
+        const computerColors  = JSON.parse('{{ computerColors|safe|escapejs }}');
+        const computerOs      = JSON.parse('{{ computerOs|safe|escapejs }}');
+
         const fieldTypes = {
             couleur: {
                 type: 'select',
-                options: ['blanc', 'Noir', 'Silver', 'blue', 'rouge'],
+                options: computerColors,
             },
             carte_graphique: {
                 type: 'select',
-                options: ['Non', 'Oui'],
+                options: ['Sans graphique', 'Avec carte graphique'],
             },
             Systeme_exploitation: {
                 type: 'select',
-                options: ['Windows 10', 'Windows 11', 'macOS', 'Linux'],
+                options: computerOs,
             },
             height: {
                 type: 'number',
@@ -1230,11 +774,167 @@ h3 {
 <!-- FaqModel -->
   <script>
     // Button
-    const model_faq = document.getElementById('#faqButton'); 
+    const model_faq = document.getElementById('faqButton'); 
 
-    // CLick open model
+    // CLick open modal FAQ general
     model_faq.addEventListener("click", ()=>{
         $('#faqModal').modal('show');
     })
+
+    // Modal qu'est ce qu'est
+    const modal_cest_quoi_btn = document.querySelectorAll(".btn-info-label");
+    const modal_cest_quoi_strong = document.querySelectorAll(".message-info");
+
+        // when clic on btn
+    modal_cest_quoi_btn.forEach((element)=>{
+        element.addEventListener("click", ()=>{
+            const who_is_click = element.ariaLabel;
+            displayFaqItems(who_is_click)
+            $('#faqModal-cest-ceque-est').modal('show');
+        })
+    });
+        // when clic on strong
+    modal_cest_quoi_strong.forEach((element)=>{
+        element.addEventListener("click", ()=>{
+            const who_is_click = element.ariaLabel;
+            displayFaqItems(who_is_click)
+            $('#faqModal-cest-ceque-est').modal('show');
+            
+        })
+    });
+        // Functions of data in modal qu'est ce qu'est
+    function displayFaqItems(item){
+        const formulate_title = "Que designe " + item + " ?";
+        const title = document.querySelector("#faqModal-cest-ceque-est-title");
+        const modal_content = document.querySelector("#faqModal-cest-ceque-est-content");
+
+        switch(item){
+            case "la marque":
+                title.textContent = formulate_title;
+                modal_content.innerHTML = `<p style="text-align: justify; font-weight: bold">
+                    La marque d'un ordinateur (comme Dell, HP, Apple, Lenovo, etc.) représente le fabricant
+                     ou l'entreprise qui a conçu et assemblé l'ordinateur. Chaque marque a 
+                    souvent ses propres standards de qualité, de design, de fiabilité et de support client.
+                    </p>
+                    <p style="text-align: justify; font-weight: bold">
+                        Certaines marques sont réputées pour leur fiabilité et leur qualité,
+                         offrant des composants de meilleure qualité, des services après-vente robustes,
+                          et une durabilité accrue.
+                         Cela peut influencer la durée de vie de l'ordinateur et son efficacité globale.
+                    </p>`;
+                break;
+
+            case "la RAM":
+                title.textContent = formulate_title;
+                modal_content.innerHTML = `<p style="text-align: justify; font-weight: bold">
+                La RAM (Random Access Memory) est la mémoire temporaire utilisée par l'ordinateur
+                 pour stocker les données nécessaires aux programmes en cours d'exécution. Plus la RAM est élevée, 
+                plus l'ordinateur peut traiter et exécuter des tâches simultanément sans ralentissement.
+                    </p>
+                    <p style="text-align: justify; font-weight: bold">
+                    Une plus grande quantité de RAM améliore les performances, surtout si vous
+                     travaillez sur des tâches exigeantes comme le montage vidéo, le jeu ou
+                      la manipulation de logiciels gourmands en mémoire.
+                    Un manque de RAM peut entraîner des ralentissements lorsque de nombreux
+                     programmes sont ouverts.
+                    </p>`
+                break;
+
+            case "le processeur":
+                title.textContent = formulate_title;
+                modal_content.innerHTML = `<p style="text-align: justify; font-weight: bold">
+                    Le processeur est le « cerveau » de l'ordinateur, 
+                    responsable du traitement des instructions et de l'exécution des tâches.
+                     La puissance d'un processeur
+                     est déterminée par sa vitesse (exprimée en GHz), son nombre de cœurs et ses threads.
+                    </p>
+                    <p style="text-align: justify; font-weight: bold">
+                Un processeur plus puissant signifie des calculs et des traitements plus rapides,
+                 essentiels pour les applications lourdes comme les jeux, le rendu 3D, ou le traitement
+                  de données. Un processeur performant permet
+                d'exécuter des tâches plus rapidement et de gérer plusieurs processus sans ralentissement.
+                        </p>`
+                break;
+
+            case "la marge":
+                title.textContent = formulate_title;
+                modal_content.innerHTML = `<p style="text-align: justify; font-weight: bold">
+                    En fonction du budget maximal que vous entrez, nous appliquons une marge de
+                     tolérance pouvant être de 50 %, 60 %,  80 % ou 100 % au-dessus de ce budget.
+                      Cela permet d'élargir les options d'ordinateurs proposés, incluant ceux qui dépassent
+                     légèrement votre budget initial tout en restant dans une limite raisonnable.
+                    </p>
+                   <p style="text-align: justify; font-weight: bold">
+                    Cette marge de tolérance est conçue pour vous offrir davantage de 
+                    choix en cas de budget flexible, afin que vous puissiez explorer des ordinateurs
+                     légèrement plus performants ou mieux équipés. Les ordinateurs proposés respecteront 
+                     donc votre budget minimum 
+                    et iront jusqu'au budget maximum augmenté de la marge de tolérance sélectionnée.
+                    </p>`
+                break;
+
+            case "le budget":
+                title.textContent = formulate_title;
+                modal_content.innerHTML = `<p style="text-align: justify; font-weight: bold">
+                    Le budget représente le montant maximal que vous êtes prêt à dépenser pour un ordinateur. 
+                    Les gammes de prix influencent les types et la qualité des composants que vous pouvez obtenir.
+                    </p>
+                   <p style="text-align: justify; font-weight: bold">
+                        Avoir un budget clair permet de trouver le meilleur compromis entre performance et prix.
+                         Les ordinateurs haut de gamme offrent des performances optimales pour les tâches exigeantes,
+                          mais ils sont plus coûteux.
+                         Avec un budget limité, il est important de prioriser les composants essentiels pour vos besoins.
+                    </p>`
+                break;
+            case "le stockage":
+                title.textContent = formulate_title;
+                modal_content.innerHTML =  `<p style="text-align: justify; font-weight: bold">
+                     Le disque dur (HDD) ou le disque SSD (Solid State Drive) est le composant
+                      où sont stockées toutes les données de l'ordinateur, y compris le système 
+                      d'exploitation, les applications, et les fichiers personnels.
+                      La capacité du disque est mesurée en Go (gigaoctets) ou To (téraoctets).
+                </p>
+                <p style="text-align: justify; font-weight: bold">
+                La capacité du disque détermine la quantité de données qu'il est
+                 possible de stocker. Les disques SSD, plus rapides que les HDD, permettent
+                  des temps de démarrage et de chargement des applications beaucoup plus courts,
+                   ce qui améliore la réactivité de l'ordinateur. Pour ceux qui manipulent des fichiers 
+                lourds (comme les vidéos en haute résolution), un disque de grande capacité est nécessaire.
+                </p>`
+                break;
+            case "les caracteristiques supplementaires":
+                title.textContent = formulate_title;
+                modal_content.innerHTML =  `<p style="text-align: justify; font-weight: bold">
+                    Les caracteristiques supplémentaires sont des fonctionnalités additionnelles
+                     qui peuvent améliorer la performance et la fiabilité de l'ordinateur.
+                      Par exemple, la carte graphique, la couleur, le système d'exploitation et la 
+                      vitesse du processeur:
+                </p>
+                <p style="text-align: justify; font-weight: bold">
+                   - La carte graphique (ou GPU - Graphics Processing Unit) est un composant dédié au traitement des images et des graphismes. Certaines tâches, comme le jeu,
+                     la modélisation 3D, et le montage vidéo, nécessitent une carte graphique performante.
+                </p>
+                <p style="text-align: justify; font-weight: bold">
+                   - Une vitesse de processeur élevée améliore les performances lors de tâches exigeantes en calcul,
+                     comme le traitement de données, la virtualisation, ou l'utilisation de logiciels lourds.
+                     C'est une caractéristique clé pour les utilisateurs nécessitant des performances élevées au quotidien.
+                </p>
+                <p style="text-align: justify; font-weight: bold">
+                    - Le système d'exploitation (comme Windows, macOS, Linux) est 
+                    le logiciel de base qui permet à l'utilisateur d'interagir avec 
+                    l'ordinateur et de gérer les applications
+                     et les ressources matérielles
+                </p>
+                <p style="text-align: justify; font-weight: bold">
+                    - La couleur n'a aucun impact sur les performances de l'ordinateur.
+                     Elle est laissée à l'appréciation de l'utilisateur, qui peut choisir selon ses préférences
+                     personnelles ou en fonction de l'apparence qu'il souhaite pour son matériel.
+                </p>`
+                break;
+            default:
+                alert("Error: refraichir la page");
+                break;
+        }
+    }
   </script>
 {% endblock JsContent %}

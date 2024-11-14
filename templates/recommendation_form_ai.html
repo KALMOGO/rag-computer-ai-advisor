@@ -10,601 +10,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet"  type="text/css" href="{% static 'style/loading-page.css' %}">
 <link rel="stylesheet"  type="text/css" href="{% static 'style/promotion-bar.css' %}">
+<link rel="stylesheet"  type="text/css" href="{% static 'style/recommendation_form_ai-page.css' %}">
 <script src="{% static 'js/loading-page.js' %}" ></script>
-<style>
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body {
-    background-color: #f8f9fa !important;
-    color: #333 !important;
-    background-color: #B3B4BD;
-    font-family: Helvetica, sans-serif;
-}
-.navbar-brand {
-    box-shadow: 0 2px 4px #0A21C0;
-    
-}
-.navbar {
-    background: #050A44 !important;
-    padding: 1rem 0;
-    position: sticky;
-    top: 0;
-     z-index: 100; 
-}
-.navbar-brand img {
-    height: 30px;
-}
-.section-title {
-    color: #141619;
-    border-bottom: 2px solid #7b1fa2;
-    padding-bottom: 10px;
-  }
-  .section-title:hover{
-    text-decoration: underline;
-  }
-
-    .form-section {
-        background-color: white;
-        border-radius: 10px;
-      margin: 0 auto;
-      border-right: 1px solid #B3B4BD;
-      border-left: 1px solid #B3B4BD;
-    }
-    .progress {
-        height: 5px;
-        margin-bottom: 20px;
-    }
-    .btn-nav {
-        margin-top: 20px;
-    }
-    .hidden {
-        display: none;
-    }
-    .form-check-input{
-        padding:12px;
-    }
-
-    .modal-body {
-    max-height: 600px;
- 
-    overflow-y: auto;
-  }
-  #jobList {
-    list-style-type: none;
-    padding: 0;
-  }
-  #jobList li {
-    cursor: pointer;
-    padding: 5px;
-  }
-  #jobList li:hover {
-    background-color: #f8f9fa;
-}
-footer {
-    background-color: #050A44;
-    color: white;
-    padding: 2rem 1rem;
-    position: relative;
-    overflow: hidden;
-}
-.footer-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 10;
-}
-
-.footer-section {
-    flex: 1;
-    margin: 10px;
-    min-width: 200px;
-    text-align: center;
-}
-.footer-section h3 {
-    margin-bottom: 15px;
-    color: #fff;
-}
-.footer-section p, .footer-section a {
-    color: #ddd;
-    text-decoration: none;
-    margin: 10px 0;
-}
-.social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
-.social-icons a {
-    color: white;
-    font-size: 24px;
-    transition: color 0.3s ease;
-}
-.social-icons a:hover {
-    opacity: 0.7;
-}
-.country-info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-.country-info img {
-    width: 30px;
-    height: auto;
-}
-.bubbles {
-  display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    background: linear-gradient(45deg, #333, #000);
-}
-.bubbles::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background-color: #000;
-    background-image: radial-gradient(#333 20%, transparent 20%);
-    background-size: 50px 50px;
-    opacity: 0.3;
-    animation: moveBubbles 20s linear infinite;
-}
-@keyframes moveBubbles {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-.copyright {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 0.9rem;
-    color: #aaa;
-}
-@media screen and (max-width: 768px) {
-    .footer-content {
-        flex-direction: column;
-        align-items: center;
-    }
-    .footer-section {
-        width: 100%;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-}
-
-  .form-control:focus {
-  border-color: #0A21C0;
-  box-shadow: 0 0 0 0.2rem #0a22c0db;;
-}
-.ms-auto .nav-item .nav-link{
-    color:#fff;
-  }
-  .ms-auto .nav-item .nav-link:hover{
-    text-decoration: underline;
-  }
-.card-condition {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-    padding: 20px;
-    width: 100%;
-    transition: transform 0.3s ease-in-out;
-}
-.card-condition:hover {
-    transform: translateY(-5px);
-}
-.card-condition > h1 {
-    color: #333;
-    text-align: center;
-}
-.card-condition > h3 {
-    color: #0A21C0;;
-    border-bottom: 2px solid #0A21C0;;
-    padding-bottom: 10px;
-}
-.condition-p {
-    color: #34495e;
-    line-height: 1.6;
-}
-.condition-container {
-    display: flex;
-    align-items: center;
-    margin-top: 20px;
-}
-#accept {
-    margin-right: 10px;
-}
-#condition-label {
-    color: #34495e;
-}
-#condition-btn {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-#condition-btn:hover {
-    background-color: #2980b9;
-}
-.brand:hover{
-    background-color: #0A21C0!important;
-    color:#fff;
-
-  }
-  .ms-auto .nav-item .nav-link{
-    color:#fff;
-  }
-  .ms-auto .nav-item .nav-link:hover{
-    text-decoration: underline;
-  }
-
-  .error-message {
-    color: red;
-    font-size: 0.8em;
-    margin-top: 5px;
-}
-
-
-  /* Loading */
-  .loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    display: none;
-  }
-  .custom-spinner {
-    width: 80px;
-    height: 80px;
-    position: relative;
-    animation: spinner-rotate 2s linear infinite;
-  }
-  .custom-spinner-circle {
-    width: 100%;
-    height: 100%;
-    border: 8px solid #ffffff;
-    border-radius: 50%;
-    opacity: 0.7;
-  }
-  .custom-spinner-square {
-    width: 30%;
-    height: 30%;
-    background-color: #ffffff;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: square-pulse 1s ease-in-out infinite alternate;
-  }
-  @keyframes spinner-rotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  @keyframes square-pulse {
-    0% { transform: translate(-50%, -50%) scale(0.8); }
-    100% { transform: translate(-50%, -50%) scale(1.2); }
-  }
-
-  
-/* General form styles */
-#recommendationForm {
-    max-width: 800px;
-    margin: 0 auto;
-    font-family: Arial, sans-serif;
-}
-
-/* Section styles */
-.mb-3 {
-    margin-bottom: 1.5rem;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 1rem;
-}
-
-/* Label styles */
-.form-label strong {
-    color: #141619;
-    font-size: 18px;
-    display: block;
-    margin-bottom: 0.5rem;
-}
-
-/* Checkbox and radio button styles */
-.form-check-input {
-    margin-right: 0.5rem;
-}
-
-.form-check-label {
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-/* Select styles */
-.form-select {
-    width: 100%;
-    padding: 0.5rem;
-    border-radius: 4px;
-    border: 1px solid #ced4da;
-}
-
-/* Input styles */
-.form-control {
-    width: 100%;
-    padding: 0.5rem;
-    border-radius: 4px;
-    border: 1px solid #ced4da;
-}
-
-/* Button styles */
-.btn {
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.btn-secondary {
-    background-color: #6c757d;
-    color: #fff;
-}
-
-
-/* Responsive grid */
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
-}
-
-
-.info-icon {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.tooltip {
-    visibility: hidden;
-    width: 500px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -100px;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.info-icon:hover .tooltip {
-    visibility: visible;
-    opacity: 1;
-}
-@media (min-width: 768px) {
-    .col-md-6 {
-        flex: 0 0 50%;
-        max-width: 50%;
-    }
-    .navbar-brand {
-    box-shadow: none;
-    
-}
-}
-
-/* Checkbox container styles */
-.checkbox-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-#condition-label {
-  display: flex;
-  align-items: center;
-  font-size: 0.9rem;
-}
-#accept {
-    margin-right: 10px;
-    width: 25px;
-    height: 25px;
-}
-#accept:hover {
-    cursor: pointer;
-}
-
-  /* Media query footer */
-@media screen and (max-width: 768px) {
-  .footer-content {
-    flex-direction: column;
-    justify-items: left;
-  }
-
-  .footer-section {
-    margin: 1rem 0;
-  }
-
-  h3 {
-    font-size: 1.1rem;
-  }
-  .navbar-brand {
-    box-shadow: none;
-    
-}
-  .social-icons{
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          display: inline-block;
-      }
-  .info-icon,.tooltip{
-      display: none;
-    }
-}
-
-@media screen and (max-width: 480px) {
-footer {
-    padding: 1rem;
-  }
-  .info-icon,.tooltip{
-      display: none;
-    }
-h3 {
-    font-size: 1rem;
-}
-
-.social-icons a {
-    font-size: 1.2rem;
-  }
-  .navbar-brand {
-    box-shadow: none;
-    
-}
-#form_ai_title{
-    font-size: 20px;
-  }
-}
-
-
-/* Responsive styles */
-@media (max-width: 768px) {
-.container {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-.navbar-brand {
-    box-shadow: none;
-    
-}
-.info-icon,.tooltip{
-      display: none;
-    }
-  .form-section {
-    padding: 10px;
-  }
-
-  .row.g-2 > div {
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-
-  .form-check {
-    flex: 0 0 50%;
-    min-width: unset;
-  }
-
-  .footer-content {
-    flex-direction: column;
-  }
-  .navbar-brand {
-    box-shadow: none;
-    
-}
-  .footer-section {
-    margin: 10px 0;
-  }
-
-  .form-label strong {
-    font-size: 16px;
-  }
-  #form_ai_title{
-    font-size: 20px;
-  }
-}
-
-
-@media (max-width: 576px) {
-  h4 {
-    font-size: 1.5rem;
-  }
-  .navbar-brand {
-    box-shadow: none;
-    
-}
-  .info-icon,.tooltip{
-      display: none;
-    }
-  .form-check {
-    flex: 0 0 100%;
-  }
-
-  .btn {
-    width: 100%;
-    
-  }
-
-  .social-icons a {
-    font-size: 20px;
-    margin: 0 5px;
-  }
-  #form_ai_title{
-    font-size: 20px;
-  }
-}
-
-/* Accessibility improvements */
-.form-control:focus,
-.btn:focus {
-  outline: 3px solid #0A21C0;
-  outline-offset: 2px;
-}
-
-/* Print styles */
-@media print {
-  .navbar,
-  footer,
-  .btn {
-    display: none;
-  }
-
-  body {
-    font-size: 12pt;
-    line-height: 1.5;
-  }
-
-  .container {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-  .form-section {
-    border: none;
-    box-shadow: none;
-  }
-}
-</style>
-
 
 {% endblock headLinks %}
 
@@ -616,14 +23,14 @@ h3 {
   {% include 'header.html' %}
     <!-- Form container -->
     <div class="container" style="background-color: #b3b4bd15; min-height:600px; margin-bottom: 10px;">
-        <div class="row justify-content-center mb-3">
+        <div class="row justify-content-center mb-3" id="row-content-main">
             <div class="col-lg-10 form-section" style="border:1px solid #14161967">
                 <h4 class="text-center mb-4 pt-5 " id="form_ai_title">
-                  <b><i class="fa-solid fa-laptop"></i> Trouver l'ordinateur parfait avec  Zoodo IA <i class="fa-solid fa-robot"></i></b>
+                  <b>Commander l'ordinateur parfait avec  Zoodo IA <i class="fa-solid fa-robot"></i></b>
                 </h4>
+
               <h4 style="text-align: center; display: flex; justify-content: center; align-items: center;" >
-                  <button class="btn"  id="faqButton" data-bs-toggle="modal" data-bs-target="#faqModal"
-                   style="width: 50%; background-color: #050A44; color: #fff;">CLIQUER ICI POUR DEMARER</button>
+                  <button class="btn"  id="faqButton" data-bs-toggle="modal" data-bs-target="#faqModal">CLIQUER ICI POUR DEMARRER</button>
               </h4>
 
                 <!-- Form -->
@@ -633,17 +40,12 @@ h3 {
                     <i style="font-size: 11px;">* obligatoire</i>
                     <!-- Budget -->
                     <div class="mb-3">
-                        <label for="minBudget" class="form-label">
-                            <strong style="color:#050A44;font-size: 18px;">
-                                 Budget (FCFA) <b style="color:red">*</b>
-                                  <div class="info-icon">
-                                    <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i>
-                                    <span class="tooltip">
-                                        La qualité d'un ordinateur depend du prix. 
-                                        Nous imposons un prix vous permettant d'obtenir au moins un bon ordinateur.
-                                    </span>
-                                </div>
-                               </strong> </label>
+                      <label for="minBudget" class="form-label dis-lg-screen-label">
+                        <strong style="color:#050A44;font-size: 18px;"> Budget (FCFA) <b style="color:red">*</b></strong>
+                        <strong class="message-info"  data-bs-target="faqModal-cest-ceque-est" aria-label="le budget">
+                        Qu'est ce que c'est ?  <span style="font-size:12px">  (cliquer) </span> </strong>
+                    </label>
+                        
                         <div class="row g-2">
                             <div class="col-12 col-md-6">
                                 <input type="number" name="minBudget" class="form-control" id="minBudget" placeholder="Budget Minimum" min="{{minBudget}}" max="{{maxBudget}}" value="" required>
@@ -652,46 +54,53 @@ h3 {
                                 <input type="number" name="maxBudget" class="form-control" id="maxBudget" placeholder="Budget Maximum" min="{{minBudget}}"  max="{{maxBudget}}"  required>
                             </div>
                         </div>
+
+                        <button type="button" data-bs-target="faqModal-cest-ceque-est" 
+                        class="btn btn-info-label" aria-label="le budget" id="btn-budget-info">
+                            Qu'est ce que c'est ?
+                        </button>
                     </div>
                     <!-- Activité -->
                     <div class="mb-3" id="job-list-div">
-                        <label for="jobInput" class="form-label">
-                            <b style="color:#050A44;font-size: 18px;">
-                               Votre activité <b style="color:red">*</b>
-                               <div class="info-icon">
-                                <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i>
-                                <span class="tooltip">
-                                  Choisissez simplement votre domaine d'activité.
-                                </span>
-                            </div>
-                            </b> </label>
-
+                      <label class="form-label dis-lg-screen-label" >
+                        <strong style="color:#050A44;font-size: 18px;">Secteur d'activité <b style="color:red">*</b></strong>
+                        <strong class="message-info" data-bs-target="faqModal-cest-ceque-est" aria-label="le secteur d'activité">
+                            Qu'est ce que c'est ?  <span style="font-size:12px">  (cliquer) </span> </strong>
+                      </label>
+                      
                         <input type="text" class="form-control" id="jobInput" placeholder="Aucune sélection"
                          data-bs-toggle="modal" data-bs-target="#jobModal" readonly required>
+
+                        <button type="button" data-bs-target="faqModal-cest-ceque-est" 
+                        class="btn btn-info-label" aria-label="le secteur d'activité" id="btn-job-info">
+                            Qu'est ce que c'est ?
+                        </button>
 
                     </div>
                     <!-- Description activite -->
                     <div class="mb-3">
-                        <label for="jobDescription" class="form-label">
-                          <strong style="font-size: 18px;">
-                            Usage de l'ordinateur <i style="font-size: 11px;">(max.250 Mots)</i>
-                            <div class="info-icon">
-                              <i class="fas fa-info-circle" style="color:blue; font-size:15px;"></i>
-                              <span class="tooltip">
-                                  Si vous avez connaissance mettez l'accent sur les logiciels et les tâches que 
-                                  réalisera l'ordinateur. Vous pouvez renseigner aussi vos besoins non fonctionnel.
-                              </span>
-                          </div>
-                          </strong>
-                        </label>
+                      <label for="jobDescription" class="form-label dis-lg-screen-label" >
+                        <strong style="color:#050A44;font-size: 18px;">Usage de l'ordinateur <i style="font-size: 11px;">(max.250 Mots)</i> </strong>
+                        <strong class="message-info" data-bs-target="faqModal-cest-ceque-est" aria-label="l'usage de l'ordinateur">
+                            Qu'est ce que c'est ?  <span style="font-size:12px">  (cliquer) </span> </strong>
+                      </label>
+
                         <textarea class="form-control" id="jobDescription"
                          placeholder="Par exemple: j'utilise des logiciels comme autoCard, photoshop, android studio, etc.." oninput="checkWordLimit(this)" style="min-height: 100px;"></textarea>
-                      </div>
+
+                        <button type="button" data-bs-target="faqModal-cest-ceque-est" 
+                        class="btn btn-info-label" aria-label="l'usage de l'ordinateur" id="btn-job-description-info">
+                            Qu'est ce que c'est ?
+                        </button>
+                    </div>
+
                       <!-- Marge de tolerence -->
                     <div class="mb-3">
-                        <label class="form-label">
-                            <strong style="font-size: 18px;">Marge de tolérance du prix max. <b style="color:red">*</b></strong>
-                        </label>
+                      <label  class="form-label dis-lg-screen-label">
+                        <strong>Marge <b style="color:red">*</b></strong>
+                        <strong class="message-info" data-bs-target="faqModal-cest-ceque-est" aria-label="la marge">
+                            Qu'est ce que c'est ?  <span style="font-size:12px">  (cliquer) </span> </strong>
+                      </label>
                         <div class="d-flex flex-wrap">
                             {% for tolerance in tolerances %}
                             <div class="form-check" style="flex: 0 0 25%; min-width: 200px;">
@@ -701,6 +110,8 @@ h3 {
                                 </label>
                             </div>
                             {% endfor %}
+                            <button type="button"  data-bs-target="faqModal-cest-ceque-est" 
+                            class="btn btn-info-label" aria-label="la marge" >Qu'est ce que c'est ?</button>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -773,7 +184,8 @@ h3 {
             <h5 class="modal-title" id="faqModalLabel"> <b style="color:#0A21C0"> FAQ ?  </b>  </h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" style="font-family:Arial, Helvetica, sans-serif; font-weight: bold;
+             text-align: justify;">
             <h5>Comment se fait la recommandation ?</h5>
         
             <div>
@@ -826,12 +238,40 @@ h3 {
                 <div>
                     En cas d'insatisfaction, vous avez la possibilité de vous faire rembourser et de retourner l'ordinateur si la raison est valable.
                 </div>
+                <br> 
+                <h5>Seconde methode de recherche</h5>
+                <div>
+                  Le bouton <b>Rechercher sans l'IA</b> 
+                  au bas du formulaire vous permet également d'obtenir des 
+                  recommandations d'ordinateurs performants sans utiliser l'IA.
+                </div>
                 <br> <br>
               <h6><u style="color: #0A21C0;">NB:</u> Au cas où aucun ordinateur n'a été trouvé, si la recommandation ne vous convient pas ou si une erreur s'est produite, n'hésitez pas à réessayer.</h6>
             </div>
         </div>
         
         </div>
+      </div>
+  </div>
+
+    <!-- Modal Faq  Quest ce c'est -->
+    <div class="modal fade" id="faqModal-cest-ceque-est" tabindex="-1" aria-labelledby="faqModal-cest-ceque-estLabel" aria-hidden="true">
+
+      <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content" style="font-family:Arial, Helvetica, sans-serif">
+          <div class="modal-header">
+          <h5 class="modal-title"> <b style="color:#0A21C0"> FAQ ?  </b>  </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body">
+              <h5 id="faqModal-cest-ceque-est-title"></h5>
+          
+              <div id="faqModal-cest-ceque-est-content">
+                  
+              </div>
+          </div>
+      </div>
       </div>
   </div>
     <!-- Footer -->
@@ -916,7 +356,7 @@ h3 {
             // Validate maxBudget
             const maxBudget = parseFloat(document.getElementById('maxBudget').value);
             if (isNaN(maxBudget) || maxBudget > max_value) {
-                showError('maxBudget', 'Le budget maximum doit être inférieur  à ' + max_value + 'FCFA');
+                showError('maxBudget', 'Le budget maximum ne doit pas exéder ' + max_value + 'FCFA');
                 isValid = false;
             } else if (maxBudget <= minBudget) {
                 showError('maxBudget', 'Le budget maximum doit être supérieur au budget minimum');
@@ -1184,11 +624,130 @@ h3 {
   <!-- FaqModel -->
   <script>
     // Button
-    const model_faq = document.getElementById('#faqButton'); 
+    const model_faq = document.getElementById('faqButton'); 
 
     // CLick open model
     model_faq.addEventListener("click", ()=>{
         $('#faqModal').modal('show');
     })
+
+    
+    // Modal qu'est ce qu'est
+    const modal_cest_quoi_btn = document.querySelectorAll(".btn-info-label");
+    const modal_cest_quoi_strong = document.querySelectorAll(".message-info");
+
+        // when clic on btn
+    modal_cest_quoi_btn.forEach((element)=>{
+        element.addEventListener("click", ()=>{
+            const who_is_click = element.ariaLabel;
+            displayFaqItems(who_is_click)
+            $('#faqModal-cest-ceque-est').modal('show');
+        })
+    });
+        // when clic on strong
+    modal_cest_quoi_strong.forEach((element)=>{
+        element.addEventListener("click", ()=>{
+            const who_is_click = element.ariaLabel;
+            displayFaqItems(who_is_click)
+            $('#faqModal-cest-ceque-est').modal('show');
+            
+        })
+    });
+        // Functions of data in modal qu'est ce qu'est
+    function displayFaqItems(item){
+        const formulate_title = "Que designe " + item + " ?";
+        const title = document.querySelector("#faqModal-cest-ceque-est-title");
+        const modal_content = document.querySelector("#faqModal-cest-ceque-est-content");
+
+        switch(item){
+            case "le secteur d'activité":
+                title.textContent = formulate_title;
+                modal_content.innerHTML = `<p style="text-align: justify; font-weight: bold">
+                    Pour affiner nos recommandations, nous vous demandons de sélectionner votre 
+                    secteur d'activité dans une liste proposée. Cette sélection nous aide à cibler 
+                    les performances et caractéristiques les plus adaptées à vos besoins professionnels. La liste inclut plusieurs secteurs mais 
+                    pas exhaustive.
+
+                    </p>
+                    <p style="text-align: justify; font-weight: bold">
+                       Un bouton « Voir Plus » vous permet de dérouler des secteurs 
+                       supplémentaires si votre domaine n'est pas visible dans les premières options.
+                        Si votre activité n'est pas représentée,
+                        une option « Autre » est également disponible pour que vous
+                         puissiez saisir votre activité spécifique.
+                    </p>
+                    <p style="text-align: justify; font-weight: bold">
+                       Il est essentiel de choisir le secteur qui correspond
+                        le mieux à votre métier pour obtenir des recommandations précises et adaptées.
+                         Cela garantit que les ordinateurs proposés répondent aux exigences de votre domaine.
+                          N'hésitez pas à vous renseigner
+                        ou à demander des précisions sur les termes utilisés pour faire le choix le plus pertinent.
+                    </p>`;
+                break;
+
+            case "l'usage de l'ordinateur":
+                title.textContent = formulate_title;
+                modal_content.innerHTML = `<p style="text-align: justify; font-weight: bold">
+                  Cette section vous permet de détailler l'utilisation que vous ferez de l'ordinateur,
+                  en précisant les tâches spécifiques et les logiciels principaux dont vous aurez besoin.
+                    Vous disposez d’un espace de 250 mots pour expliquer comment vous utiliserez
+                    l'ordinateur dans votre activité.
+                    </p>
+                    <p style="text-align: justify; font-weight: bold">
+                    Conseils pour un Bon Résultat : Pour obtenir une recommandation précise,
+                     il est important d'indiquer les logiciels essentiels dans votre domaine
+                      ou ceux qui vous sont particulièrement utiles (par exemple, des logiciels 
+                      de design graphique, de modélisation 3D, de programmation, etc.).
+                       Fournir des détails supplémentaires sur votre métier et les tâches 
+                       principales vous aidera à recevoir des propositions 
+                    d'ordinateurs aux performances optimales pour vos besoins.
+                    </p>
+                     <p style="text-align: justify; font-weight: bold">
+                    Cette information nous aide à comprendre vos besoins en détail et à
+                     recommander des ordinateurs adaptés aux applications et charges de travail
+                      spécifiques de votre activité. Plus vous serez précis sur vos exigences, plus
+                       nous pourrons affiner les options 
+                    et garantir que les ordinateurs proposés répondront pleinement à vos attentes.
+                    </p>
+                    `
+                    
+                break;
+
+            case "la marge":
+                title.textContent = formulate_title;
+                modal_content.innerHTML = `<p style="text-align: justify; font-weight: bold">
+                    En fonction du budget maximal que vous entrez, nous appliquons une marge de
+                     tolérance pouvant être de 50 %, 60 %,  80 % ou 100 % au-dessus de ce budget.
+                      Cela permet d'élargir les options d'ordinateurs proposés, incluant ceux qui dépassent
+                     légèrement votre budget initial tout en restant dans une limite raisonnable.
+                    </p>
+                   <p style="text-align: justify; font-weight: bold">
+                    Cette marge de tolérance est conçue pour vous offrir davantage de 
+                    choix en cas de budget flexible, afin que vous puissiez explorer des ordinateurs
+                     légèrement plus performants ou mieux équipés. Les ordinateurs proposés respecteront 
+                     donc votre budget minimum 
+                    et iront jusqu'au budget maximum augmenté de la marge de tolérance sélectionnée.
+                    </p>`
+                break;
+
+            case "le budget":
+                title.textContent = formulate_title;
+                modal_content.innerHTML = `<p style="text-align: justify; font-weight: bold">
+                    Le budget représente le montant maximal que vous êtes prêt à dépenser pour un ordinateur. 
+                    Les gammes de prix influencent les types et la qualité des composants que vous pouvez obtenir.
+                    </p>
+                   <p style="text-align: justify; font-weight: bold">
+                        Avoir un budget clair permet de trouver le meilleur compromis entre performance et prix.
+                         Les ordinateurs haut de gamme offrent des performances optimales pour les tâches exigeantes,
+                          mais ils sont plus coûteux.
+                         Avec un budget limité, il est important de prioriser les composants essentiels pour vos besoins.
+                    </p>`
+                break;
+            
+            default:
+                alert("Error: refraichir la page");
+                break;
+        }
+    }
   </script>
 {% endblock JsContent %}

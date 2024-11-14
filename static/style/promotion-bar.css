@@ -1,0 +1,60 @@
+  .promo-container {
+    width: 100%;
+    background: white;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .promo-slider {
+    display: flex;
+    animation: slide 20s linear infinite;
+    white-space: nowrap;
+  }
+
+  .promo-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 30px;
+    color: #141619;
+    font-family: 'Arial', sans-serif;
+    min-width: 100%;
+    justify-content: center;
+    gap: 20px;
+    font-weight: bold;
+  }
+
+  .promo-item i {
+    margin-right: 10px;
+    color:#0A21C0;
+  }
+
+  @keyframes slide {
+    0% {
+      transform: translateX(0);
+    }
+    20% {
+      transform: translateX(-100%);
+    }
+    25% {
+      transform: translateX(-100%);
+    }
+    45% {
+      transform: translateX(-200%);
+    }
+    50% {
+      transform: translateX(-200%);
+    }
+    70% {
+      transform: translateX(-300%);
+    }
+    75% {
+      transform: translateX(-300%);
+    }
+    95% {
+      transform: translateX(-400%);
+    }
+    100% {
+      transform: translateX(-400%);
+    }
+  }
+

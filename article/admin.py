@@ -8,5 +8,6 @@ admin.site.register([Supplier, Computer, Partner,Cooling,OperatingSystem, Acesso
                     ComputerPhoto, Commend, Brand,GraphicalBrand,RecommendationResult,
                     Processor, Memory, Graphics, Case,MotherboardBrand,TokensList,
                     Storage,Motherboard,PowerSupply,ProcessorBrand,UserInfo, ComputerColor,
-                    ComputerAcessoirsInfo, SimpleOrderRecommendation, ListJob,
+                    ComputerAcessoirsInfo, SimpleOrderRecommendation, ListJob, PreInstalledSoftware,
+                    ComputerKeyboard,ListSofware,
                     ])

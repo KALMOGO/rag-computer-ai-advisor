@@ -578,3 +578,112 @@ overflow: hidden;
         
    
     }
+
+    /* New */
+    .new-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #ff4444;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: bold;
+        z-index: 1;
+    }
+    
+    .generation {
+        font-size: 0.8em;
+        color: #666;
+        margin-left: 5px;
+        /* background-color: #ffcc00;
+        border-radius: 5px; */
+    }
+    
+    .touch-screen {
+        color: #0A21C0;
+        font-size: 0.9em;
+        display: inline-block;
+        margin-right: 10px;
+    }
+    
+    .price-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 5px;
+    }
+    
+    .initial-price {
+        text-decoration: line-through;
+        color: #666;
+        font-size: 0.9em;
+    }
+    
+    .current-price {
+        color: var(--secondary-color);
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+
+    /* Styles existants... */
+
+.gpu-info {
+    color: #2d3748;
+    margin-top: 2px !important;
+}
+
+.gpu-badge {
+    background-color: #4c1d95;
+    color: white;
+    padding: 1px 4px;
+    border-radius: 4px;
+    font-size: 0.7em;
+    margin-right: 4px;
+}
+
+.accessories {
+    font-size: 0.8em;
+    color: #4a5568;
+    margin-top: 5px;
+    padding-top: 5px;
+    border-top: 1px dashed #e2e8f0;
+}
+
+.accessories i {
+    color: #4c1d95;
+    margin-right: 4px;
+}
+
+/* Ajustement pour optimiser l'espace */
+.product-specs {
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.old-badge{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #4c1d95;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 1; 
+}
+/* Media queries pour la responsivité */
+@media (max-width: 768px) {
+    .product-specs {
+        font-size: 0.85em;
+    }
+    
+    .accessories {
+        font-size: 0.75em;
+    }
+}
+
+
+/* ----- */

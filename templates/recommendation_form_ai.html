@@ -13,6 +13,7 @@
 <link rel="stylesheet"  type="text/css" href="{% static 'style/recommendation_form_ai-page.css' %}">
 <script src="{% static 'js/loading-page.js' %}" ></script>
 
+
 {% endblock headLinks %}
 
 {% block bodyContent %}
@@ -490,7 +491,7 @@
         observer.observe(jobInput, { attributes: true });
 
         // Initial validation
-        validateForm();
+        //validateForm();
 
         //Icon d'information sur les champs
         const infoIcon = document.querySelector('.info-icon');

@@ -74,7 +74,6 @@
         <div class="products" id="product-container">
             <!-- Product cards will be dynamically inserted here -->
         </div>
-    
     </div>
 
     <!-- Pagination -->
@@ -169,18 +168,54 @@
             card.className = 'product-card';
             card.style.opacity = '0';
             card.style.transform = 'translateY(20px)';
+
+            // Formatage du prix pour l'affichage
+            const formatPrice = (price) => {
+                return parseFloat(price).toLocaleString('fr-FR', {
+                    style: 'currency',
+                    currency: 'cfa'
+                }).replace('', '') + '';
+            };
+            console.log(product);
             card.innerHTML = `
-                <img class="product-image" src="${product.image}" alt="${product.brand} ${product.model}" loading="lazy"  >
-                <div class="product-info">
-                    <div class="product-title">${product.brand} ${product.model}</div>
-                    <div class="product-specs">
-                        <p class="m-0">Processeur: ${product.processor}</p>
-                        <p class="m-0">RAM: ${product.ram}GB</p>
-                        <p class="m-0">Disque: ${product.storage } </p>
-                        <p class="m-0">Type: SSD</p>
-                        Prix:
+                ${product.is_new ? '<div class="new-badge">NOUVEAU</div>' :'<div class="old-badge">DESTOCKE</div>'  }
+                <img class="product-image" src="${product.image}" alt="${product.brand} ${product.model}" loading="lazy">
+                <div class="product-info m-0" style="border-top: 1px dashed #e2e8f0;">
+                    <div class="product-title m-0">
+                        ${product.brand} ${product.model}
+                        ${product.generation ? `<span class="generation gpu-badge"> ${product.generation} ième Gen</span>` : ''}
                     </div>
-                    <div class="product-price text-center mt-0">${product.price.toLocaleString()}</div>
+                    <div class="product-specs">
+                        <p class="m-0 p-0">Processeur: ${product.processor}</p>
+                        <p class="m-0 p-0">RAM: ${product.ram}</p>
+                        <p class="m-0 p-0">Disque: ${product.storage} SSD </p>
+                                ${product.storage_hdd ? `<p class="m-0">${product.hdd_storage_capacity}</p>` : ''}
+                                ${product.graphics_card ? `
+                        <p class="m-0 gpu-info p-0">
+                            <span class="gpu-badge">GPU</span> 
+                            ${product.graphics_card_type}
+                            ${product.graphics_memory ? ` (${product.graphics_memory}Go)` : ''}
+                        </p>
+                    ` : `
+                        <p class="m-0 gpu-info p-0" >
+                            <span class="gpu-badge" style="background-color: white !important;"></span> 
+                        </p>
+                    `}
+                    ${product.accessories ? `
+                            <div class="accessories">
+                                <i class="fas fa-gift"></i> ${product.accessories}
+                            </div>
+                        ` : ''}
+                        ${product.is_screen_touch ? '<p class="m-0 touch-screen">Écran tactile</p>' : '<p class="m-0 touch-screen"></p>'}
+
+                        <div class="price-container">
+                            ${product.initial_price > 0 ? 
+                                `<span class="initial-price">${formatPrice(product.initial_price)}</span>` : 
+                                ''
+                            }
+                            <span class="current-price">${formatPrice(product.price)}</span>
+                        </div>
+                    </div>
                     <a href="${getDetailUrl(product.id, product.time)}" class="btn detail-button">
                         Voir Détails
                     </a>

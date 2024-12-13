@@ -62,16 +62,19 @@ def market(request) :
     computer_recommended = [] 
 
     # Recupere au maximun 100 ordinateurs de façon aleatoire
-    computers = Computer.objects.all().order_by('?')[:100]
+    computers = Computer.objects.all().order_by('?')[:200]
 
     for computer_instance in computers:
         cover_image       = ComputerPhoto.objects.filter(computer=computer_instance, is_cover=True).first()
 
-        storage = ''
         if computer_instance.storages.exists():  # Check if there are any storages
             first_storage = computer_instance.storages.first()  # Get the first storage
-            if first_storage:  # Ensure that first_storage is not None
-                storage = first_storage.capacity  # Get the capacity
+        
+        assessoires = [
+            assessoire.acessoirs.name 
+            for assessoire in ComputerAcessoirsInfo.objects.filter(computer=computer_instance)
+        ] 
+
         computer_recommended.append({
                                 "id": computer_instance.id,
                                 "model":computer_instance.model,
@@ -80,9 +83,19 @@ def market(request) :
                                 "price": float(computer_instance.price_amount),
                                 "color":computer_instance.color.color,
                                 "processor": f'{computer_instance.processor.model}',
+                                "generation": computer_instance.processor.generation if hasattr(computer_instance.processor, 'generation') and computer_instance.processor.generation is not None else '',
                                 "brand":computer_instance.brand.name,
-                                "ram": computer_instance.memory.capacity,
-                                "storage": storage,
+                                "is_new": computer_instance.is_new,
+                                "ram": computer_instance.memory.capacity if hasattr(computer_instance.memory, 'capacity') and computer_instance.memory.capacity is not None else '',
+                                "is_screen_touch": computer_instance.is_screen_touch,
+                                "graphics_card":True if computer_instance.graphics is not None else False,
+                                "graphics_card_type": computer_instance.graphics.type if hasattr(computer_instance.graphics, 'type') and computer_instance.graphics.type is not None else '',
+                                "graphics_memory": computer_instance.graphics.memory if hasattr(computer_instance.graphics, 'memory') and computer_instance.graphics.memory is not None else '',
+                                "accessories":"+".join(assessoires),
+                                "storage": first_storage.capacity if hasattr(first_storage, 'capacity') and first_storage.capacity is not None else '',
+                                "storage_hdd": True if first_storage.hdd_storage is not None else False,
+                                "hdd_storage_capacity":"+ HDD: "+ first_storage.hdd_storage if hasattr(first_storage, 'hdd_storage') and first_storage.hdd_storage is not None else '',
+                                "initial_price": float(computer_instance.initial_price),
                             })
     return render(request,"market-place.html",  {
                         "recommendation":json.dumps(computer_recommended, cls=DecimalEncoder),
@@ -383,13 +396,16 @@ def withai_recommendation(request):
 
                     computer_instance = Computer.objects.filter(pk=r["id"]).first()
                     cover_image       = ComputerPhoto.objects.filter(computer=computer_instance, is_cover=True).first()
-                    
-                    storage = ''
+                         
+                    # MODIFICATION
                     if computer_instance.storages.exists():  # Check if there are any storages
                         first_storage = computer_instance.storages.first()  # Get the first storage
-                        if first_storage:  # Ensure that first_storage is not None
-                            storage = first_storage.capacity  # Get the capacity
-                            
+
+                    assessoires = [
+                        assessoire.acessoirs.name 
+                        for assessoire in ComputerAcessoirsInfo.objects.filter(computer=computer_instance)
+                    ] 
+                                        
                     computer_recommended.append({
                             "id": r["id"],
                             "model":computer_instance.model,
@@ -397,12 +413,23 @@ def withai_recommendation(request):
                             "image": cover_image.image.url if hasattr(cover_image, 'image') else cover_image.url,
                             "price": float(computer_instance.price_amount),
                             "color":computer_instance.color.color,
+
                             "processor": f'{computer_instance.processor.model}',
+                            "generation": computer_instance.processor.generation if hasattr(computer_instance.processor, 'generation') and computer_instance.processor.generation is not None else '',
                             "brand":computer_instance.brand.name,
-                            "ram": computer_instance.memory.capacity,
-                            "storage":storage,
+                            "is_new": computer_instance.is_new,
+                            "ram": computer_instance.memory.capacity if hasattr(computer_instance.memory, 'capacity') and computer_instance.memory.capacity is not None else '',
+                            "is_screen_touch": computer_instance.is_screen_touch,
+                            "graphics_card":True if computer_instance.graphics is not None else False,
+                            "graphics_card_type": computer_instance.graphics.type if hasattr(computer_instance.graphics, 'type') and computer_instance.graphics.type is not None else '',
+                            "graphics_memory": computer_instance.graphics.memory if hasattr(computer_instance.graphics, 'memory') and computer_instance.graphics.memory is not None else '',
+                            "accessories":"+".join(assessoires),
+                            "storage": first_storage.capacity if hasattr(first_storage, 'capacity') and first_storage.capacity is not None else '',
+                            "storage_hdd": True if first_storage.hdd_storage is not None else False,
+                            "hdd_storage_capacity":"+ HDD: "+ first_storage.hdd_storage if hasattr(first_storage, 'hdd_storage') and first_storage.hdd_storage is not None else '',
+                            "initial_price": float(computer_instance.initial_price),
                         })
-                            
+               
             except Exception as e :
                 delete_status = delete_file(file_path_error) # supprime le fichier temporaire contenant la liste des ordi en text utilisé par l'IA
                 return render(request, "api_444_error.html", {"erreur":e})
@@ -568,7 +595,8 @@ def performSimpleOrder(request):
         # budget_tolerance      = computer.get('budget', '').get('tolerance', '')
         budget_calculated_max = budget_calculated_max.split(" ")[0] 
         storage = storage.split(" ")[0] + " "+ storage.split(" ")[1]
-        budget_calculated_max = int(budget_calculated_max.replace(",",""))
+        y_max = budget_calculated_max.replace(",","")
+        budget_calculated_max = int(y_max)
 
         # print("budget", budget_calculated_max)
 
@@ -655,13 +683,16 @@ def displaySimpleOrderRecommendation(request, id):
     for r in computer_instances:
         computer_instance = Computer.objects.filter(pk=r.computer_id).first()
         cover_image       = ComputerPhoto.objects.filter(computer=computer_instance, is_cover=True).first()
-        # Evite l'erreur NoneType pour le stockage
-        storage = ''
+
+        # MODIFICATION
         if computer_instance.storages.exists():  # Check if there are any storages
             first_storage = computer_instance.storages.first()  # Get the first storage
-            if first_storage:  # Ensure that first_storage is not None
-                storage = first_storage.capacity  # Get the capacity
-        
+
+        assessoires = [
+            assessoire.acessoirs.name 
+            for assessoire in ComputerAcessoirsInfo.objects.filter(computer=computer_instance)
+        ] 
+
         computer_recommended.append({
             "id": r.computer_id,
             "model":computer_instance.model,
@@ -669,10 +700,21 @@ def displaySimpleOrderRecommendation(request, id):
             "image": cover_image.image.url  if hasattr(cover_image, 'image') else  None,
             "price": float(computer_instance.price_amount),
             "color":computer_instance.color.color,
+        
             "processor": f'{computer_instance.processor.model}',
+            "generation": computer_instance.processor.generation if hasattr(computer_instance.processor, 'generation') and computer_instance.processor.generation is not None else '',
             "brand":computer_instance.brand.name,
-            "ram": computer_instance.memory.capacity,
-            "storage":storage,
+            "is_new": computer_instance.is_new,
+            "ram": computer_instance.memory.capacity if hasattr(computer_instance.memory, 'capacity') and computer_instance.memory.capacity is not None else '',
+            "is_screen_touch": computer_instance.is_screen_touch,
+            "graphics_card":True if computer_instance.graphics is not None else False,
+            "graphics_card_type": computer_instance.graphics.type if hasattr(computer_instance.graphics, 'type') and computer_instance.graphics.type is not None else '',
+            "graphics_memory": computer_instance.graphics.memory if hasattr(computer_instance.graphics, 'memory') and computer_instance.graphics.memory is not None else '',
+            "accessories":"+".join(assessoires),
+            "storage": first_storage.capacity if hasattr(first_storage, 'capacity') and first_storage.capacity is not None else '',
+            "storage_hdd": True if first_storage.hdd_storage is not None else False,
+            "hdd_storage_capacity":"+ HDD: "+ first_storage.hdd_storage if hasattr(first_storage, 'hdd_storage') and first_storage.hdd_storage is not None else '',
+            "initial_price": float(computer_instance.initial_price),
         })
     
 

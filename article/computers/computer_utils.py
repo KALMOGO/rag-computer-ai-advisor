@@ -8,6 +8,9 @@ def get_computer_dict(computer):
         "model": computer.model if hasattr(computer, "model") and computer.model is not None else "",
         "type": computer.type if hasattr(computer, "type") and computer.type is not None else "",
         "price": float(computer.price_amount) if hasattr(computer, "price_amount") and computer.price_amount is not None else "",
+        "is_new": computer.is_new if hasattr(computer, "is_new") and computer.is_new is not None else "",
+        "initial_price": float(computer.initial_price) if hasattr(computer, "initial_price") and computer.initial_price is not None else "",
+        "is_screen_touch": computer.is_screen_touch if hasattr(computer, "is_screen_touch") and computer.is_screen_touch is not None else "",
         "processor": get_processor_dict(computer.processor),
         "memory": get_memory_dict(computer.memory),
         "storage": [get_storage_dict(storage) for storage in computer.storages.all()][0],
@@ -31,6 +34,7 @@ def get_processor_dict(processor):
         "threads": "",
         "baseClockSpeed": '',
         "turboClockSpeed":  '',
+        "generation": ''
     }
     return {
         "brand": processor.brand.name if hasattr(processor, 'brand') and processor.brand.name is not None else '',
@@ -39,6 +43,7 @@ def get_processor_dict(processor):
         "threads": processor.threads if hasattr(processor, 'threads') and processor.threads is not None else 0,
         "baseClockSpeed": processor.base_clock_speed if hasattr(processor, 'base_clock_speed') and processor.base_clock_speed is not None else '',
         "turboClockSpeed": processor.turbo_clock_speed if hasattr(processor, 'turbo_clock_speed') and processor.turbo_clock_speed is not None else '',
+        "generation": processor.generation if hasattr(processor, 'generation') and processor.generation is not None else ''
     }
 def get_memory_dict(memory):
     if memory is None : 

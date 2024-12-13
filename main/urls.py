@@ -8,7 +8,8 @@ app_name = 'main'
 handler404 = views.error_404
 
 urlpatterns = [
-    path("", view=views.recommendationForm, name="index"),
+    path("", view=views.home, name="description"),
+    path("order/ia", view=views.recommendationForm, name="index"),
     path("contact", view=views.contact, name="contact"),
     path("recommendations", view=views.withai_recommendation, name="withai_submit"),
     path("detail/<str:id>/<str:time>", view=views.detail, name="detail"),
@@ -20,7 +21,7 @@ urlpatterns = [
     path("perform/simple/order", view=views.performSimpleOrder, name="perform-simple-order"),
     path("simple/order/<str:id>/recommendation", view=views.displaySimpleOrderRecommendation, name="list-recommendation-withoutai"),
     path("download/order", view=views.downloadOrderPdf, name="download-order"),
-    path("description", view=views.home, name="description"),
+    # path("description", view=views.home, name=""),
 
     # Market place
     path("market", view=views.market, name="market"),

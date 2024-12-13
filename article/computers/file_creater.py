@@ -24,6 +24,7 @@ def convertComputerListTotxtFile(computers_data, file_name):
             file.write(f"  Model: {processor['model']}\n")
             file.write(f"  Cores: {processor['cores']}\n")
             file.write(f"  Threads: {processor['threads']}\n")
+            file.write(f"  generation: {processor['generation']}\n")
             file.write(f"  Base Clock Speed: {processor['baseClockSpeed']}\n")
             file.write(f"  Turbo Clock Speed: {processor['turboClockSpeed']}\n")
             

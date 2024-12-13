@@ -8,6 +8,9 @@ def recommended_object_builder(relevant_computer, computer_images,recommendation
         "ram_capacity": relevant_computer.memory.capacity if hasattr(relevant_computer.memory, 'capacity') else '',
         "ram_speed": relevant_computer.memory.speed if hasattr(relevant_computer.memory, 'speed') else '',
         "ram_type": relevant_computer.memory.type if hasattr(relevant_computer.memory, 'type') else '',
+        "is_new": relevant_computer.is_new,
+        "initial_price": float(relevant_computer.initial_price),
+        "is_screen_touch": relevant_computer.is_screen_touch if hasattr(relevant_computer, "is_screen_touch") and relevant_computer.is_screen_touch is not None else "",
         "storage": [
             {
                 "type": storage.type if hasattr(storage, 'type') else '',
@@ -22,6 +25,7 @@ def recommended_object_builder(relevant_computer, computer_images,recommendation
             "threads":relevant_computer.processor.threads if hasattr(relevant_computer.processor, 'threads') else '',
             "base_clock_speed":relevant_computer.processor.base_clock_speed if hasattr(relevant_computer.processor, 'base_clock_speed') else '',
             "turbo_clock_speed":relevant_computer.processor.turbo_clock_speed if hasattr(relevant_computer.processor, 'turbo_clock_speed') else '',
+            "generation":relevant_computer.processor.generation if hasattr(relevant_computer.processor, 'generation') else '',
         },
         "graphic": {
            "type": relevant_computer.graphics.type if hasattr(relevant_computer.graphics, 'type') else '',

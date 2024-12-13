@@ -588,3 +588,188 @@
         }
     }
 
+
+      /* New */
+      .new-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #ff4444;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: bold;
+        z-index: 1;
+    }
+    
+    .generation {
+        font-size: 0.8em;
+        color: #666;
+        margin-left: 5px;
+        /* background-color: #ffcc00;
+        border-radius: 5px; */
+    }
+    
+    .touch-screen {
+        color: #0A21C0;
+        font-size: 0.9em;
+        display: inline-block;
+        margin-right: 10px;
+    }
+    
+    .price-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 5px;
+    }
+    
+    .initial-price {
+        text-decoration: line-through;
+        color: #666;
+        font-size: 0.9em;
+    }
+    
+    .current-price {
+        color: var(--secondary-color);
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+
+    /* Styles existants... */
+
+.gpu-info {
+    color: #2d3748;
+    margin-top: 2px !important;
+}
+
+.gpu-badge {
+    background-color: #4c1d95;
+    color: white;
+    padding: 1px 4px;
+    border-radius: 4px;
+    font-size: 0.7em;
+    margin-right: 4px;
+}
+
+.accessories {
+    font-size: 0.8em;
+    color: #4a5568;
+    margin-top: 5px;
+    padding-top: 5px;
+    border-top: 1px dashed #e2e8f0;
+}
+
+.accessories i {
+    color: #4c1d95;
+    margin-right: 4px;
+}
+
+/* Ajustement pour optimiser l'espace */
+.product-specs {
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.old-badge{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #4c1d95;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 1; 
+}
+/* Media queries pour la responsivité */
+@media (max-width: 768px) {
+    .product-specs {
+        font-size: 0.85em;
+    }
+    
+    .accessories {
+        font-size: 0.75em;
+    }
+}
+
+/* ----- */
+/* Modification de la carte produit pour utiliser flexbox */
+.product-card {
+    position: relative;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 0;
+    height: 100%; /* Important pour maintenir une hauteur uniforme */
+}
+
+/* Nouveau conteneur flex pour organiser le contenu */
+.product-card-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    flex-shrink: 0; /* Empêche l'image de se rétrécir */
+}
+
+.product-info {
+    padding: 10px;
+    flex-grow: 1; /* Permet au contenu de s'étendre */
+    display: flex;
+    flex-direction: column;
+}
+
+.product-title {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #141619;
+}
+
+.product-specs {
+    font-size: 0.9em;
+    line-height: 1.4;
+    flex-grow: 1; /* Permet aux specs de prendre l'espace disponible */
+}
+
+/* Style du bouton fixé en bas */
+.detail-button {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    width: 100%;
+    padding: 8px;
+    text-align: center;
+    text-decoration: none;
+    margin-top: auto; /* Pousse le bouton vers le bas */
+    margin-bottom: 10px; /* Espace en bas du bouton */
+    margin-left: 10px; /* Marge gauche */
+    margin-right: 10px; /* Marge droite */
+}
+
+/* Autres styles existants... */
+
+/* Ajustements pour la responsivité */
+@media (max-width: 768px) {
+    .product-specs {
+        font-size: 0.85em;
+    }
+    
+    .product-card {
+        min-height: 450px; /* Hauteur minimale pour les petits écrans */
+    }
+}

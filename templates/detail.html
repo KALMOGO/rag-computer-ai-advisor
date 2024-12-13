@@ -722,7 +722,7 @@ table tr th a:hover, table tr td a:hover, #graphic a:hover{
                   <td>
                     Nombre de threads logique gérer simultanément
                   </td>
-                  <td>{{ computer.processor.threads|default:"-" }}</td>
+                  <td>{{ computer_details.processor.threads|default:"-" }}</td>
               </tr>
               <tr>
                   <td>
@@ -740,8 +740,17 @@ table tr th a:hover, table tr td a:hover, #graphic a:hover{
                   <td>
                     Fréquence maximun que peur atteindre le processeur
                   </td>
-                  <td>{{ computer.processor.turbo_clock_speed|default:"-" }} GHz</td>
+                  <td> {{ computer_details.processor.turbo_clock_speed|default:"-" }}</td>
               </tr>
+              <tr>
+                <td>
+                  Generation
+                </td>
+                <td>
+                  Generation du processeur
+                </td>
+                <td> {{ computer_details.processor.generation|default:"-" }} ième</td>
+            </tr>
           </table>
       </div>
       <!-- Caractéristiques graphiques -->
